@@ -1,0 +1,2010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HireCo – Hero & How It Works</title>
+
+  <!--
+    FONTS
+    Nunito 700/800 — logo, headings, buttons, ghost step numbers
+    Open Sans 400/600 — nav, body text, inputs, placeholders
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!--
+    ICONS — Font Awesome 6 Free
+    The original template ships a Flaticon custom webfont for the step icons.
+    Swap "fa-solid fa-*" with your Flaticon class names if you have them.
+  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- SECTION STYLES -->
+  <link rel="stylesheet" href="hero-section.css" />
+  <link rel="stylesheet" href="how-it-works.css" />
+  <link rel="stylesheet" href="who-we-are.css" />
+  <link rel="stylesheet" href="what-we-serve.css" />
+  <link rel="stylesheet" href="country-section.css" />
+  <link rel="stylesheet" href="we-serve-overseas.css" />
+  <link rel="stylesheet" href="recruitement-process.css" />
+  <link rel="stylesheet" href="operation-process.css" />
+  
+  <!-- Lottie Web player — renders the animated globe -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <link rel="stylesheet" href="contact-foreign.css" />
+  
+  <link rel="stylesheet" href="footer.css" />
+
+  <style>
+    /* Preloader */
+    .preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .preloader__inner {
+      text-align: center;
+    }
+    .preloader__spinner {
+      width: 58px;
+      height: 58px;
+      border: 6px solid rgba(246, 140, 31, 0.2);
+      border-top-color: #f68c1f;
+      border-radius: 50%;
+      animation: preloader-spin 1.2s linear infinite;
+      margin: 0 auto 16px;
+    }
+    .preloader__text {
+      font-family: 'Open Sans', sans-serif;
+      color: #1a1a1a;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+    }
+    .noscript-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10000;
+      background: #161c27;
+      color: #f5f5f5;
+      border-bottom: 3px solid #f68c1f;
+      padding: 14px 16px;
+      text-align: center;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.025em;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    }
+    .noscript-banner strong {
+      color: #f68c1f;
+    }
+    .noscript-close-checkbox {
+      position: absolute;
+      left: -9999px;
+      visibility: hidden;
+    }
+    .noscript-banner {
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .noscript-close-checkbox:checked + .noscript-banner {
+      opacity: 0;
+      transform: translateY(-10px);
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .noscript-close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+      text-align: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.38);
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .noscript-close:hover {
+      background: rgba(255,255,255,0.16);
+    }
+    .topbar {
+      background: #f7f7f7;
+      color: #161c27;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.2px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      min-height: 40px;
+      height: 40px;
+      border-bottom: 1px solid rgba(22, 28, 39, 0.08);
+    }
+    .topbar__left,
+    .topbar__right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .topbar__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #6b7280;
+      text-decoration: none;
+    }
+    .topbar__item:hover {
+      color: #f68c1f;
+    }
+    .topbar__icon {
+      width: 16px;
+      text-align: center;
+      color: #6b7280;
+    }
+    .topbar__social {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .topbar__social a,
+    .topbar__social-toggle {
+      color: #6b7280;
+      text-decoration: none;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topbar__social a:hover,
+    .topbar__social-toggle:hover {
+      color: #f68c1f;
+    }
+    .topbar__social-links {
+      display: inline-flex;
+      gap: 12px;
+    }
+    @media (max-width: 768px) {
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px 16px;
+      }
+      .topbar__left,
+      .topbar__right {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .topbar__left {
+        gap: 12px;
+      }
+      .topbar__right {
+        gap: 12px;
+      }
+      .topbar__item {
+        width: 100%;
+        justify-content: center;
+        padding: 6px 0;
+      }
+      .topbar__social {
+        justify-content: center;
+        width: 100%;
+      }
+      .topbar__social-links {
+        display: none;
+      }
+      .topbar__social-toggle {
+        justify-content: center;
+        width: 100%;
+        padding: 8px 0;
+      }
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      clip-path: inset(50%);
+      border: 0;
+      white-space: nowrap;
+    }
+    @keyframes preloader-spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+<div class="preloader" id="pagePreloader" aria-hidden="true">
+  <div class="preloader__inner">
+    <div class="preloader__spinner"></div>
+    <div class="preloader__text">Loading HireCo...</div>
+  </div>
+</div>
+<noscript>
+  <input type="checkbox" id="noscriptClose" class="noscript-close-checkbox" />
+  <div class="noscript-banner" role="alert">
+    <label for="noscriptClose" class="noscript-close" aria-label="Dismiss message">
+      ×
+      <span class="sr-only">Dismiss this warning</span>
+    </label>
+    <strong>JavaScript is disabled.</strong> Some site features may not work correctly.
+  </div>
+</noscript>
+<div class="topbar">
+  <div class="topbar__left">
+    <a href="tel:+927775550000" class="topbar__item">
+      <span class="topbar__icon"><i class="fa-solid fa-phone"></i></span>
+      <span>+92 777 555 0000</span>
+    </a>
+    <a href="mailto:info@example.com" class="topbar__item">
+      <span class="topbar__icon"><i class="fa-solid fa-envelope"></i></span>
+      <span>info@example.com</span>
+    </a>
+  </div>
+  <div class="topbar__right topbar__social" aria-label="Social media links">
+    <a href="#" aria-label="Open social links" class="topbar__item topbar__social-toggle">
+      <span class="topbar__icon"><i class="fa-solid fa-share-nodes"></i></span>
+      <span>Social</span>
+    </a>
+    <div class="topbar__social-links">
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     HEADER
+     CSS:  .hc-header, .hc-header__inner, .hc-logo, .hc-nav,
+           .hc-header__auth, .hc-auth-btn, .hc-hamburger
+============================================================ -->
+<header class="hc-header" id="site-header">
+  <div class="hc-header__inner">
+
+    <!-- Logo -->
+    <a href="#" class="hc-logo" aria-label="HireCo home">
+      <!-- Clock icon with speed lines — inline SVG replicates the template logo -->
+      <div class="hc-logo__icon" aria-hidden="true">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Speed lines left of the clock -->
+          <line x1="0" y1="14" x2="10" y2="14" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="2" y1="19" x2="9"  y2="19" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="0" y1="24" x2="10" y2="24" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Clock circle -->
+          <circle cx="24" cy="19" r="12" fill="#f68c1f"/>
+          <circle cx="24" cy="19" r="9"  fill="#fff"/>
+          <!-- Clock hands -->
+          <line x1="24" y1="19" x2="24" y2="13" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="24" y1="19" x2="29" y2="21" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="24" cy="19" r="1.2" fill="#1a1a1a"/>
+        </svg>
+      </div>
+      <span class="hc-logo__text">Hire<span class="logo-co">Co</span></span>
+    </a>
+
+    <!-- Primary nav -->
+    <nav class="hc-nav" id="mainNav" aria-label="Main navigation">
+      <ul class="hc-nav__list">
+
+        <li class="hc-nav__item hc-nav__item--active">
+          <a href="#" class="hc-nav__link">
+            Home <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="#">Home 1 – Job Seeker</a></li>
+            <li><a href="#">Home 2 – Job Consultancy</a></li>
+            <li><a href="#">Home 3 – Human Resource</a></li>
+          </ul>
+        </li>
+
+        <li class="hc-nav__item">
+          <a href="#" class="hc-nav__link">
+            Pages <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </li>
+
+        <li class="hc-nav__item">
+          <a href="#" class="hc-nav__link">
+            Jobs <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="#">Job Listing</a></li>
+            <li><a href="#">Job Grid</a></li>
+            <li><a href="#">Job Detail</a></li>
+            <li><a href="#">Apply for Job</a></li>
+          </ul>
+        </li>
+
+        <li class="hc-nav__item">
+          <a href="#" class="hc-nav__link">
+            Employers <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="#">Employer Listing</a></li>
+            <li><a href="#">Employer Profile</a></li>
+            <li><a href="#">Post a Job</a></li>
+          </ul>
+        </li>
+
+        <li class="hc-nav__item">
+          <a href="#" class="hc-nav__link">
+            Candidates <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="#">Candidate Listing</a></li>
+            <li><a href="#">Candidate Profile</a></li>
+            <li><a href="#">Upload Resume</a></li>
+          </ul>
+        </li>
+
+        <li class="hc-nav__item">
+          <a href="#" class="hc-nav__link">
+            Blog <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="#">Blog List</a></li>
+            <li><a href="#">Blog Detail</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- Auth button — matches screenshot: outlined pill "👤 Sign Up / 🔒 Login" -->
+    <div class="hc-header__auth">
+      <a href="#" class="hc-auth-btn">
+        <i class="fa-regular fa-user" aria-hidden="true"></i>
+        Sign Up
+        <span class="auth-sep">/</span>
+        <i class="fa-solid fa-lock" aria-hidden="true"></i>
+        Login
+      </a>
+    </div>
+
+    <!-- Mobile hamburger (shown via CSS at ≤992px) -->
+    <button class="hc-hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+</header>
+<!-- /HEADER -->
+
+
+<!-- ============================================================
+     SEARCH STRIP  (orange bar — separate from hero image)
+     CSS:  .hero-search-strip, .hero-search-strip__inner,
+           .hero-search-strip__field, .hero-search-strip__btn
+
+     KEY: This is NOT inside the hero image — it is its OWN
+     full-width orange band that sits between the header and the
+     hero background photo. This is the correct Home2 layout.
+============================================================ -->
+<div class="hero-search-strip" role="search" aria-label="Job search">
+  <div class="hero-search-strip__inner">
+
+    <!-- Field 1: Keywords -->
+    <input
+      type="text"
+      class="hero-search-strip__field"
+      placeholder="Keywords (e.g. Job Title)"
+      aria-label="Job title or keywords"
+    />
+
+    <!-- Field 2: Locations -->
+    <input
+      type="text"
+      class="hero-search-strip__field"
+      placeholder="Locations (e.g. City, Country)"
+      aria-label="Job location"
+    />
+
+    <!-- Field 3: Industry -->
+    <input
+      type="text"
+      class="hero-search-strip__field"
+      placeholder="Industry (e.g. Design, Art)"
+      aria-label="Job industry or category"
+    />
+
+    <!-- Find Job button -->
+    <button type="button" class="hero-search-strip__btn">
+      Find Job
+    </button>
+
+  </div>
+</div>
+<!-- /SEARCH STRIP -->
+
+
+<!-- ============================================================
+     HERO SECTION  (background photo + centred text)
+     CSS:  .hero, .hero::before (overlay), .hero__content,
+           .hero__tagline, .hero__title, .hero__desc, .hero__cta
+
+     KEY DETAILS from screenshot:
+       • Full-width office/interview background photo
+       • Subtle dark overlay (~35% opacity) — photo still clearly visible
+       • ALL content centre-aligned
+       • Tagline in italic white above the H1
+       • H1 is very large bold white
+       • Description is smaller white text, 2 lines
+       • One orange "Find Your Dream Job!" CTA button
+       • NO search bar inside the hero
+       • NO stats bar
+============================================================ -->
+<section class="hero" id="home">
+  <div class="hero__content">
+
+    <!-- Italic tagline — "Empowering, Inspiring, Rising." -->
+    <span class="hero__tagline">Empowering, Inspiring, Rising.</span>
+
+    <!-- Main H1 — "Staffing & Job Consultancy" -->
+    <h1 class="hero__title">Staffing &amp; Job Consultancy</h1>
+
+    <!-- Description -->
+    <p class="hero__desc">
+      We have over 30 years experience of job consultancy in field of Financial, Marketing &amp;<br>
+      Solutions expertise our goal is to give the best job solutions to the people
+    </p>
+
+    <!-- CTA button -->
+    <a href="#" class="hero__cta">Find Your Dream Job!</a>
+
+  </div>
+</section>
+<!-- /HERO SECTION -->
+
+
+<!-- ============================================================
+     HOW IT WORKS SECTION
+     CSS:  how-it-works.css
+     Classes: .how-it-works · .hiw-header · .hiw-eyebrow ·
+              .hiw-title · .hiw-desc · .steps-grid · .step-card ·
+              .step-icon.step-icon--1/2/3 · .step-badge ·
+              .step-number · .step-title · .step-text · .step-link
+              .revealed  (added by IntersectionObserver JS below)
+============================================================ -->
+<section class="how-it-works" id="how-it-works">
+  <div class="container">
+
+    <!-- Section header -->
+    <header class="hiw-header">
+      <span class="hiw-eyebrow">Simple Process</span>
+      <h2 class="hiw-title">How It Works</h2>
+      <p class="hiw-desc">Three easy steps to connect employers with the right talent.</p>
+    </header>
+
+    <!-- 3-column step cards grid -->
+    <div class="steps-grid">
+
+      <!-- Step 01 — orange icon -->
+      <div class="step-card">
+        <div class="step-icon step-icon--1" aria-hidden="true">
+          <!--
+            Replace with Flaticon class if you have the template's icon font.
+            e.g.: <i class="flaticon-user"></i>
+          -->
+          <i class="fa-solid fa-user-plus"></i>
+          <span class="step-badge">01</span>
+        </div>
+        <div class="step-number" aria-hidden="true">01</div>
+        <h3 class="step-title">Create an Account</h3>
+        <p class="step-text">
+          Sign up as a job seeker or employer. Build your profile in minutes
+          and get discovered by the right employers and recruiters.
+        </p>
+        <a href="#" class="step-link">
+          Read More <i class="fa-solid fa-arrow-right link-arrow" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Step 02 — navy icon -->
+      <div class="step-card">
+        <div class="step-icon step-icon--2" aria-hidden="true">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span class="step-badge">02</span>
+        </div>
+        <div class="step-number" aria-hidden="true">02</div>
+        <h3 class="step-title">Search &amp; Apply</h3>
+        <p class="step-text">
+          Browse thousands of curated jobs. Use smart filters to find roles
+          matching your skills, salary expectations, and preferred location.
+        </p>
+        <a href="#" class="step-link">
+          Read More <i class="fa-solid fa-arrow-right link-arrow" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Step 03 — green icon -->
+      <div class="step-card">
+        <div class="step-icon step-icon--3" aria-hidden="true">
+          <i class="fa-solid fa-circle-check"></i>
+          <span class="step-badge" style="background:#388e3c">03</span>
+        </div>
+        <div class="step-number" aria-hidden="true">03</div>
+        <h3 class="step-title">Get Hired</h3>
+        <p class="step-text">
+          Connect with employers, schedule interviews, and land your dream
+          role with support from our dedicated recruiter team.
+        </p>
+        <a href="#" class="step-link">
+          Read More <i class="fa-solid fa-arrow-right link-arrow" aria-hidden="true"></i>
+        </a>
+      </div>
+
+    </div><!-- /steps-grid -->
+  </div><!-- /container -->
+</section>
+<!-- /HOW IT WORKS SECTION -->
+
+
+<section class="who-we-are" id="who-we-are">
+  <div class="who-we-are__container">
+    <div class="who-we-are__inner">
+
+      <!-- ══════════════════════════════════════
+           LEFT COLUMN — Content
+      ══════════════════════════════════════ -->
+      <div class="wwa-content">
+
+        <!-- Eyebrow: "Who We Are!" — "Who" dark, "We Are!" orange -->
+        <span class="wwa-eyebrow">
+          Who <span class="highlight">We Are!</span>
+        </span>
+
+        <!-- Section heading — 2 lines at desktop width -->
+        <h2 class="wwa-title">
+          Best Employment Services For<br>
+          Your Business
+        </h2>
+
+        <!-- Description paragraph -->
+        <p class="wwa-desc">
+          Our dedicated group of experts assists you with meeting your business
+          objectives. We give job searchers and IT experts the chance to track
+          down ideal a profession that guarantees long term development and learning.
+        </p>
+
+        <!-- Bullet list — 6 items with orange circle-check icons -->
+        <ul class="wwa-list" aria-label="Our key strengths">
+
+          <li class="wwa-list__item">
+            <!--
+              Icon: fa-regular fa-circle-check = outlined circle with checkmark.
+              Original template uses a Flaticon icon. If you have the Flaticon
+              webfont, replace with: <i class="flaticon-check-1 wwa-list__icon"></i>
+            -->
+            <i class="fa-regular fa-circle-check wwa-list__icon" aria-hidden="true"></i>
+            <span>The most progressive and expert staffing arrangement worldwide</span>
+          </li>
+
+          <li class="wwa-list__item">
+            <i class="fa-regular fa-circle-check wwa-list__icon" aria-hidden="true"></i>
+            <span>With over 2,000 offices &amp; thousands of recruiters through overseas</span>
+          </li>
+
+          <li class="wwa-list__item">
+            <i class="fa-regular fa-circle-check wwa-list__icon" aria-hidden="true"></i>
+            <span>Create personalized connections through the branded experience</span>
+          </li>
+
+          <li class="wwa-list__item">
+            <i class="fa-regular fa-circle-check wwa-list__icon" aria-hidden="true"></i>
+            <span>We have 90% best strategies that get the best suitable candidates</span>
+          </li>
+
+          <li class="wwa-list__item">
+            <i class="fa-regular fa-circle-check wwa-list__icon" aria-hidden="true"></i>
+            <span>All your recruitment process outsourcing with extreme truthfulness</span>
+          </li>
+
+          <li class="wwa-list__item">
+            <i class="fa-regular fa-circle-check wwa-list__icon" aria-hidden="true"></i>
+            <span>We have 90% best strategies that get the best suitable candidates</span>
+          </li>
+
+        </ul>
+
+        <!-- "View More" — outlined button, dark border, white bg -->
+        <a href="#" class="wwa-btn">View More</a>
+
+      </div>
+      <!-- /LEFT COLUMN -->
+
+
+      <!-- ══════════════════════════════════════
+           RIGHT COLUMN — Image Mosaic
+           ┌──────────────┬──────────┐
+           │ img-top-left │ img-top- │◀ play btn
+           │   (wider)    │  right   │  (bottom-right)
+           ├──────────────┴──────────┤
+           │     img-bottom (full)   │
+           └─────────────────────────┘
+      ══════════════════════════════════════ -->
+      <div class="wwa-images" aria-label="Photo collage">
+
+        <!-- Top-left photo (wider) -->
+        <img
+          class="wwa-img--top-left"
+          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=700&q=80"
+          alt="Team meeting — professionals collaborating"
+          loading="lazy"
+        />
+
+        <!-- Top-right photo + orange play button overlay -->
+        <div class="wwa-img-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=500&q=80"
+            alt="Trainer presenting to colleagues"
+            loading="lazy"
+          />
+
+          <!--
+            Orange play button — sits at bottom-right corner of
+            the top-right photo, overlapping the bottom photo.
+            Links to a video modal or YouTube URL.
+          -->
+          <a
+            href="#"
+            class="wwa-play-btn"
+            aria-label="Watch our company video"
+            role="button"
+          >
+            <span class="play-icon" aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <!-- Bottom photo — spans full grid width -->
+        <img
+          class="wwa-img--bottom"
+          src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=80"
+          alt="Interview — candidates reviewing resume"
+          loading="lazy"
+        />
+
+      </div>
+      <!-- /RIGHT COLUMN -->
+
+    </div>
+    <!-- /who-we-are__inner -->
+  </div>
+  <!-- /container -->
+</section>
+<!-- /WHO WE ARE SECTION -->
+
+<!-- ============================================================
+     WHAT WE SERVE — RECRUITMENT SERVICES SECTION
+     ─────────────────────────────────────────────────────────
+     CSS classes:
+       .what-we-serve            section (light grey #f5f5f5 bg)
+       .what-we-serve__container centred max-width container
+       .wws-header               centre-aligned header block
+         .wws-eyebrow            "What We Serve!" small label
+           .highlight            orange span ("We Serve!")
+         .wws-title              H2 "Recruitment Services"
+       .wws-grid                 3×2 CSS grid of service cards
+       .wws-card                 individual white service card
+         .wws-card__header       flex row: icon + title
+           .wws-card__icon       orange icon wrapper
+           .wws-card__title      service name H3
+         .wws-card__divider      <hr> thin separator line
+         .wws-card__desc         grey description paragraph
+     ─────────────────────────────────────────────────────────
+     To add/remove cards: duplicate or delete a .wws-card block.
+     The grid auto-fills columns (3 per row on desktop).
+============================================================ -->
+<section class="what-we-serve" id="what-we-serve">
+  <div class="what-we-serve__container">
+
+    <!-- Section header -->
+    <header class="wws-header">
+      <!-- Eyebrow: "What" dark + "We Serve!" orange -->
+      <span class="wws-eyebrow">
+        What <span class="highlight">We Serve!</span>
+      </span>
+      <h2 class="wws-title">Recruitment Services</h2>
+    </header>
+
+    <!-- 3 × 2 service cards grid -->
+    <div class="wws-grid">
+
+      <!-- ── Card 1: Human Resource ── -->
+      <div class="wws-card">
+        <div class="wws-card__header">
+          <div class="wws-card__icon" aria-hidden="true">
+            <!--
+              Original: Flaticon outline icon — people/worker group
+              FA fallback: fa-regular fa-users (closest match)
+              Replace with: <i class="flaticon-worker"></i>
+            -->
+            <i class="fa-regular fa-users"></i>
+          </div>
+          <h3 class="wws-card__title">Human Resource</h3>
+        </div>
+        <hr class="wws-card__divider" />
+        <p class="wws-card__desc">
+          Make up the workforce of an organization,
+          business firm, industry, or economy
+        </p>
+      </div>
+
+      <!-- ── Card 2: Executive Search ── -->
+      <div class="wws-card">
+        <div class="wws-card__header">
+          <div class="wws-card__icon" aria-hidden="true">
+            <!--
+              Original: Flaticon — magnifier with lightbulb/atom outline
+              FA fallback: fa-magnifying-glass with custom look
+              Replace with: <i class="flaticon-search-1"></i>
+            -->
+            <i class="fa-regular fa-lightbulb"></i>
+          </div>
+          <h3 class="wws-card__title">Executive Search</h3>
+        </div>
+        <hr class="wws-card__divider" />
+        <p class="wws-card__desc">
+          Specializes in recruiting executives and other
+          personnel for their client company
+        </p>
+      </div>
+
+      <!-- ── Card 3: Retained Search ── -->
+      <div class="wws-card">
+        <div class="wws-card__header">
+          <div class="wws-card__icon" aria-hidden="true">
+            <!--
+              Original: Flaticon — magnifier with gear/settings outline
+              Replace with: <i class="flaticon-loupe"></i>
+            -->
+            <i class="fa-solid fa-magnifying-glass-chart"></i>
+          </div>
+          <h3 class="wws-card__title">Retained Search</h3>
+        </div>
+        <hr class="wws-card__divider" />
+        <p class="wws-card__desc">
+          HireCo tens to accelerate innovation current
+          and future based solutions to support
+        </p>
+      </div>
+
+      <!-- ── Card 4: Forte Acquisition ── -->
+      <div class="wws-card">
+        <div class="wws-card__header">
+          <div class="wws-card__icon" aria-hidden="true">
+            <!--
+              Original: Flaticon — target/bullseye with person outline
+              Replace with: <i class="flaticon-target"></i>
+            -->
+            <i class="fa-regular fa-circle-dot"></i>
+          </div>
+          <h3 class="wws-card__title">Forte Acquisition</h3>
+        </div>
+        <hr class="wws-card__divider" />
+        <p class="wws-card__desc">
+          To accelerate innovation current and future
+          based solutions to support clients!
+        </p>
+      </div>
+
+      <!-- ── Card 5: Manpower Supply ── -->
+      <div class="wws-card">
+        <div class="wws-card__header">
+          <div class="wws-card__icon" aria-hidden="true">
+            <!--
+              Original: Flaticon — robotic arm / tools outline
+              Replace with: <i class="flaticon-robot-arm"></i>
+            -->
+            <i class="fa-solid fa-person-digging"></i>
+          </div>
+          <h3 class="wws-card__title">Manpower Supply</h3>
+        </div>
+        <hr class="wws-card__divider" />
+        <p class="wws-card__desc">
+          A quality personnel to the fields of expertise
+          that needed for all kind of projects
+        </p>
+      </div>
+
+      <!-- ── Card 6: Technical Services ── -->
+      <div class="wws-card">
+        <div class="wws-card__header">
+          <div class="wws-card__icon" aria-hidden="true">
+            <!--
+              Original: Flaticon — engineer/technician with gear outline
+              Replace with: <i class="flaticon-engineer"></i>
+            -->
+            <i class="fa-solid fa-user-gear"></i>
+          </div>
+          <h3 class="wws-card__title">Technical Services</h3>
+        </div>
+        <hr class="wws-card__divider" />
+        <p class="wws-card__desc">
+          We do supply variety of services including
+          fabrication, design, commissioning.
+        </p>
+      </div>
+
+    </div>
+    <!-- /wws-grid -->
+
+  </div>
+  <!-- /container -->
+</section>
+<!-- /WHAT WE SERVE SECTION -->
+
+<!-- ============================================================
+     WE SERVE OVERSEAS SECTION
+============================================================ -->
+<section class="overseas" id="overseas" tabindex="0">
+  <div class="overseas__container">
+
+    <!-- Header -->
+    <header class="overseas__header">
+      <span class="overseas__eyebrow">We Serve <span class="hl">Overseas</span></span>
+      <h2 class="overseas__title">We Are Service Worldwide</h2>
+    </header>
+
+    <!-- Slider -->
+    <div class="slider-outer" id="sliderOuter">
+
+      <!-- Prev arrow -->
+      <button class="slider-arrow slider-arrow--prev" id="prevBtn" aria-label="Previous slide">
+        <svg class="arrow-icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+
+      <!-- Viewport clips the track -->
+      <div class="slider-viewport">
+        <div class="slider-track" id="sliderTrack">
+
+          <!-- ── United States ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=600&q=80"
+              alt="New York City skyline" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="US flag">🇺🇸</span>
+                <h3 class="country-card__name">United States</h3>
+              </div>
+              <p class="country-card__desc">A millions of decision about who has a right to settle.</p>
+            </div>
+          </div>
+
+          <!-- ── Canada ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1518638150340-f706e86654de?w=600&q=80"
+              alt="Toronto CN Tower skyline" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="Canada flag">🇨🇦</span>
+                <h3 class="country-card__name">Canada</h3>
+              </div>
+              <p class="country-card__desc">We will help in every step of the application process.</p>
+            </div>
+          </div>
+
+          <!-- ── Australia ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=600&q=80"
+              alt="Sydney aerial cityscape" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="Australia flag">🇦🇺</span>
+                <h3 class="country-card__name">Australia</h3>
+              </div>
+              <p class="country-card__desc">Our head quarters is in Canberra, help throughout process.</p>
+            </div>
+          </div>
+
+          <!-- ── United Kingdom ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&q=80"
+              alt="London skyline" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="UK flag">🇬🇧</span>
+                <h3 class="country-card__name">United Kingdom</h3>
+              </div>
+              <p class="country-card__desc">Connecting top talent with leading UK employers across sectors.</p>
+            </div>
+          </div>
+
+          <!-- ── Germany ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=600&q=80"
+              alt="Frankfurt city skyline" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="Germany flag">🇩🇪</span>
+                <h3 class="country-card__name">Germany</h3>
+              </div>
+              <p class="country-card__desc">Supporting skilled professionals relocate and thrive in Germany.</p>
+            </div>
+          </div>
+
+          <!-- ── Singapore ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600&q=80"
+              alt="Singapore Marina Bay skyline" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="Singapore flag">🇸🇬</span>
+                <h3 class="country-card__name">Singapore</h3>
+              </div>
+              <p class="country-card__desc">Asia's financial hub — we place top candidates in Singapore firms.</p>
+            </div>
+          </div>
+
+          <!-- ── UAE ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80"
+              alt="Dubai skyline at dusk" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="UAE flag">🇦🇪</span>
+                <h3 class="country-card__name">UAE</h3>
+              </div>
+              <p class="country-card__desc">Guiding professionals through the UAE work visa and placement process.</p>
+            </div>
+          </div>
+
+          <!-- ── New Zealand ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=600&q=80"
+              alt="Auckland city harbour" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="New Zealand flag">🇳🇿</span>
+                <h3 class="country-card__name">New Zealand</h3>
+              </div>
+              <p class="country-card__desc">Supporting immigration and skilled work placements across New Zealand.</p>
+            </div>
+          </div>
+
+        </div>
+        <!-- /slider-track -->
+      </div>
+      <!-- /slider-viewport -->
+
+      <!-- Next arrow -->
+      <button class="slider-arrow slider-arrow--next" id="nextBtn" aria-label="Next slide">
+        <svg class="arrow-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+    </div>
+    <!-- /slider-outer -->
+
+    <!-- Dot indicators -->
+    <div class="slider-dots" id="sliderDots" aria-label="Slider navigation"></div>
+
+  </div>
+  <!-- /container -->
+</section>
+
+
+<!-- ============================================================
+     RECRUITMENT PROCESS SECTION
+============================================================ -->
+<section class="rp-section" id="recruitment-process">
+  <div class="rp-container">
+
+    <!-- ── Header row: eyebrow + title (left) | Get Started btn (right) ── -->
+    <div class="rp-header">
+      <div class="rp-header__left">
+        <span class="rp-eyebrow">How <span class="hl">We Do!</span></span>
+        <h2 class="rp-title">Recruitment Process</h2>
+      </div>
+      <a href="#" class="rp-btn">Get Started</a>
+    </div>
+
+    <!-- ── Two-column body ── -->
+    <div class="rp-body">
+
+      <!-- LEFT: vertical timeline with step cards -->
+      <div class="rp-timeline" id="rpTimeline">
+
+        <!-- Step 01 -->
+        <div class="rp-step is-active" data-step="0">
+          <div class="rp-step__num">01</div>
+          <div class="rp-step__card">
+            <h3 class="rp-step__title">We Identify Your Needs</h3>
+            <p class="rp-step__desc">
+              Create a list of needs before you create a job posting.
+              It may seem easy to identify a hiring need
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 02 -->
+        <div class="rp-step" data-step="1">
+          <div class="rp-step__num">02</div>
+          <div class="rp-step__card">
+            <h3 class="rp-step__title">Create Recruitment Plan</h3>
+            <p class="rp-step__desc">
+              Save time and energy by creating the best recruitment
+              plan. To get the word out about the job
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 03 -->
+        <div class="rp-step" data-step="2">
+          <div class="rp-step__num">03</div>
+          <div class="rp-step__card">
+            <h3 class="rp-step__title">Recruit Top Candidates</h3>
+            <p class="rp-step__desc">
+              You will need to maintain timely communication or
+              they will quickly move on to other opportunities
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 04 -->
+        <div class="rp-step" data-step="3">
+          <div class="rp-step__num">04</div>
+          <div class="rp-step__card">
+            <h3 class="rp-step__title">The Brand Job Offering</h3>
+            <p class="rp-step__desc">
+              Create a list of needs before you create a job posting.
+              It may seem easy to identify a hiring need
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 05 -->
+        <div class="rp-step" data-step="4">
+          <div class="rp-step__num">05</div>
+          <div class="rp-step__card">
+            <h3 class="rp-step__title">Review & Select Candidates</h3>
+            <p class="rp-step__desc">
+              Carefully evaluate applications, shortlist qualified
+              candidates and schedule structured interviews
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 06 -->
+        <div class="rp-step" data-step="5">
+          <div class="rp-step__num">06</div>
+          <div class="rp-step__card">
+            <h3 class="rp-step__title">Onboarding & Integration</h3>
+            <p class="rp-step__desc">
+              Welcome new hires with a structured onboarding program
+              that sets them up for long-term success
+            </p>
+          </div>
+        </div>
+
+      </div>
+      <!-- /timeline -->
+
+      <!-- RIGHT: photo -->
+      <div class="rp-photo">
+        <img
+          id="rpPhoto"
+          src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80"
+          alt="Recruitment meeting — professional consultation"
+          loading="lazy"
+        />
+      </div>
+
+    </div>
+    <!-- /rp-body -->
+
+  </div>
+  <!-- /container -->
+</section>
+
+<!-- ============================================================
+     OPERATION PROCESS SECTION
+============================================================ -->
+<section class="cp">
+
+  <!-- Section header -->
+  <header class="cp-hdr">
+    <span class="cp-ey">Cooperation Process — <span>Employment of Foreign Workers Through an Agency</span></span>
+    <h2 class="cp-h2">How We Work With You</h2>
+  </header>
+
+  <div class="cp-grid">
+
+    <!-- ── Card 01 ── -->
+    <div class="cp-card">
+      <div class="cp-card-head">
+        <div class="cp-badge"><span>01</span></div>
+        <h3 class="cp-card-title">Pre-selection of foreign workers</h3>
+      </div>
+      <div class="cp-card-body">
+        <p><span class="hl">The first step is the selection of the best quality foreign workers from the offer of the HireCo agency.</span> Candidates are selected based on:</p>
+        <ul>
+          <li>work videos or personal video interviews,</li>
+          <li>CV biography,</li>
+          <li>past experiences and knowledge.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── Card 02 ── -->
+    <div class="cp-card">
+      <div class="cp-card-head">
+        <div class="cp-badge"><span>02</span></div>
+        <h3 class="cp-card-title">Preparing visa documents</h3>
+      </div>
+      <div class="cp-card-body">
+        <p>For all selected foreign workers, the agency prepares complete documentation for the visa process:</p>
+        <ul>
+          <li>employment contracts,</li>
+          <li>invitation and guarantee letters,</li>
+          <li>statements and authorizations,</li>
+          <li>statements and necessary certificates.</li>
+        </ul>
+        <p>The documentation is submitted to the employer for review and approval.</p>
+      </div>
+    </div>
+
+    <!-- ── Card 03 ── -->
+    <div class="cp-card">
+      <div class="cp-card-head">
+        <div class="cp-badge"><span>03</span></div>
+        <h3 class="cp-card-title">Signing of documentation</h3>
+      </div>
+      <div class="cp-card-body">
+        <p>After approval, the signatures of the employer and the foreign worker are collected. <span class="hl">The agency carries out complete communication between both parties</span> and ensures that all documents are signed and ready for further proceedings.</p>
+      </div>
+    </div>
+
+    <!-- ── Card 04 ── -->
+    <div class="cp-card">
+      <div class="cp-card-head">
+        <div class="cp-badge"><span>04</span></div>
+        <h3 class="cp-card-title">Applying for work visas</h3>
+      </div>
+      <div class="cp-card-body">
+        <p><span class="hl">HireCo creates and submits applications for <strong>work visas and work permits for foreigners</strong></span>, pays all legally prescribed fees and informs the client about the submitted applications.</p>
+      </div>
+    </div>
+
+    <!-- ── Card 05 ── -->
+    <div class="cp-card">
+      <div class="cp-card-head">
+        <div class="cp-badge"><span>05</span></div>
+        <h3 class="cp-card-title">Monitoring and support in the procedure</h3>
+      </div>
+      <div class="cp-card-body">
+        <p>The Agency regularly monitors the statuses of requests on the eVisa portal and makes additions or changes to documentation at the request of state authorities. <span class="hl">He participates in the procedure before all competent authorities</span> and regularly informs the employer about the progress.</p>
+      </div>
+    </div>
+
+    <!-- ── Card 06 ── -->
+    <div class="cp-card">
+      <div class="cp-card-head">
+        <div class="cp-badge"><span>06</span></div>
+        <h3 class="cp-card-title">Flight organization and arrival of workers</h3>
+      </div>
+      <div class="cp-card-body">
+        <p>After obtaining visa approvals, <span class="hl">HireCo organizes passport visas and flight reservations.</span> After arriving in Serbia, the employer in cooperation with the agency welcomes the workers and transports them to the accommodation.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CONTACT-US-FOREIGN SECTION
+     "Foreign Workers Ready to Start Immediately"
+============================================================ -->
+<section class="cf-section" id="contact-foreign">
+
+  <!-- ── Full-width headline ── -->
+  <div class="cf-headline-band">
+    <h1 class="cf-headline">
+      Foreign Workers Ready to<br/>Start Immediately
+    </h1>
+  </div>
+
+  <!-- ── Two-column body ── -->
+  <div class="cf-container">
+    <div class="cf-body">
+
+      <!-- LEFT: Lottie animated globe -->
+      <div class="cf-globe-wrap">
+        <!--
+          Lottie renders here.
+          The globe animation (network/wireframe sphere with animated nodes)
+          is loaded from LottieFiles public CDN via JS below.
+          To use your own: change the `path` in lottie.loadAnimation().
+        -->
+        <div id="lottieGlobe" role="img" aria-label="Animated globe showing global network connections"></div>
+      </div>
+
+      <!-- RIGHT: Content -->
+      <div class="cf-content">
+
+        <!-- Subtitle -->
+        <h2 class="cf-subtitle">
+          Foreign Employment Agency<br/>in Serbia
+        </h2>
+
+        <!-- Body paragraphs — exact text from screenshot -->
+        <p class="cf-body-text">
+          HireCo is an <strong>employment agency for foreign workers</strong> and a reliable partner for companies
+          looking to hire employees from abroad. We employ <strong>foreign workers from Nepal, Bangladesh, Sri
+          Lanka, India, Egypt, Kenya, Vietnam, the Philippines</strong>, and other countries, specializing in the
+          employment of foreign nationals in Serbia. Our services include assistance in obtaining <strong>work
+          permits and temporary residence for foreign workers</strong>. Our mission is to provide employers with
+          a fast and straightforward process when it comes to hiring international staff.
+        </p>
+
+        <p class="cf-body-text">
+          As an <strong>agency specializing in foreign workforce employment</strong>, we offer <strong>complete mediation
+          services</strong>—from administrative procedures to legal engagement. If you are wondering <strong>how to
+          hire a foreign worker in Serbia</strong>, HireCo provides a safe solution and full legal support every
+          step of the way.
+        </p>
+
+        <!-- CTA row -->
+        <div class="cf-cta-row">
+
+          <!-- "Contact us now" pill button -->
+          <a href="#contact" class="cf-cta-btn">
+            <span class="arrow-circle" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+            Contact us now
+          </a>
+
+          <!-- Phone block -->
+          <div class="cf-phone-block">
+            <span class="cf-phone-label">Or call us directly by clicking on the number</span>
+            <a href="tel:+38161325 0005" class="cf-phone-link">+381 61 325 0005</a>
+          </div>
+
+        </div>
+        <!-- /cf-cta-row -->
+
+      </div>
+      <!-- /cf-content -->
+
+    </div>
+    <!-- /cf-body -->
+  </div>
+  <!-- /cf-container -->
+
+</section>
+<!-- /contact-foreign section -->
+
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="ft" id="footer">
+  <div class="ft-container">
+
+    <!-- ══════════════════════════════════════════════════
+         MAIN BODY — 3 columns
+    ══════════════════════════════════════════════════ -->
+    <div class="ft-body">
+
+      <!-- ────────────────────────────────────────
+           COLUMN 1 — Logo · Desc · Social · CTA
+      ──────────────────────────────────────── -->
+      <div class="ft-col ft-col--brand">
+
+        <!-- Logo: speed-lines + clock circle + HireCo text -->
+        <a href="#" class="ft-logo" aria-label="HireCo home">
+          <svg class="ft-logo__icon" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Speed lines -->
+            <line x1="0"  y1="15" x2="11" y2="15" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="2"  y1="21" x2="10" y2="21" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="0"  y1="27" x2="11" y2="27" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Clock outer circle -->
+            <circle cx="27" cy="21" r="13" fill="#f68c1f"/>
+            <circle cx="27" cy="21" r="10" fill="#161c27"/>
+            <!-- Clock face inner ring -->
+            <circle cx="27" cy="21" r="10" fill="none" stroke="#f68c1f" stroke-width="1"/>
+            <!-- Clock hands -->
+            <line x1="27" y1="21" x2="27" y2="14" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="27" y1="21" x2="33" y2="23" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="27" cy="21" r="1.4" fill="#fff"/>
+          </svg>
+          <span class="ft-logo__text">Hire<span class="co">Co</span></span>
+        </a>
+
+        <!-- Description -->
+        <p class="ft-desc">
+          HireCo is multi award-winning executive search,
+          management recruiter and employer branding
+          organization. Our customized recruiting process
+          delivers fast &amp; accurate results
+        </p>
+
+        <!-- Social Share -->
+        <div class="ft-social">
+          <span class="ft-social__label">Social Share:</span>
+          <div class="ft-social__links">
+
+            <!-- Facebook -->
+            <a href="#" class="ft-social__link" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+
+            <!-- Twitter / X -->
+            <a href="#" class="ft-social__link" aria-label="Twitter">
+              <svg viewBox="0 0 24 24"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+            </a>
+
+            <!-- Instagram -->
+            <a href="#" class="ft-social__link" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+
+            <!-- Pinterest -->
+            <a href="#" class="ft-social__link" aria-label="Pinterest">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.77 1.22-5.16 1.22-5.16s-.31-.62-.31-1.55c0-1.45.84-2.54 1.89-2.54.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.87 3.48-.25 1.04.52 1.88 1.54 1.88 1.85 0 3.28-1.95 3.28-4.76 0-2.49-1.79-4.23-4.34-4.23-2.96 0-4.7 2.22-4.7 4.51 0 .89.34 1.85.77 2.37.08.1.09.19.07.29-.08.32-.25 1.04-.28 1.19-.04.19-.14.23-.32.14-1.25-.58-2.03-2.42-2.03-3.89 0-3.15 2.29-6.05 6.61-6.05 3.47 0 6.17 2.47 6.17 5.77 0 3.45-2.17 6.22-5.19 6.22-1.01 0-1.97-.53-2.3-1.15l-.62 2.33c-.23.87-.84 1.96-1.25 2.62.94.29 1.94.45 2.97.45 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- CTA Button -->
+        <a href="#" class="ft-cta-btn">Request A Free Quotes</a>
+
+      </div>
+      <!-- /COL 1 -->
+
+
+      <!-- ────────────────────────────────────────
+           COLUMN 2 — Recent Posts
+      ──────────────────────────────────────── -->
+      <div class="ft-col ft-col--posts">
+
+        <h4 class="ft-col-title">Recent Posts</h4>
+
+        <div class="ft-posts">
+
+          <!-- Post 1 -->
+          <div class="ft-post">
+            <a href="#" class="ft-post__cat">Business</a>
+            <a href="#" class="ft-post__title">Are meetings falling to flat? Try these 10 tips</a>
+          </div>
+
+          <!-- Post 2 -->
+          <div class="ft-post">
+            <a href="#" class="ft-post__cat">Business</a>
+            <a href="#" class="ft-post__title">Are You Moving Businesses To Another State?</a>
+          </div>
+
+          <!-- Post 3 -->
+          <div class="ft-post">
+            <a href="#" class="ft-post__cat">Business</a>
+            <a href="#" class="ft-post__title">Shame: Does It Fine to Fit In The Workplace?</a>
+          </div>
+
+        </div>
+      </div>
+      <!-- /COL 2 -->
+
+
+      <!-- ────────────────────────────────────────
+           COLUMN 3 — Quick Contact box
+      ──────────────────────────────────────── -->
+      <div class="ft-col ft-col--contact">
+        <div class="ft-contact-box">
+
+          <h4 class="ft-contact-title">Quick Contact!</h4>
+
+          <!-- Phone -->
+          <div class="ft-contact-item">
+            <div class="ft-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.26 12 19.79 19.79 0 0 1 1.16 3.4 2 2 0 0 1 3.12 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/>
+              </svg>
+            </div>
+            <div>
+              <span class="ft-contact-label">Call Us On:</span>
+              <span class="ft-contact-value">+92 777 555 0000</span>
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="ft-contact-item">
+            <div class="ft-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <span class="ft-contact-label">Address:</span>
+              <span class="ft-contact-value">Suite 20 Golden Street USA</span>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="ft-contact-item">
+            <div class="ft-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div>
+              <span class="ft-contact-label">Email:</span>
+              <span class="ft-contact-value">info@example.com</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- /COL 3 -->
+
+    </div>
+    <!-- /ft-body -->
+
+
+    <!-- ══════════════════════════════════════════════════
+         BOTTOM BAR
+         Left: copyright + legal links
+         Right: email newsletter subscribe
+    ══════════════════════════════════════════════════ -->
+    <div class="ft-bottom">
+      <div class="ft-bottom-inner">
+
+        <!-- Left: copyright + legal -->
+        <div class="ft-bottom-left">
+          <p class="ft-copyright">
+            Copyright &copy; 2021 <span class="hl">HireCo</span> All rights reserved.
+          </p>
+          <div class="ft-legal">
+            <a href="#">Privacy &amp; Policy</a>
+            <span class="ft-legal-sep">|</span>
+            <a href="#">Terms &amp; Conditions</a>
+          </div>
+        </div>
+
+        <!-- Right: newsletter -->
+        <form class="ft-newsletter" id="ftNewsletter" action="#" onsubmit="handleSubscribe(event)">
+          <input
+            type="email"
+            id="ftEmail"
+            placeholder="Enter Your Email Address..."
+            aria-label="Newsletter email address"
+            required
+          />
+          <button type="submit" class="ft-newsletter-btn" aria-label="Subscribe">
+            <!-- Paper plane / send icon -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 2 11 13"/>
+              <path d="M22 2 15 22 11 13 2 9l20-7z" stroke="#f68c1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </button>
+        </form>
+
+      </div>
+    </div>
+    <!-- /ft-bottom -->
+
+  </div>
+  <!-- /ft-container -->
+</footer>
+
+
+<!-- ============================================================
+     BACK-TO-TOP BUTTON
+     Fixed orange circle in bottom-right corner.
+     JS below adds .visible class when user scrolls past 400px.
+============================================================ -->
+<a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+</a>
+
+<!-- ============================================================
+     SCRIPTS
+============================================================ -->
+<script>
+(function () {
+  /* ── Mobile nav toggle ── */
+  var hamburger = document.getElementById('hamburger');
+  var nav       = document.getElementById('mainNav');
+
+  if (hamburger && nav) {
+    hamburger.addEventListener('click', function () {
+      var isOpen = nav.classList.toggle('is-open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+  }
+
+  /* ── Sticky header shadow ── */
+  var header = document.getElementById('site-header');
+  window.addEventListener('scroll', function () {
+    header.style.boxShadow = window.scrollY > 10
+      ? '0 2px 16px rgba(0,0,0,0.12)'
+      : 'none';
+  }, { passive: true });
+
+  /* ── Scroll-reveal: adds .revealed to .step-card on viewport entry ── */
+  var cards = document.querySelectorAll('.step-card');
+  if (cards.length && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    cards.forEach(function (c) { io.observe(c); });
+  } else {
+    /* Fallback: reveal all immediately if IO not supported */
+    cards.forEach(function (c) { c.classList.add('revealed'); });
+  }
+})();
+</script>
+<script>
+(function () {
+  var btn = document.getElementById('backToTop');
+  if (!btn) return;
+
+  window.addEventListener('scroll', function () {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+<script>
+(function () {
+  var preloader = document.getElementById('pagePreloader');
+  if (!preloader) return;
+
+  window.addEventListener('load', function () {
+    preloader.classList.add('hidden');
+  });
+})();
+</script>
+<!-- ============================================================
+     SLIDER JAVASCRIPT
+     Features:
+       • Responsive: 4 cards (≥900px) · 2 cards (≥540px) · 1 card (<540px)
+       • Auto-play every 4 seconds (pauses on hover)
+       • Prev / Next buttons with disabled state at boundaries
+       • Dot indicators sync with current slide
+       • Touch / mouse drag support
+       • Keyboard arrow-key support
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Elements ── */
+  var track     = document.getElementById('sliderTrack');
+  var prevBtn   = document.getElementById('prevBtn');
+  var nextBtn   = document.getElementById('nextBtn');
+  var dotsWrap  = document.getElementById('sliderDots');
+  var section   = document.getElementById('overseas');
+
+  var cards     = Array.from(track.querySelectorAll('.country-card'));
+  var total     = cards.length;
+
+  /* ── State ── */
+  var current   = 0;        // index of leftmost visible card
+  var perView   = 4;        // cards shown at once
+  var cardW     = 0;        // card width + gap in px
+  var gap       = 20;       // must match CSS gap
+  var dots      = [];
+  var autoTimer = null;
+  var isDragging= false;
+  var dragStartX= 0;
+  var dragDelta = 0;
+
+  /* ── Responsive: how many cards to show ── */
+  function getPerView() {
+    var w = window.innerWidth;
+    if (w <= 540)  return 1;
+    if (w <= 900)  return 2;
+    return 4;
+  }
+
+  /* ── Calculate card width from actual DOM ── */
+  function calcCardW() {
+    perView = getPerView();
+    /* set flex-basis via JS so it's always accurate */
+    var vpW = track.parentElement.clientWidth - 16; /* minus padding */
+    var totalGap = gap * (perView - 1);
+    cardW = (vpW - totalGap) / perView;
+    cards.forEach(function (c) {
+      c.style.flex = '0 0 ' + cardW + 'px';
+      c.style.width = cardW + 'px';
+    });
+  }
+
+  /* ── Max slide index ── */
+  function maxIndex() {
+    return Math.max(0, total - perView);
+  }
+
+  /* ── Move track to current index ── */
+  function moveTo(idx, animate) {
+    idx = Math.max(0, Math.min(idx, maxIndex()));
+    current = idx;
+    var offset = current * (cardW + gap);
+    if (animate === false) {
+      track.style.transition = 'none';
+    } else {
+      track.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)';
+    }
+    track.style.transform = 'translateX(-' + offset + 'px)';
+    updateUI();
+  }
+
+  /* ── Sync arrows + dots ── */
+  function updateUI() {
+    prevBtn.disabled = (current === 0);
+    nextBtn.disabled = (current >= maxIndex());
+    dots.forEach(function (d, i) {
+      d.classList.toggle('active', i === current);
+      d.setAttribute('aria-current', i === current ? 'true' : 'false');
+    });
+  }
+
+  /* ── Build dots ── */
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    dots = [];
+    var count = maxIndex() + 1;
+    for (var i = 0; i < count; i++) {
+      (function (idx) {
+        var d = document.createElement('button');
+        d.className = 'slider-dot';
+        d.setAttribute('aria-label', 'Go to slide ' + (idx + 1));
+        d.addEventListener('click', function () { moveTo(idx); resetAuto(); });
+        dotsWrap.appendChild(d);
+        dots.push(d);
+      })(i);
+    }
+  }
+
+  /* ── Auto-play ── */
+  function startAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function () {
+      var next = (current >= maxIndex()) ? 0 : current + 1;
+      moveTo(next);
+    }, 4000);
+  }
+
+  function resetAuto() { startAuto(); }
+
+  /* ── Init / resize ── */
+  function init() {
+    calcCardW();
+    buildDots();
+    moveTo(current, false);
+    startAuto();
+  }
+
+  window.addEventListener('resize', function () {
+    var oldPer = perView;
+    calcCardW();
+    if (perView !== oldPer) {
+      buildDots();
+      current = Math.min(current, maxIndex());
+    }
+    moveTo(current, false);
+  });
+
+  /* ── Button listeners ── */
+  prevBtn.addEventListener('click', function () {
+    moveTo(current - 1);
+    resetAuto();
+  });
+
+  nextBtn.addEventListener('click', function () {
+    moveTo(current + 1);
+    resetAuto();
+  });
+
+  /* ── Keyboard support ── */
+  section.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft')  { moveTo(current - 1); resetAuto(); }
+    if (e.key === 'ArrowRight') { moveTo(current + 1); resetAuto(); }
+  });
+
+  /* ── Pause auto on hover ── */
+  section.addEventListener('mouseenter', function () { clearInterval(autoTimer); });
+  section.addEventListener('mouseleave', function () { startAuto(); });
+
+  /* ── Touch / Mouse drag ── */
+  function onDragStart(x) {
+    isDragging = true;
+    dragStartX = x;
+    dragDelta  = 0;
+    track.style.transition = 'none';
+  }
+
+  function onDragMove(x) {
+    if (!isDragging) return;
+    dragDelta = x - dragStartX;
+    var base  = current * (cardW + gap);
+    track.style.transform = 'translateX(-' + (base - dragDelta) + 'px)';
+  }
+
+  function onDragEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    var threshold = cardW * 0.25;
+    if (dragDelta < -threshold)      moveTo(current + 1);
+    else if (dragDelta > threshold)  moveTo(current - 1);
+    else                             moveTo(current);   /* snap back */
+    resetAuto();
+  }
+
+  /* Touch events */
+  track.addEventListener('touchstart',  function (e) { onDragStart(e.touches[0].clientX); }, { passive: true });
+  track.addEventListener('touchmove',   function (e) { onDragMove(e.touches[0].clientX); },  { passive: true });
+  track.addEventListener('touchend',    onDragEnd);
+
+  /* Mouse drag */
+  track.addEventListener('mousedown',  function (e) { onDragStart(e.clientX); e.preventDefault(); });
+  window.addEventListener('mousemove', function (e) { onDragMove(e.clientX); });
+  window.addEventListener('mouseup',   onDragEnd);
+
+  /* Prevent drag from firing click on cards */
+  track.addEventListener('click', function (e) {
+    if (Math.abs(dragDelta) > 8) e.preventDefault();
+  });
+
+  /* ── Run ── */
+  init();
+
+})();
+</script>
+<!-- ============================================================
+     JAVASCRIPT
+     1. Click on any step → highlight it (is-active)
+     2. Auto-cycle through steps every 3s
+     3. Back-to-top visibility
+     4. Step photos swap on active change (optional array)
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Step photos (one per step — swap with your own images) ── */
+  var PHOTOS = [
+    'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80',  /* 01 */
+    'https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?w=700&q=80',      /* 02 */
+    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=700&q=80',  /* 03 */
+    'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=700&q=80',  /* 04 */
+    'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=700&q=80',     /* 05 */
+    'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&q=80',     /* 06 */
+  ];
+
+  var steps     = Array.from(document.querySelectorAll('.rp-step'));
+  var photo     = document.getElementById('rpPhoto');
+  var btt       = document.getElementById('backToTop');
+  var current   = 0;
+  var autoTimer = null;
+
+  /* ── Activate a step ── */
+  function activate(idx) {
+    steps.forEach(function (s, i) {
+      s.classList.toggle('is-active', i === idx);
+    });
+
+    /* Swap photo with fade */
+    if (photo && PHOTOS[idx]) {
+      photo.style.opacity = '0';
+      photo.style.transition = 'opacity 0.35s ease';
+      setTimeout(function () {
+        photo.src = PHOTOS[idx];
+        photo.onload = function () {
+          photo.style.opacity = '1';
+        };
+        /* fallback if already cached */
+        if (photo.complete) photo.style.opacity = '1';
+      }, 200);
+    }
+
+    current = idx;
+  }
+
+  /* ── Click on a step ── */
+  steps.forEach(function (step, idx) {
+    step.addEventListener('click', function () {
+      activate(idx);
+      resetAuto();
+    });
+
+    /* Cursor pointer on card */
+    step.style.cursor = 'pointer';
+  });
+
+  /* ── Auto-cycle ── */
+  function startAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function () {
+      var next = (current + 1) % steps.length;
+      activate(next);
+    }, 3000);
+  }
+
+  function resetAuto() {
+    startAuto();
+  }
+
+  /* ── Pause on hover ── */
+  var section = document.getElementById('recruitment-process');
+  section.addEventListener('mouseenter', function () { clearInterval(autoTimer); });
+  section.addEventListener('mouseleave', function () { startAuto(); });
+
+  /* ── Back to top ── */
+  window.addEventListener('scroll', function () {
+    btt.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+
+  btt.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ── Init ── */
+  activate(0);
+  startAuto();
+
+})();
+</script>
+<!-- ============================================================
+     JAVASCRIPT
+     1. Newsletter form subscribe with confirmation
+     2. Social icon hover handled via CSS
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Newsletter submit ── */
+  window.handleSubscribe = function (e) {
+    e.preventDefault();
+    var input = document.getElementById('ftEmail');
+    var email = input.value.trim();
+    if (!email) return;
+
+    /* Visual feedback — change placeholder to confirm */
+    input.value = '';
+    input.placeholder = 'Thank you for subscribing!';
+    input.style.color = '#f68c1f';
+
+    setTimeout(function () {
+      input.placeholder = 'Enter Your Email Address...';
+      input.style.color = '';
+    }, 3000);
+  };
+})();
+function handleSubscribe(e) {
+  e.preventDefault();
+  var input = document.getElementById('ftEmail');
+  var email = input.value.trim();
+  if (!email) return;
+
+  /* Visual feedback — change placeholder to confirm */
+  input.value = '';
+  input.placeholder = 'Thank you for subscribing!';
+  input.style.color = '#f68c1f';
+
+  setTimeout(function () {
+    input.placeholder = 'Enter Your Email Address...';
+    input.style.color = '';
+  }, 3000);
+}
+</script>
+<!-- ============================================================
+     LOTTIE GLOBE — loaded via JS
+     Uses the public LottieFiles "Globe Network" animation.
+     Fallback animation data is inline if CDN fetch fails.
+
+     Animation source: LottieFiles free globe/network animations
+     Options:
+       loop:      true   — plays continuously
+       autoplay:  true   — starts immediately
+       renderer:  'svg'  — crisp at all sizes, no rasterization
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* Globe Lottie animation JSON URL
+     Using a reliable public globe network animation from LottieFiles CDN.
+     Replace this URL with any Lottie JSON URL you prefer.
+  */
+  var GLOBE_URL = 'https://assets10.lottiefiles.com/packages/lf20_ywt4zvoo.json';
+  var FALLBACK_URL = 'https://assets2.lottiefiles.com/packages/lf20_qmfs6c3i.json';
+
+  var container = document.getElementById('lottieGlobe');
+  if (!container) return;
+
+  /* ── Load primary globe animation ── */
+  var anim = lottie.loadAnimation({
+    container:  container,
+    renderer:   'svg',
+    loop:       true,
+    autoplay:   true,
+    path:       GLOBE_URL
+  });
+
+  /* ── Fallback: if primary fails, try secondary ── */
+  anim.addEventListener('data_failed', function () {
+    lottie.destroy();
+    lottie.loadAnimation({
+      container:  container,
+      renderer:   'svg',
+      loop:       true,
+      autoplay:   true,
+      path:       FALLBACK_URL
+    });
+  });
+
+  /* ── Pause animation when off-screen (performance) ── */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          anim.play();
+        } else {
+          anim.pause();
+        }
+      });
+    }, { threshold: 0.1 });
+
+    io.observe(container);
+  }
+
+})();
+</script>
+</body>
+</html>

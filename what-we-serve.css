@@ -1,0 +1,296 @@
+/* ================================================================
+   HIRECO HOME2 — WHAT WE SERVE / RECRUITMENT SERVICES SECTION
+   Pixel-faithful replica from uploaded screenshot.
+
+   LAYOUT:
+   ┌─────────────────────────────────────────────────────┐
+   │  (light grey #f5f5f5 section background)            │
+   │                                                     │
+   │           What  [We Serve!]   ← centre eyebrow      │
+   │         Recruitment Services  ← centre H2           │
+   │                                                     │
+   │  ┌──────────┐  ┌──────────┐  ┌──────────┐          │
+   │  │ [icon]   │  │ [icon]   │  │ [icon]   │          │
+   │  │ Title    │  │ Title    │  │ Title    │  Row 1    │
+   │  │──────────│  │──────────│  │──────────│          │
+   │  │ desc txt │  │ desc txt │  │ desc txt │          │
+   │  └──────────┘  └──────────┘  └──────────┘          │
+   │                                                     │
+   │  ┌──────────┐  ┌──────────┐  ┌──────────┐          │
+   │  │ [icon]   │  │ [icon]   │  │ [icon]   │          │
+   │  │ Title    │  │ Title    │  │ Title    │  Row 2    │
+   │  │──────────│  │──────────│  │──────────│          │
+   │  │ desc txt │  │ desc txt │  │ desc txt │          │
+   │  └──────────┘  └──────────┘  └──────────┘          │
+   └─────────────────────────────────────────────────────┘
+
+   FONTS:    Nunito 700/800 (headings) · Open Sans 400/600 (body)
+   PALETTE:  #f68c1f orange · #1d1d1d dark heading · #888 grey text
+             #f5f5f5 section bg · #ffffff card bg · #eeeeee card divider
+
+   TABLE OF CONTENTS
+   -----------------
+   01. CSS Custom Properties
+   02. Section Wrapper & Container
+   03. Section Header (eyebrow + H2)
+   04. Service Cards Grid
+   05. Service Card Base
+   06. Card Header Row (icon + title)
+   07. Card Divider Line
+   08. Card Description Text
+   09. Card Hover State
+   10. Responsive — Tablet ≤ 900px
+   11. Responsive — Mobile  ≤ 600px
+   ================================================================ */
+
+
+/* ---------------------------------------------------------------
+   01. CSS CUSTOM PROPERTIES
+--------------------------------------------------------------- */
+:root {
+  --wws-orange:          #f68c1f;
+  --wws-orange-hover:    #e07b10;
+  --wws-dark:            #1d1d1d;    /* card title colour */
+  --wws-text:            #888888;    /* card description colour */
+  --wws-eyebrow-dark:    #333333;    /* "What" part of eyebrow */
+  --wws-section-bg:      #f5f5f5;   /* light grey section background */
+  --wws-card-bg:         #ffffff;   /* white card background */
+  --wws-card-divider:    #eeeeee;   /* thin hr inside each card */
+  --wws-card-border:     #f0f0f0;   /* very subtle card outer border */
+
+  --wws-font-heading:    'Nunito', sans-serif;
+  --wws-font-body:       'Open Sans', sans-serif;
+
+  --wws-container:       1200px;
+  --wws-gutter:          clamp(1rem, 3vw, 2rem);
+  --wws-card-gap:        20px;      /* gap between cards — matches screenshot */
+  --wws-card-padding:    28px;      /* internal card padding */
+  --wws-icon-size:       48px;      /* orange icon box height */
+
+  --wws-ease:            220ms ease;
+  --wws-ease-slow:       350ms ease;
+}
+
+
+/* ---------------------------------------------------------------
+   02. SECTION WRAPPER & CONTAINER
+--------------------------------------------------------------- */
+.what-we-serve {
+  background: var(--wws-section-bg);
+  padding-block: 70px 80px;
+}
+
+.what-we-serve__container {
+  max-width: var(--wws-container);
+  margin-inline: auto;
+  padding-inline: var(--wws-gutter);
+}
+
+
+/* ---------------------------------------------------------------
+   03. SECTION HEADER
+   Centre-aligned.
+   Line 1: "What" (dark) + "We Serve!" (orange) — small, Open Sans
+   Line 2: "Recruitment Services" — large Nunito 800, dark
+--------------------------------------------------------------- */
+.wws-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* Eyebrow line: "What We Serve!" */
+.wws-eyebrow {
+  display: block;
+  font-family: var(--wws-font-body);
+  font-size: 0.9375rem;     /* 15px — matches screenshot sizing */
+  font-weight: 600;
+  color: var(--wws-eyebrow-dark);
+  margin-bottom: 10px;
+  letter-spacing: 0.01em;
+}
+
+/* Orange portion "We Serve!" */
+.wws-eyebrow .highlight {
+  color: var(--wws-orange);
+}
+
+/* Main H2 "Recruitment Services" */
+.wws-title {
+  font-family: var(--wws-font-heading);
+  font-size: clamp(1.75rem, 3.5vw, 2.625rem);  /* ~28–42px */
+  font-weight: 800;
+  color: var(--wws-dark);
+  line-height: 1.2;
+  margin: 0;
+}
+
+
+/* ---------------------------------------------------------------
+   04. SERVICE CARDS GRID
+   3 columns × 2 rows. Gap 20px. Cards stretch to equal height.
+--------------------------------------------------------------- */
+.wws-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--wws-card-gap);
+}
+
+
+/* ---------------------------------------------------------------
+   05. SERVICE CARD BASE
+   From screenshot:
+   - Pure white background
+   - No visible border-radius (square/very slight corners)
+   - Very subtle border or just white-on-grey contrast
+   - Internal padding ~28px
+   - Two internal sections: [header row] + [hr] + [description]
+--------------------------------------------------------------- */
+.wws-card {
+  background: var(--wws-card-bg);
+  border: 1px solid var(--wws-card-border);
+  border-radius: 2px;          /* nearly square — matches screenshot */
+  padding: var(--wws-card-padding);
+  display: flex;
+  flex-direction: column;
+  transition:
+    box-shadow  var(--wws-ease),
+    transform   var(--wws-ease),
+    border-color var(--wws-ease);
+}
+
+
+/* ---------------------------------------------------------------
+   06. CARD HEADER ROW  (icon + title side by side)
+   From screenshot:
+   - Orange icon on the LEFT (~44–48px tall, outline style)
+   - Bold dark title to the RIGHT of the icon
+   - They sit on the same baseline / vertically centred
+   - Title is Nunito 700, ~17–18px, #1d1d1d
+--------------------------------------------------------------- */
+.wws-card__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;        /* space before the divider line */
+}
+
+/* Icon container — constrains the Flaticon/FA icon size */
+.wws-card__icon {
+  width: var(--wws-icon-size);
+  height: var(--wws-icon-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--wws-orange);
+  font-size: 2.25rem;          /* ~36px — icon display size */
+  line-height: 1;
+  /*
+    The template uses custom Flaticon outline icons.
+    Each card has a unique icon:
+      Card 1 (Human Resource)   → flaticon-worker / people group
+      Card 2 (Executive Search) → flaticon-search with lightbulb/atom
+      Card 3 (Retained Search)  → flaticon-loupe with gear/settings
+      Card 4 (Forte Acquisition)→ flaticon-target with person
+      Card 5 (Manpower Supply)  → flaticon-robotic-arm / tools
+      Card 6 (Technical Services)→ flaticon-engineer with gear
+    Replace the Font Awesome icons below with your Flaticon classes.
+  */
+}
+
+/* Card title  e.g. "Human Resource" */
+.wws-card__title {
+  font-family: var(--wws-font-heading);
+  font-size: 1.0625rem;        /* 17px */
+  font-weight: 700;
+  color: var(--wws-dark);
+  line-height: 1.3;
+  margin: 0;
+}
+
+
+/* ---------------------------------------------------------------
+   07. CARD DIVIDER LINE
+   Thin horizontal rule between the header and description.
+   Colour: #eeeeee — very light, almost invisible on white.
+--------------------------------------------------------------- */
+.wws-card__divider {
+  border: none;
+  border-top: 1px solid var(--wws-card-divider);
+  margin: 0 0 18px 0;
+}
+
+
+/* ---------------------------------------------------------------
+   08. CARD DESCRIPTION TEXT
+   From screenshot:
+   - Open Sans regular, ~13.5px
+   - Grey colour #888
+   - 2–3 lines, left-aligned
+   - line-height ~1.7
+--------------------------------------------------------------- */
+.wws-card__desc {
+  font-family: var(--wws-font-body);
+  font-size: 0.84375rem;       /* 13.5px */
+  color: var(--wws-text);
+  line-height: 1.72;
+  margin: 0;
+  flex: 1;                     /* pushes description to fill remaining height */
+}
+
+
+/* ---------------------------------------------------------------
+   09. CARD HOVER STATE
+   Subtle lift + faint orange left-border accent.
+   Not heavily animated — the original is very subtle.
+--------------------------------------------------------------- */
+.wws-card:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+  border-color: rgba(246, 140, 31, 0.25);
+}
+
+/* Icon brightens slightly on card hover */
+.wws-card:hover .wws-card__icon {
+  color: var(--wws-orange-hover);
+}
+
+
+/* ================================================================
+   10. RESPONSIVE — TABLET  (max-width: 900px)
+================================================================ */
+@media (max-width: 900px) {
+
+  .what-we-serve {
+    padding-block: 52px 60px;
+  }
+
+  /* 2 columns on tablet */
+  .wws-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+/* ================================================================
+   11. RESPONSIVE — MOBILE  (max-width: 600px)
+================================================================ */
+@media (max-width: 600px) {
+
+  .what-we-serve {
+    padding-block: 40px;
+  }
+
+  /* Single column on mobile */
+  .wws-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wws-title {
+    font-size: 1.75rem;
+  }
+
+  .wws-card {
+    padding: 22px;
+  }
+}

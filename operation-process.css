@@ -1,0 +1,99 @@
+/* ── Section ── */
+.cp{background:#eeeeee;padding:56px 28px 64px}
+.cp-hdr{text-align:center;margin-bottom:40px}
+.cp-ey{display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:8px;letter-spacing:.06em;text-transform:uppercase}
+.cp-ey span{color:#f68c1f}
+.cp-h2{font-family:'Nunito',sans-serif;font-size:clamp(24px,3vw,36px);font-weight:800;color:#1a1a1a;line-height:1.2}
+
+/* ── Grid ── */
+.cp-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  max-width:1160px;
+  margin:0 auto;
+}
+
+/* ── Card ── */
+.cp-card{
+  background:#fff;
+  border-radius:12px;
+  padding:28px 26px 32px;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  transition:box-shadow .22s,transform .22s;
+  cursor:default;
+}
+.cp-card:hover{
+  box-shadow:0 10px 32px rgba(0,0,0,.10);
+  transform:translateY(-4px);
+}
+
+/* ── Card header row: badge + title ── */
+.cp-card-head{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  margin-bottom:20px;
+}
+
+/* Orange square badge with white number */
+.cp-badge{
+  width:36px;
+  height:36px;
+  background:#f68c1f;
+  border-radius:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  margin-top:3px;
+}
+.cp-badge span{
+  font-family:'Nunito',sans-serif;
+  font-size:12px;
+  font-weight:800;
+  color:#fff;
+  letter-spacing:.03em;
+}
+
+/* Card title */
+.cp-card-title{
+  font-family:'Nunito',sans-serif;
+  font-size:clamp(17px,2vw,22px);
+  font-weight:800;
+  color:#1a1a1a;
+  line-height:1.25;
+}
+
+/* Card body text */
+.cp-card-body{
+  font-size:13.5px;
+  color:#555;
+  line-height:1.75;
+}
+
+/* Highlighted orange text within body (mirrors red highlights in original) */
+.cp-card-body .hl{color:#f68c1f}
+
+/* Bullet list inside card */
+.cp-card-body ul{
+  margin:6px 0 8px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.cp-card-body ul li{
+  list-style:disc;
+  font-size:13.5px;
+  color:#555;
+  line-height:1.65;
+}
+
+/* Bold text in body */
+.cp-card-body strong{font-weight:700;color:#1a1a1a}
+
+/* ── Responsive ── */
+@media(max-width:900px){.cp-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.cp-grid{grid-template-columns:1fr}.cp{padding:40px 16px 52px}}

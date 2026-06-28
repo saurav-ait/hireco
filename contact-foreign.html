@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HireCo – Foreign Workers Ready to Start</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- Lottie Web player — renders the animated globe -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+
+  <style>
+    /* ============================================================
+       BASE RESET
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Open Sans', sans-serif; }
+
+    /* ============================================================
+       SECTION WRAPPER
+       Background: HireCo orange gradient — replaces the salmon/coral
+       of the original screenshot.
+       The original used a flat coral (#e8736a); we use the HireCo
+       brand gradient for consistency.
+    ============================================================ */
+    .cf-section {
+      background: linear-gradient(135deg, #f68c1f 0%, #e07b10 55%, #c96a08 100%);
+      padding: 0 0 64px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Subtle radial highlight — adds depth like the original */
+    .cf-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        ellipse at 80% 60%,
+        rgba(255,255,255,0.07) 0%,
+        transparent 65%
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================================
+       FULL-WIDTH HEADLINE BAND
+       "FOREIGN WORKERS READY TO START IMMEDIATELY"
+       From screenshot:
+       - Fills the full section width edge-to-edge
+       - Huge bold white ALL-CAPS, Nunito 900
+       - ~80–90px at desktop, fluid
+       - Centred
+       - Padding top matches section top
+    ============================================================ */
+    .cf-headline-band {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 56px 32px 40px;
+    }
+
+    .cf-headline {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(2.2rem, 6.5vw, 5.5rem);
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       CONTAINER (for the 2-column body)
+    ============================================================ */
+    .cf-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ============================================================
+       TWO-COLUMN BODY
+       Left (~42%): Lottie animated globe
+       Right (~58%): subtitle + body text + CTA
+    ============================================================ */
+    .cf-body {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    /* ────────────────────────────────
+       LEFT — Lottie Globe
+    ──────────────────────────────── */
+    .cf-globe-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Lottie renders into this div */
+    #lottieGlobe {
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 1 / 1;
+      /* Lottie SVG inherits this sizing */
+    }
+
+    /* ────────────────────────────────
+       RIGHT — Content
+    ──────────────────────────────── */
+    .cf-content {}
+
+    /* Subtitle H2: "Foreign Employment Agency in Serbia" */
+    .cf-subtitle {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.25;
+      margin-bottom: 24px;
+    }
+
+    /* Body paragraph */
+    .cf-body-text {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(13px, 1.3vw, 15px);
+      color: rgba(255, 255, 255, 0.90);
+      line-height: 1.82;
+      margin-bottom: 12px;
+    }
+
+    /* Bold highlights within body text */
+    .cf-body-text strong {
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    /* ============================================================
+       CTA ROW
+       Left: white pill "Contact us now" button with arrow icon
+       Right: "Or call us directly…" + bold orange-tinted phone link
+    ============================================================ */
+    .cf-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    /* White pill button */
+    .cf-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #ffffff;
+      color: #1a1a1a;
+      border: none;
+      border-radius: 50px;         /* full pill */
+      padding: 14px 32px 14px 20px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background 0.22s, color 0.22s, transform 0.15s, box-shadow 0.22s;
+    }
+
+    .cf-cta-btn:hover {
+      background: #1d1d1d;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+
+    /* Arrow circle inside button */
+    .cf-cta-btn .arrow-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #f68c1f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.22s;
+    }
+
+    .cf-cta-btn:hover .arrow-circle {
+      background: #ffffff;
+    }
+
+    .cf-cta-btn .arrow-circle svg {
+      width: 14px;
+      height: 14px;
+      stroke: #fff;
+      stroke-width: 2.4;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.22s;
+    }
+
+    .cf-cta-btn:hover .arrow-circle svg {
+      stroke: #f68c1f;
+    }
+
+    /* Phone call block */
+    .cf-phone-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .cf-phone-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.80);
+      line-height: 1.4;
+    }
+
+    .cf-phone-link {
+      font-family: 'Nunito', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      text-decoration: underline;
+      text-decoration-color: rgba(255,255,255,0.45);
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.2s, opacity 0.2s;
+    }
+
+    .cf-phone-link:hover {
+      opacity: 0.85;
+      text-decoration-color: #ffffff;
+    }
+
+    /* ============================================================
+       RESPONSIVE — Tablet ≤ 900px
+    ============================================================ */
+    @media (max-width: 900px) {
+      .cf-body {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      #lottieGlobe {
+        max-width: 300px;
+        margin: 0 auto;
+      }
+
+      .cf-headline-band { padding: 44px 24px 28px; }
+    }
+
+    /* ============================================================
+       RESPONSIVE — Mobile ≤ 580px
+    ============================================================ */
+    @media (max-width: 580px) {
+      .cf-section { padding-bottom: 48px; }
+      .cf-container { padding: 0 20px; }
+      .cf-headline-band { padding: 36px 20px 24px; }
+      .cf-cta-row { flex-direction: column; align-items: flex-start; gap: 20px; }
+      #lottieGlobe { max-width: 240px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     CONTACT-US-FOREIGN SECTION
+     "Foreign Workers Ready to Start Immediately"
+============================================================ -->
+<section class="cf-section" id="contact-foreign">
+
+  <!-- ── Full-width headline ── -->
+  <div class="cf-headline-band">
+    <h1 class="cf-headline">
+      Foreign Workers Ready to<br/>Start Immediately
+    </h1>
+  </div>
+
+  <!-- ── Two-column body ── -->
+  <div class="cf-container">
+    <div class="cf-body">
+
+      <!-- LEFT: Lottie animated globe -->
+      <div class="cf-globe-wrap">
+        <!--
+          Lottie renders here.
+          The globe animation (network/wireframe sphere with animated nodes)
+          is loaded from LottieFiles public CDN via JS below.
+          To use your own: change the `path` in lottie.loadAnimation().
+        -->
+        <div id="lottieGlobe" role="img" aria-label="Animated globe showing global network connections"></div>
+      </div>
+
+      <!-- RIGHT: Content -->
+      <div class="cf-content">
+
+        <!-- Subtitle -->
+        <h2 class="cf-subtitle">
+          Foreign Employment Agency<br/>in Serbia
+        </h2>
+
+        <!-- Body paragraphs — exact text from screenshot -->
+        <p class="cf-body-text">
+          HireCo is an <strong>employment agency for foreign workers</strong> and a reliable partner for companies
+          looking to hire employees from abroad. We employ <strong>foreign workers from Nepal, Bangladesh, Sri
+          Lanka, India, Egypt, Kenya, Vietnam, the Philippines</strong>, and other countries, specializing in the
+          employment of foreign nationals in Serbia. Our services include assistance in obtaining <strong>work
+          permits and temporary residence for foreign workers</strong>. Our mission is to provide employers with
+          a fast and straightforward process when it comes to hiring international staff.
+        </p>
+
+        <p class="cf-body-text">
+          As an <strong>agency specializing in foreign workforce employment</strong>, we offer <strong>complete mediation
+          services</strong>—from administrative procedures to legal engagement. If you are wondering <strong>how to
+          hire a foreign worker in Serbia</strong>, HireCo provides a safe solution and full legal support every
+          step of the way.
+        </p>
+
+        <!-- CTA row -->
+        <div class="cf-cta-row">
+
+          <!-- "Contact us now" pill button -->
+          <a href="#contact" class="cf-cta-btn">
+            <span class="arrow-circle" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+            Contact us now
+          </a>
+
+          <!-- Phone block -->
+          <div class="cf-phone-block">
+            <span class="cf-phone-label">Or call us directly by clicking on the number</span>
+            <a href="tel:+38161325 0005" class="cf-phone-link">+381 61 325 0005</a>
+          </div>
+
+        </div>
+        <!-- /cf-cta-row -->
+
+      </div>
+      <!-- /cf-content -->
+
+    </div>
+    <!-- /cf-body -->
+  </div>
+  <!-- /cf-container -->
+
+</section>
+<!-- /contact-foreign section -->
+
+
+<!-- ============================================================
+     LOTTIE GLOBE — loaded via JS
+     Uses the public LottieFiles "Globe Network" animation.
+     Fallback animation data is inline if CDN fetch fails.
+
+     Animation source: LottieFiles free globe/network animations
+     Options:
+       loop:      true   — plays continuously
+       autoplay:  true   — starts immediately
+       renderer:  'svg'  — crisp at all sizes, no rasterization
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* Globe Lottie animation JSON URL
+     Using a reliable public globe network animation from LottieFiles CDN.
+     Replace this URL with any Lottie JSON URL you prefer.
+  */
+  var GLOBE_URL = 'https://assets10.lottiefiles.com/packages/lf20_ywt4zvoo.json';
+  var FALLBACK_URL = 'https://assets2.lottiefiles.com/packages/lf20_qmfs6c3i.json';
+
+  var container = document.getElementById('lottieGlobe');
+  if (!container) return;
+
+  /* ── Load primary globe animation ── */
+  var anim = lottie.loadAnimation({
+    container:  container,
+    renderer:   'svg',
+    loop:       true,
+    autoplay:   true,
+    path:       GLOBE_URL
+  });
+
+  /* ── Fallback: if primary fails, try secondary ── */
+  anim.addEventListener('data_failed', function () {
+    lottie.destroy();
+    lottie.loadAnimation({
+      container:  container,
+      renderer:   'svg',
+      loop:       true,
+      autoplay:   true,
+      path:       FALLBACK_URL
+    });
+  });
+
+  /* ── Pause animation when off-screen (performance) ── */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          anim.play();
+        } else {
+          anim.pause();
+        }
+      });
+    }, { threshold: 0.1 });
+
+    io.observe(container);
+  }
+
+})();
+</script>
+
+</body>
+</html>

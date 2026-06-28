@@ -1,0 +1,666 @@
+/* ================================================================
+   HIRECO HOME2 — HERO SECTION  (Pixel-faithful, image-verified)
+   Based on: uploaded screenshot of react-demo.themetechmount.com/hireco/home2
+
+   STRUCTURE (top to bottom):
+   ┌─────────────────────────────────────────┐
+   │  HEADER  (white bar — logo · nav · auth)│  ← header.css or below
+   ├─────────────────────────────────────────┤
+   │  SEARCH STRIP  (solid orange #f68c1f)   │  ← .hero-search-strip
+   │  [ Keywords ] [ Locations ] [ Industry ]│
+   │  [ Find Job btn (white bg, orange txt) ]│
+   ├─────────────────────────────────────────┤
+   │  HERO IMAGE SECTION                     │  ← .hero
+   │  (full-width office photo, dim overlay) │
+   │        Empowering, Inspiring, Rising.   │
+   │   Staffing & Job Consultancy            │
+   │   We have over 30 years experience …    │
+   │      [ Find Your Dream Job! ]           │
+   └─────────────────────────────────────────┘
+
+   FONTS:    Nunito 700/800 (headings) · Open Sans 400/600 (body/nav)
+   ICONS:    Font Awesome 6 free (for nav lock/user icons)
+             Flaticon custom webfont (template's own — swap if unavailable)
+   PALETTE:  #f68c1f orange · #1a1a1a near-black · #fff white
+   ================================================================
+
+   TABLE OF CONTENTS
+   -----------------
+   01. CSS Custom Properties
+   02. Base Reset
+   03. HEADER  (white bar)
+   04. SEARCH STRIP  (orange bar below header)
+   05. HERO SECTION  (full-width photo + centred text)
+   06. Responsive — Tablet ≤ 992px
+   07. Responsive — Mobile  ≤ 640px
+   ================================================================ */
+
+
+/* ---------------------------------------------------------------
+   01. CSS CUSTOM PROPERTIES
+--------------------------------------------------------------- */
+:root {
+  /* Brand */
+  --hc-orange:          #f68c1f;
+  --hc-orange-hover:    #e07b10;
+  --hc-dark:            #1a1a1a;
+  --hc-nav-text:        #333333;
+  --hc-white:           #ffffff;
+  --hc-border:          #e0e0e0;
+
+  /* Hero */
+  --hc-hero-overlay:    rgba(0, 0, 0, 0.35);  /* subtle dim over photo */
+  --hc-tagline-color:   #ffffff;
+  --hc-desc-color:      rgba(255, 255, 255, 0.85);
+
+  /* Typography */
+  --hc-font-heading:    'Nunito', sans-serif;
+  --hc-font-body:       'Open Sans', sans-serif;
+
+  /* Layout */
+  --hc-container:       1200px;
+  --hc-gutter:          clamp(1rem, 3vw, 2rem);
+
+  /* Transitions */
+  --hc-ease:            220ms ease;
+}
+
+
+/* ---------------------------------------------------------------
+   02. BASE RESET (scoped — only affects these sections)
+--------------------------------------------------------------- */
+.hc-header *,
+.hero-search-strip *,
+.hero * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.hc-header a,
+.hero-search-strip a,
+.hero a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.hc-header ul,
+.hero ul {
+  list-style: none;
+}
+
+
+/* ================================================================
+   03. HEADER  (white bar)
+   ┌────────────────────────────────────────────────────────┐
+   │ [logo]    Home  Pages  Jobs  Employers  Candidates  Blog│  [Sign Up / Login] │
+   └────────────────────────────────────────────────────────┘
+================================================================ */
+.hc-header {
+  background: var(--hc-white);
+  border-bottom: 1px solid var(--hc-border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.hc-header__inner {
+  max-width: var(--hc-container);
+  margin-inline: auto;
+  padding-inline: var(--hc-gutter);
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* ── Logo ── */
+.hc-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+/* Clock/speed-lines icon — orange circle with a clock face */
+.hc-logo__icon {
+  width: 38px;
+  height: 38px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Speed lines (SVG drawn via CSS) */
+.hc-logo__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* "Hire" in dark, "Co" in orange */
+.hc-logo__text {
+  font-family: var(--hc-font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--hc-dark);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.hc-logo__text .logo-co {
+  color: var(--hc-orange);
+}
+
+/* ── Primary navigation ── */
+.hc-nav {
+  flex: 1;
+}
+
+.hc-nav__list {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.hc-nav__item {
+  position: relative;
+}
+
+.hc-nav__link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 14px;
+  height: 72px;           /* full header height — click target */
+  font-family: var(--hc-font-body);
+  font-size: 0.875rem;    /* 14px */
+  font-weight: 600;
+  color: var(--hc-nav-text);
+  white-space: nowrap;
+  transition: color var(--hc-ease);
+  cursor: pointer;
+}
+
+.hc-nav__link:hover,
+.hc-nav__item--active .hc-nav__link {
+  color: var(--hc-orange);
+}
+
+/* Dropdown chevron icon */
+.hc-nav__link .chevron {
+  font-size: 0.6rem;
+  opacity: 0.7;
+  transition: transform var(--hc-ease);
+}
+
+.hc-nav__item:hover .chevron {
+  transform: rotate(180deg);
+}
+
+/* ── Dropdown menu ── */
+.hc-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 180px;
+  background: var(--hc-white);
+  border-top: 2px solid var(--hc-orange);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+  border-radius: 0 0 6px 6px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition:
+    opacity    var(--hc-ease),
+    transform  var(--hc-ease),
+    visibility var(--hc-ease);
+  z-index: 200;
+}
+
+.hc-nav__item:hover .hc-dropdown,
+.hc-nav__item:focus-within .hc-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.hc-dropdown li a {
+  display: block;
+  padding: 10px 18px;
+  font-family: var(--hc-font-body);
+  font-size: 0.8125rem;
+  color: var(--hc-nav-text);
+  border-bottom: 1px solid #f5f5f5;
+  transition: background var(--hc-ease), color var(--hc-ease), padding-left var(--hc-ease);
+}
+
+.hc-dropdown li:last-child a { border-bottom: none; }
+
+.hc-dropdown li a:hover {
+  background: #fef6ec;
+  color: var(--hc-orange);
+  padding-left: 24px;
+}
+
+/* ── Auth buttons (right side of header) ── */
+.hc-header__auth {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/*
+  Single outlined pill: "👤 Sign Up  /  🔒 Login"
+  Matches the exact button from the screenshot — one outlined border,
+  two labels separated by a slash.
+*/
+.hc-auth-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border: 1.5px solid #c8c8c8;
+  border-radius: 4px;
+  font-family: var(--hc-font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--hc-nav-text);
+  background: var(--hc-white);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color var(--hc-ease), color var(--hc-ease);
+  text-decoration: none;
+}
+
+.hc-auth-btn:hover {
+  border-color: var(--hc-orange);
+  color: var(--hc-orange);
+}
+
+.hc-auth-btn .auth-sep {
+  color: #c8c8c8;
+  font-weight: 400;
+}
+
+/* Small icons before each label */
+.hc-auth-btn i {
+  font-size: 0.75rem;
+  color: #777;
+}
+
+/* Mobile hamburger (hidden on desktop) */
+.hc-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  margin-left: auto;
+}
+.hc-hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--hc-dark);
+  border-radius: 2px;
+  transition: transform var(--hc-ease), opacity var(--hc-ease);
+}
+
+
+/* ================================================================
+   04. SEARCH STRIP  (solid orange bar — sits between header & hero)
+   ┌──────────────────────────────────────────────────────────────┐
+   │ ORANGE BACKGROUND #f68c1f                                    │
+   │  [Keywords (e.g. Job Title)] [Locations] [Industry] [Find Job]│
+   └──────────────────────────────────────────────────────────────┘
+
+   Key details from screenshot:
+   - Solid orange (#f68c1f) full-width background
+   - 3 white rectangular inputs + 1 white button with orange text
+   - Inputs have NO icons inside — just placeholder text
+   - All inputs and button are same height (~52px)
+   - "Find Job" button: white bg, orange text, no border, no fill
+   - Inputs: white bg, no border, subtle placeholder text (#aaa)
+   - Entire strip has roughly 18px vertical padding
+================================================================ */
+.hero-search-strip {
+  background: var(--hc-orange);
+  padding: 18px 0;
+  width: 100%;
+}
+
+.hero-search-strip__inner {
+  max-width: var(--hc-container);
+  margin-inline: auto;
+  padding-inline: var(--hc-gutter);
+  display: flex;
+  align-items: center;
+  gap: 4px;            /* tiny gap between fields — they appear nearly flush */
+}
+
+/* Each white input box */
+.hero-search-strip__field {
+  flex: 1;
+  background: var(--hc-white);
+  border: none;
+  outline: none;
+  padding: 0 18px;
+  height: 52px;
+  font-family: var(--hc-font-body);
+  font-size: 0.875rem;
+  color: #3d3d3d;
+  border-radius: 2px;
+  min-width: 0;
+}
+
+.hero-search-strip__field::placeholder {
+  color: #aaaaaa;
+  font-style: normal;
+}
+
+.hero-search-strip__field:focus {
+  outline: 2px solid rgba(255,255,255,0.5);
+  outline-offset: 0;
+}
+
+/* "Find Job" button — white background, orange text */
+.hero-search-strip__btn {
+  background: var(--hc-white);
+  color: var(--hc-orange);
+  border: none;
+  height: 52px;
+  padding: 0 32px;
+  font-family: var(--hc-font-heading);
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 2px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background var(--hc-ease), color var(--hc-ease);
+}
+
+.hero-search-strip__btn:hover {
+  background: var(--hc-dark);
+  color: var(--hc-white);
+}
+
+.hero-search-strip__btn:active {
+  transform: scale(0.98);
+}
+
+
+/* ================================================================
+   05. HERO SECTION  (full-width photo + centre-aligned text block)
+
+   Key details from screenshot:
+   - Full-width background photo (office/interview scene)
+   - Light dark overlay — NOT a heavy gradient, photo still clearly visible
+   - ALL text is CENTRE-ALIGNED
+   - Tagline:  small italic white text  "Empowering, Inspiring, Rising."
+   - Title:    very large bold white   "Staffing & Job Consultancy"
+   - Desc:     smaller white/grey 2-line description paragraph
+   - CTA btn:  orange pill button      "Find Your Dream Job!"
+   - No stats bar, no tags, no search inside
+================================================================ */
+.hero {
+  position: relative;
+  /*
+    Replace with your own photo.
+    The template uses a greyscale-tinted office interview photo.
+    A desaturation filter is applied to soften the image.
+  */
+  background:
+    url('https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=1400&q=80')
+    center / cover no-repeat;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Dark semi-transparent overlay so white text is legible */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--hc-hero-overlay);
+  z-index: 0;
+}
+
+/* Photo desaturation — makes it look like the template's greyish image */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(50, 50, 50, 0.15);
+  z-index: 0;
+  mix-blend-mode: saturation;
+}
+
+/* Centred content block */
+.hero__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 740px;
+  padding-inline: var(--hc-gutter);
+  padding-block: 80px;
+}
+
+/* ── Tagline  "Empowering, Inspiring, Rising." ── */
+/*
+  From screenshot:
+  - Small font (~14–15px)
+  - Italic
+  - White
+  - Sits above the main title
+*/
+.hero__tagline {
+  display: block;
+  font-family: var(--hc-font-body);
+  font-size: 0.9375rem;       /* 15px */
+  font-style: italic;
+  font-weight: 400;
+  color: var(--hc-tagline-color);
+  letter-spacing: 0.01em;
+  margin-bottom: 14px;
+}
+
+/* ── Main Title  "Staffing & Job Consultancy" ── */
+/*
+  From screenshot:
+  - Very large (~52–56px), bold 800
+  - White
+  - Nunito font
+  - No line break between "Staffing &" and "Job Consultancy" at desktop width
+*/
+.hero__title {
+  font-family: var(--hc-font-heading);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);  /* fluid 35px → 58px */
+  font-weight: 800;
+  color: var(--hc-white);
+  line-height: 1.15;
+  margin-bottom: 18px;
+  letter-spacing: -0.01em;
+}
+
+/* ── Description paragraph ── */
+/*
+  From screenshot:
+  - Two lines, centred
+  - Smaller font, slightly grey/muted white
+  - "We have over 30 years experience of job consultancy in field of Financial, Marketing &
+     Solutions expertise our goal is to give the best job solutions to the people"
+*/
+.hero__desc {
+  font-family: var(--hc-font-body);
+  font-size: 0.9375rem;       /* 15px */
+  color: var(--hc-desc-color);
+  line-height: 1.75;
+  margin-bottom: 36px;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+/* ── CTA Button  "Find Your Dream Job!" ── */
+/*
+  From screenshot:
+  - Orange (#f68c1f) filled pill/rounded-rectangle button
+  - White bold text
+  - Moderate padding — wider than tall
+  - Subtle rounded corners (~4px)
+*/
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--hc-orange);
+  color: var(--hc-white);
+  border: none;
+  padding: 14px 36px;
+  border-radius: 4px;
+  font-family: var(--hc-font-heading);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background  var(--hc-ease),
+    transform   100ms ease,
+    box-shadow  var(--hc-ease);
+}
+
+.hero__cta:hover {
+  background: var(--hc-orange-hover);
+  color: var(--hc-white);
+  box-shadow: 0 6px 20px rgba(246, 140, 31, 0.45);
+}
+
+.hero__cta:active {
+  transform: scale(0.97);
+}
+
+
+/* ================================================================
+   06. RESPONSIVE — TABLET  (max-width: 992px)
+================================================================ */
+@media (max-width: 992px) {
+
+  /* Collapse nav into mobile drawer */
+  .hc-nav {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--hc-white);
+    padding: 1.5rem;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform var(--hc-ease);
+    z-index: 999;
+    box-shadow: 4px 0 16px rgba(0,0,0,0.12);
+  }
+
+  .hc-nav.is-open { transform: translateX(0); }
+
+  .hc-nav__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .hc-nav__link {
+    height: auto;
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f0f0;
+    justify-content: space-between;
+    font-size: 0.9375rem;
+  }
+
+  .hc-dropdown {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border-top: none;
+    border-left: 3px solid var(--hc-orange);
+    border-radius: 0;
+    background: #fef9f4;
+    display: none;
+  }
+
+  .hc-nav__item.is-open .hc-dropdown { display: block; }
+
+  .hc-hamburger { display: flex; }
+
+  /* Search strip: stack fields */
+  .hero-search-strip__inner {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .hero-search-strip__field {
+    flex: 1 1 calc(50% - 3px);
+    min-width: 180px;
+  }
+
+  .hero-search-strip__btn {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+}
+
+
+/* ================================================================
+   07. RESPONSIVE — MOBILE  (max-width: 640px)
+================================================================ */
+@media (max-width: 640px) {
+
+  /* Header: hide auth button label partially */
+  .hc-auth-btn {
+    padding: 7px 12px;
+    font-size: 0.75rem;
+  }
+
+  /* Search strip: full single column */
+  .hero-search-strip__field {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 420px;
+  }
+
+  .hero__content {
+    padding-block: 52px;
+  }
+
+  .hero__title {
+    font-size: 2rem;
+  }
+
+  .hero__tagline {
+    font-size: 0.8125rem;
+  }
+
+  .hero__desc {
+    font-size: 0.8125rem;
+  }
+
+  .hero__cta {
+    padding: 12px 28px;
+    font-size: 0.875rem;
+    width: 100%;
+    justify-content: center;
+  }
+}

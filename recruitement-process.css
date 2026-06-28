@@ -1,0 +1,275 @@
+/* ============================================================
+       SECTION WRAPPER
+       Background: #f5f5f5 light grey — matches screenshot exactly
+    ============================================================ */
+    .rp-section {
+      background: #f5f5f5;
+      padding: 60px 0 80px;
+      overflow: hidden;
+    }
+
+    /* ============================================================
+       CONTAINER
+    ============================================================ */
+    .rp-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ============================================================
+       TOP HEADER ROW
+       Left: eyebrow + H2
+       Right: "Get Started" button
+       They sit on the same row, space-between
+    ============================================================ */
+    .rp-header {
+      display: flex;
+      align-items: flex-end;       /* align button to bottom of title */
+      justify-content: space-between;
+      margin-bottom: 40px;
+      gap: 24px;
+    }
+
+    .rp-header__left { flex: 1; }
+
+    /* Eyebrow: "How We Do!" */
+    .rp-eyebrow {
+      display: block;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+    .rp-eyebrow .hl { color: #f68c1f; }
+
+    /* H2: "Recruitment Process" */
+    .rp-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 800;
+      color: #1d1d1d;
+      line-height: 1.2;
+    }
+
+    /* "Get Started" — outlined rectangle, dark border, white bg */
+    .rp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 30px;
+      background: #fff;
+      color: #1d1d1d;
+      border: 1.5px solid #c8c8c8;
+      border-radius: 3px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .rp-btn:hover {
+      background: #f68c1f;
+      color: #fff;
+      border-color: #f68c1f;
+    }
+
+    /* ============================================================
+       TWO-COLUMN BODY LAYOUT
+       Left (~55%): timeline + steps
+       Right (~45%): photo
+    ============================================================ */
+    .rp-body {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 48px;
+      align-items: stretch;
+    }
+
+    /* ============================================================
+       LEFT COLUMN — TIMELINE + STEPS
+
+       Structure per step:
+       ┌──────────────────────────────────────────┐
+       │  [● 01]──── [  Step card (grey bg)    ]  │
+       │      │                                    │
+       │      │  (orange vertical line)            │
+       │      │                                    │
+       │  [● 02]──── [  Step card (grey bg)    ]  │
+       └──────────────────────────────────────────┘
+
+       The orange circle sits in a fixed-width left gutter.
+       The orange vertical line is a ::before pseudo on .rp-timeline.
+    ============================================================ */
+    .rp-timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;            /* gaps controlled per-step */
+    }
+
+    /* Continuous orange vertical line through entire timeline */
+    .rp-timeline::before {
+      content: '';
+      position: absolute;
+      left: 21px;               /* centres on the 44px circle */
+      top: 22px;                /* starts at centre of first circle */
+      bottom: 22px;             /* ends at centre of last circle */
+      width: 2px;
+      background: #f68c1f;
+      z-index: 0;
+    }
+
+    /* ── Single timeline step ── */
+    .rp-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+      padding-bottom: 20px;     /* gap between steps */
+    }
+
+    .rp-step:last-child { padding-bottom: 0; }
+
+    /* Orange numbered circle */
+    .rp-step__num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #f68c1f;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+      letter-spacing: 0.03em;
+      box-shadow: 0 0 0 4px rgba(246,140,31,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .rp-step:hover .rp-step__num {
+      transform: scale(1.10);
+      box-shadow: 0 0 0 6px rgba(246,140,31,0.20);
+    }
+
+    /* Step content card — light grey bg */
+    .rp-step__card {
+      flex: 1;
+      background: #efefef;        /* light grey — matches screenshot */
+      border-radius: 3px;
+      padding: 20px 24px;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+      cursor: default;
+    }
+
+    .rp-step__card:hover {
+      background: #e8e8e8;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+      transform: translateX(4px);
+    }
+
+    /* Active step card — highlighted with left orange border */
+    .rp-step.is-active .rp-step__card {
+      background: #fff;
+      border-left: 3px solid #f68c1f;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+    }
+
+    .rp-step.is-active .rp-step__num {
+      background: #f68c1f;
+      box-shadow: 0 0 0 6px rgba(246,140,31,0.25);
+    }
+
+    /* Step title */
+    .rp-step__title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #1d1d1d;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    /* Step description */
+    .rp-step__desc {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      color: #888;
+      line-height: 1.72;
+    }
+
+    /* ============================================================
+       RIGHT COLUMN — PHOTO
+       Tall photo, full height of the left column, object-fit cover.
+       No border-radius — flush rectangle, matches screenshot.
+    ============================================================ */
+    .rp-photo {
+      position: relative;
+      min-height: 480px;
+    }
+
+    .rp-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 2px;
+    }
+
+    /* ============================================================
+       BACK TO TOP (orange circle, fixed bottom-right)
+    ============================================================ */
+    .back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      background: #f68c1f;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(246,140,31,0.45);
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.22s ease;
+    }
+    .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+    .back-to-top:hover { background: #e07b10; color: #fff; }
+    .back-to-top svg { width: 16px; height: 16px; stroke: #fff; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ============================================================
+       RESPONSIVE — Tablet ≤ 900px
+    ============================================================ */
+    @media (max-width: 900px) {
+      .rp-body { grid-template-columns: 1fr; gap: 40px; }
+      .rp-photo { min-height: 320px; }
+      .rp-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+    }
+
+    /* ============================================================
+       RESPONSIVE — Mobile ≤ 560px
+    ============================================================ */
+    @media (max-width: 560px) {
+      .rp-section { padding: 44px 0 56px; }
+      .rp-container { padding: 0 18px; }
+      .rp-photo { min-height: 240px; }
+      .rp-step__card { padding: 16px 18px; }
+      .rp-timeline::before { left: 19px; }
+      .rp-step__num { width: 40px; height: 40px; font-size: 12px; }
+    }

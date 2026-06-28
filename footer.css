@@ -1,0 +1,395 @@
+/* ============================================================
+       FOOTER WRAPPER
+       Background: #161c27 — very dark navy (exact from screenshot)
+    ============================================================ */
+    .ft {
+      background: #161c27;
+      padding: 56px 0 0;
+      color: #fff;
+    }
+
+    /* ============================================================
+       CONTAINER
+    ============================================================ */
+    .ft-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ============================================================
+       MAIN FOOTER BODY — 3 columns
+       Col 1: ~35%  (logo + desc + social + btn)
+       Col 2: ~35%  (Recent Posts)
+       Col 3: ~30%  (Quick Contact box)
+    ============================================================ */
+    .ft-body {
+      display: grid;
+      grid-template-columns: 1.2fr 1.1fr 1fr;
+      gap: 48px;
+      padding-bottom: 52px;
+    }
+
+    /* ─────────────────────────────────────────
+       COLUMN 1 — Brand + Social + CTA
+    ───────────────────────────────────────── */
+
+    /* Logo */
+    .ft-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      text-decoration: none;
+    }
+
+    .ft-logo__icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+    }
+
+    .ft-logo__text {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+
+    .ft-logo__text .co { color: #f68c1f; }
+
+    /* Description paragraph */
+    .ft-desc {
+      font-size: 13.5px;
+      color: #8a95a8;          /* muted grey-blue — matches screenshot */
+      line-height: 1.80;
+      margin-bottom: 24px;
+      max-width: 380px;
+    }
+
+    /* Social Share row */
+    .ft-social {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .ft-social__label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    .ft-social__links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .ft-social__link {
+      color: #8a95a8;
+      font-size: 15px;
+      line-height: 1;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ft-social__link:hover { color: #f68c1f; }
+
+    /* Social icons via inline SVG paths */
+    .ft-social__link svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* "Request A Free Quotes" — outlined white rectangle button */
+    .ft-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 28px;
+      background: transparent;
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      border-radius: 3px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.22s, border-color 0.22s, color 0.22s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .ft-cta-btn:hover {
+      background: #f68c1f;
+      border-color: #f68c1f;
+      color: #fff;
+    }
+
+    /* ─────────────────────────────────────────
+       COLUMN 2 — Recent Posts
+    ───────────────────────────────────────── */
+
+    .ft-col-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 22px;
+    }
+
+    /* Post list */
+    .ft-posts { display: flex; flex-direction: column; }
+
+    .ft-post {
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .ft-post:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    /* "BUSINESS" — small orange uppercase category link */
+    .ft-post__cat {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #f68c1f;
+      margin-bottom: 7px;
+      transition: opacity 0.2s;
+    }
+
+    .ft-post__cat:hover { opacity: 0.75; }
+
+    /* Post title */
+    .ft-post__title {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #d0d6e0;
+      line-height: 1.55;
+      transition: color 0.2s;
+      display: block;
+    }
+
+    .ft-post__title:hover { color: #f68c1f; }
+
+    /* ─────────────────────────────────────────
+       COLUMN 3 — Quick Contact box
+       Slightly lighter dark bg with padding — a contained box
+    ───────────────────────────────────────── */
+
+    .ft-contact-box {
+      background: #1e2535;      /* slightly lighter than footer bg */
+      border-radius: 4px;
+      padding: 28px 26px 32px;
+    }
+
+    .ft-contact-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 26px;
+    }
+
+    /* Contact item row */
+    .ft-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .ft-contact-item:last-child { margin-bottom: 0; }
+
+    /* Orange outline icon circle */
+    .ft-contact-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid #f68c1f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #f68c1f;
+    }
+
+    .ft-contact-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .ft-contact-label {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 3px;
+      display: block;
+    }
+
+    .ft-contact-value {
+      font-size: 13px;
+      color: #8a95a8;
+      line-height: 1.5;
+      display: block;
+    }
+
+    /* ============================================================
+       FOOTER BOTTOM BAR
+       Thin top border · copyright left · newsletter right
+    ============================================================ */
+    .ft-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 22px 0;
+    }
+
+    .ft-bottom-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    /* Copyright + links */
+    .ft-bottom-left { display: flex; flex-direction: column; gap: 6px; }
+
+    .ft-copyright {
+      font-size: 13px;
+      color: #8a95a8;
+    }
+
+    .ft-copyright .hl {
+      color: #f68c1f;
+      font-weight: 600;
+    }
+
+    .ft-legal {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12.5px;
+      color: #8a95a8;
+    }
+
+    .ft-legal a { transition: color 0.2s; }
+    .ft-legal a:hover { color: #f68c1f; }
+
+    .ft-legal-sep {
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* Newsletter subscribe row (right side of bottom bar) */
+    .ft-newsletter {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border-bottom: 1.5px solid rgba(255,255,255,0.25);
+      min-width: 300px;
+    }
+
+    .ft-newsletter input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #8a95a8;
+      font-size: 13px;
+      padding: 10px 4px;
+      min-width: 0;
+    }
+
+    .ft-newsletter input::placeholder { color: #8a95a8; }
+
+    .ft-newsletter-btn {
+      background: transparent;
+      border: none;
+      color: #f68c1f;
+      cursor: pointer;
+      padding: 10px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .ft-newsletter-btn:hover { opacity: 0.75; transform: translateX(2px); }
+
+    .ft-newsletter-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* ============================================================
+       BACK TO TOP — orange circle fixed bottom-right
+    ============================================================ */
+    .back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      background: #f68c1f;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(246,140,31,0.45);
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity 0.22s, visibility 0.22s, transform 0.22s, background 0.2s;
+      text-decoration: none;
+    }
+    .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+    .back-to-top:hover { background: #e07b10; }
+    .back-to-top svg {
+      width: 16px; height: 16px;
+      stroke: #fff; stroke-width: 2.4;
+      fill: none; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* ============================================================
+       RESPONSIVE — Tablet ≤ 900px
+    ============================================================ */
+    @media (max-width: 900px) {
+      .ft-body {
+        grid-template-columns: 1fr 1fr;
+        gap: 36px;
+      }
+      .ft-contact-box { grid-column: 1 / -1; }
+    }
+
+    /* ============================================================
+       RESPONSIVE — Mobile ≤ 600px
+    ============================================================ */
+    @media (max-width: 600px) {
+      .ft-body { grid-template-columns: 1fr; gap: 32px; }
+      .ft-bottom-inner { flex-direction: column; align-items: flex-start; }
+      .ft-newsletter { width: 100%; min-width: unset; }
+      .ft { padding: 44px 0 0; }
+    }

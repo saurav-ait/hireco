@@ -1,0 +1,502 @@
+/* ================================================================
+   HIRECO HOME2 — WHO WE ARE SECTION  (Pixel-faithful)
+   Based on: uploaded screenshot (home2 "Who We Are" section)
+
+   LAYOUT (2-col):
+   ┌──────────────────────┬─────────────────────────────┐
+   │  LEFT COLUMN (55%)   │  RIGHT COLUMN (45%)         │
+   │                      │                             │
+   │  Who [We Are!]       │  ┌──────────┬──────────┐   │
+   │  Best Employment     │  │ img-top  │ img-tall │   │
+   │  Services For        │  │ (wide)   │ + orange │   │
+   │  Your Business       │  │          │ play btn │   │
+   │                      │  ├──────────┴──────────┤   │
+   │  Description text    │  │ img-bottom (wide)   │   │
+   │                      │  └─────────────────────┘   │
+   │  ✓ Bullet point      │                             │
+   │  ✓ Bullet point      │                             │
+   │  … × 6 total         │                             │
+   │                      │                             │
+   │  [View More]         │                             │
+   └──────────────────────┴─────────────────────────────┘
+
+   FONTS:    Nunito 700/800 · Open Sans 400/600
+   PALETTE:  #f68c1f orange · #1a1a1a dark · #666 muted · #fff white
+   ================================================================
+
+   TABLE OF CONTENTS
+   -----------------
+   01. CSS Custom Properties
+   02. Section Wrapper
+   03. Two-Column Layout
+   04. LEFT — Eyebrow Label
+   05. LEFT — Heading
+   06. LEFT — Description
+   07. LEFT — Bullet List
+   08. LEFT — "View More" Button
+   09. RIGHT — Image Mosaic Grid
+   10. RIGHT — Play Button Overlay
+   11. Back-to-Top Button (fixed, orange)
+   12. Responsive — Tablet ≤ 992px
+   13. Responsive — Mobile  ≤ 640px
+   ================================================================ */
+
+
+/* ---------------------------------------------------------------
+   01. CSS CUSTOM PROPERTIES
+--------------------------------------------------------------- */
+:root {
+  --wwa-orange:         #f68c1f;
+  --wwa-orange-hover:   #e07b10;
+  --wwa-dark:           #1a1a1a;
+  --wwa-heading:        #1d1d1d;
+  --wwa-text:           #777777;
+  --wwa-bullet:         #555555;   /* bullet text colour */
+  --wwa-white:          #ffffff;
+  --wwa-border:         #d0d0d0;   /* View More button border */
+  --wwa-bg:             #ffffff;
+
+  --wwa-font-heading:   'Nunito', sans-serif;
+  --wwa-font-body:      'Open Sans', sans-serif;
+
+  --wwa-container:      1200px;
+  --wwa-gutter:         clamp(1rem, 3vw, 2rem);
+  --wwa-col-gap:        60px;      /* gap between left & right columns */
+
+  --wwa-ease:           220ms ease;
+  --wwa-ease-slow:      350ms ease;
+
+  /* Image grid dimensions */
+  --wwa-img-radius:     6px;       /* subtle rounding on photos */
+  --wwa-play-size:      64px;      /* orange play button circle */
+}
+
+
+/* ---------------------------------------------------------------
+   02. SECTION WRAPPER
+   White background, generous vertical padding (matches screenshot).
+--------------------------------------------------------------- */
+.who-we-are {
+  background: var(--wwa-bg);
+  padding-block: 80px;
+  overflow: hidden;
+}
+
+.who-we-are__container {
+  max-width: var(--wwa-container);
+  margin-inline: auto;
+  padding-inline: var(--wwa-gutter);
+}
+
+
+/* ---------------------------------------------------------------
+   03. TWO-COLUMN LAYOUT
+   Left ~55% (content) · Right ~45% (image mosaic)
+   Align-items: center so both columns vertically centre.
+--------------------------------------------------------------- */
+.who-we-are__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--wwa-col-gap);
+  align-items: center;
+}
+
+
+/* ================================================================
+   LEFT COLUMN
+================================================================ */
+
+/* ---------------------------------------------------------------
+   04. EYEBROW LABEL  "Who We Are!"
+   "Who" is dark text, "We Are!" is orange — on the same line.
+--------------------------------------------------------------- */
+.wwa-eyebrow {
+  font-family: var(--wwa-font-body);
+  font-size: 0.9375rem;     /* 15px */
+  font-weight: 600;
+  color: var(--wwa-dark);
+  margin-bottom: 14px;
+  display: block;
+}
+
+/* The orange part of the eyebrow */
+.wwa-eyebrow .highlight {
+  color: var(--wwa-orange);
+}
+
+
+/* ---------------------------------------------------------------
+   05. HEADING  "Best Employment Services For Your Business"
+   From screenshot:
+   - 2 lines naturally at desktop width
+   - Very large, bold, near-black
+   - Nunito 800
+   - ~36–40px
+--------------------------------------------------------------- */
+.wwa-title {
+  font-family: var(--wwa-font-heading);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);   /* ~28px → 40px */
+  font-weight: 800;
+  color: var(--wwa-heading);
+  line-height: 1.25;
+  margin-bottom: 20px;
+  max-width: 520px;
+}
+
+
+/* ---------------------------------------------------------------
+   06. DESCRIPTION PARAGRAPH
+   From screenshot:
+   - 3 lines of smaller grey text
+   - Open Sans regular
+   - ~14–15px, line-height 1.75
+--------------------------------------------------------------- */
+.wwa-desc {
+  font-family: var(--wwa-font-body);
+  font-size: 0.9rem;      /* 14.4px */
+  color: var(--wwa-text);
+  line-height: 1.80;
+  margin-bottom: 28px;
+  max-width: 500px;
+}
+
+
+/* ---------------------------------------------------------------
+   07. BULLET LIST  (6 items with orange circle-check icons)
+   From screenshot:
+   - Orange outlined circle with a checkmark inside (not filled)
+   - Text is dark (near-black), ~14px, Open Sans
+   - Items have ~10–12px vertical gap
+   - Icon is ~18px, vertically aligned to first text line
+--------------------------------------------------------------- */
+.wwa-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 36px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wwa-list__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: var(--wwa-font-body);
+  font-size: 0.9rem;
+  color: var(--wwa-bullet);
+  line-height: 1.5;
+}
+
+/*
+  Orange circle-check icon.
+  The template uses a Flaticon icon (flaticon-check-circle or similar).
+  We replicate it with Font Awesome's fa-circle-check outline variant.
+  Set font-size to match the screenshot (~18px).
+*/
+.wwa-list__icon {
+  color: var(--wwa-orange);
+  font-size: 1.125rem;    /* 18px */
+  flex-shrink: 0;
+  line-height: 1.4;       /* align icon baseline with text */
+  /* fa-regular fa-circle-check matches the outlined style in screenshot */
+}
+
+
+/* ---------------------------------------------------------------
+   08. "VIEW MORE" BUTTON
+   From screenshot:
+   - Outlined rectangle (NOT filled)
+   - Dark border (#1a1a1a or similar)
+   - Dark text "View More"
+   - White background
+   - ~12px padding vertical, ~28px horizontal
+   - No border-radius (square corners)
+   - Transitions to orange fill on hover (standard HireCo pattern)
+--------------------------------------------------------------- */
+.wwa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--wwa-white);
+  color: var(--wwa-dark);
+  border: 1.5px solid var(--wwa-border);
+  border-radius: 3px;
+  font-family: var(--wwa-font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background     var(--wwa-ease),
+    color          var(--wwa-ease),
+    border-color   var(--wwa-ease);
+}
+
+.wwa-btn:hover {
+  background: var(--wwa-orange);
+  color: var(--wwa-white);
+  border-color: var(--wwa-orange);
+}
+
+.wwa-btn:active {
+  transform: scale(0.98);
+}
+
+
+/* ================================================================
+   RIGHT COLUMN — IMAGE MOSAIC GRID
+
+   Exact layout from screenshot:
+   ┌─────────────────────┬──────────────┐
+   │                     │              │
+   │   img-top-left      │  img-top-    │◀─ play btn overlaps
+   │   (wider, ~60%)     │  right(~40%) │   bottom-right of this
+   │                     │              │
+   ├─────────────────────┴──────────────┤
+   │                                    │
+   │   img-bottom (full width of grid)  │
+   │   (taller than top-left)           │
+   │                                    │
+   └────────────────────────────────────┘
+
+   The orange play button is absolutely positioned at the
+   BOTTOM-RIGHT corner of img-top-right, overlapping the gap.
+================================================================ */
+
+/* Outer grid container for the images */
+.wwa-images {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;  /* ~59% : 41% — matches photo widths */
+  grid-template-rows: auto auto;
+  gap: 8px;
+}
+
+/* All photos share base styles */
+.wwa-images img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--wwa-img-radius);
+}
+
+/* Top-left photo — wider, shorter */
+.wwa-img--top-left {
+  grid-column: 1;
+  grid-row: 1;
+  height: 240px;        /* matches proportions in screenshot */
+}
+
+/* Top-right photo — narrower, taller (extends slightly) */
+.wwa-img--top-right {
+  grid-column: 2;
+  grid-row: 1;
+  height: 240px;
+  position: relative;   /* play button is positioned relative to this */
+}
+
+/* Bottom photo — spans the full width of the grid */
+.wwa-img--bottom {
+  grid-column: 1 / -1;  /* spans both columns */
+  grid-row: 2;
+  height: 260px;
+}
+
+
+/* ---------------------------------------------------------------
+   10. PLAY BUTTON OVERLAY
+   From screenshot:
+   - Solid orange (#f68c1f) square (~64×64px)
+   - White circle-outline play icon centred inside
+   - Positioned at the BOTTOM-RIGHT corner of the top-right photo
+   - Overlaps the gap between top-right photo and bottom photo
+   - Has a subtle hover scale effect
+--------------------------------------------------------------- */
+
+/* Wrapper around top-right image — needed for ::after or absolute child */
+.wwa-img-wrap {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.wwa-img-wrap img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: var(--wwa-img-radius);
+  display: block;
+}
+
+/* Orange play button */
+.wwa-play-btn {
+  position: absolute;
+  bottom: -16px;           /* overlaps the gap below */
+  right: -16px;            /* overlaps the gap to the right */
+  width: var(--wwa-play-size);
+  height: var(--wwa-play-size);
+  background: var(--wwa-orange);
+  border-radius: 4px;      /* slight rounding matches screenshot */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  text-decoration: none;
+  transition:
+    background  var(--wwa-ease),
+    transform   var(--wwa-ease);
+  border: none;
+}
+
+.wwa-play-btn:hover {
+  background: var(--wwa-orange-hover);
+  transform: scale(1.08);
+}
+
+/* Play icon — white outlined circle with triangle inside */
+.wwa-play-btn .play-icon {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--wwa-white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Triangle play arrow */
+.wwa-play-btn .play-icon::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 0 6px 11px;
+  border-color: transparent transparent transparent var(--wwa-white);
+  margin-left: 3px;         /* optical centre */
+}
+
+
+/* ---------------------------------------------------------------
+   11. BACK-TO-TOP BUTTON (fixed, orange circle, white arrow)
+   From screenshot:
+   - Fixed position, bottom-right corner
+   - Orange filled circle ~44px
+   - White up-chevron inside
+--------------------------------------------------------------- */
+.back-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  background: var(--wwa-orange);
+  color: var(--wwa-white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(246, 140, 31, 0.45);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition:
+    opacity     var(--wwa-ease),
+    visibility  var(--wwa-ease),
+    transform   var(--wwa-ease),
+    background  var(--wwa-ease);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--wwa-orange-hover);
+  color: var(--wwa-white);
+}
+
+
+/* ================================================================
+   12. RESPONSIVE — TABLET  (max-width: 992px)
+================================================================ */
+@media (max-width: 992px) {
+
+  .who-we-are {
+    padding-block: 56px;
+  }
+
+  /* Stack columns vertically — images below content */
+  .who-we-are__inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  /* Limit title width when full-width */
+  .wwa-title { max-width: 100%; }
+  .wwa-desc  { max-width: 100%; }
+
+  /* Image grid: keep 2-col but reduce heights */
+  .wwa-img--top-left,
+  .wwa-img-wrap img {
+    height: 200px;
+  }
+
+  .wwa-img--bottom {
+    height: 220px;
+  }
+}
+
+
+/* ================================================================
+   13. RESPONSIVE — MOBILE  (max-width: 640px)
+================================================================ */
+@media (max-width: 640px) {
+
+  .who-we-are {
+    padding-block: 40px;
+  }
+
+  /* Image mosaic: single column on small screens */
+  .wwa-images {
+    grid-template-columns: 1fr;
+  }
+
+  .wwa-img--top-left,
+  .wwa-img-wrap {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .wwa-img--top-left { height: 200px; }
+
+  .wwa-img-wrap { grid-column: 1; grid-row: auto; }
+  .wwa-img-wrap img { height: 200px; }
+
+  .wwa-img--bottom {
+    grid-column: 1;
+    height: 200px;
+  }
+
+  /* Play button: keep at bottom-right of its parent */
+  .wwa-play-btn {
+    bottom: -12px;
+    right: -12px;
+    width: 52px;
+    height: 52px;
+  }
+
+  /* Bullet list slightly smaller */
+  .wwa-list__item {
+    font-size: 0.8125rem;
+  }
+}

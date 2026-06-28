@@ -1,0 +1,582 @@
+/* ================================================================
+   HIRECO HOME2 — HOW IT WORKS SECTION  (Standalone CSS)
+   Font:    Nunito (headings/labels) + Open Sans (body)
+   Icons:   Flaticon flaticon-* custom icon font (shipped with template)
+            — swap class prefix to "ti ti-*" (Tabler) or "fa fa-*" (FontAwesome)
+   Colours: #f68c1f orange · #0a1c3c navy · #388e3c green (step 3)
+   ================================================================
+
+   HOW TO USE
+   ----------
+   1. Add to <head>:
+      <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+      <link href="how-it-works.css" rel="stylesheet">
+   2. Use the HTML structure from hireco-home2.html (how-it-works block).
+   3. IntersectionObserver in hireco-home2.html handles .revealed animation.
+
+   TABLE OF CONTENTS
+   -----------------
+   01. CSS Custom Properties
+   02. Section Wrapper
+   03. Section Header (eyebrow · title · description)
+   04. Steps Grid & Connector Line
+   05. Step Card Base
+   06. Step Card — Icon Circle (3 colour variants)
+   07. Step Card — Number (ghost numeral)
+   08. Step Card — Title & Body Text
+   09. Step Card — "Read More" Link
+   10. Step Card — Hover State
+   11. Scroll-Reveal Animation
+   12. Responsive — Tablet  ≤ 900px
+   13. Responsive — Mobile  ≤ 640px
+   ================================================================ */
+
+
+/* ---------------------------------------------------------------
+   01. CSS CUSTOM PROPERTIES
+--------------------------------------------------------------- */
+:root {
+  --hiw-accent:          #f68c1f;   /* orange — step 1, hover fills, links  */
+  --hiw-accent-hover:    #d97310;   /* darker orange                        */
+  --hiw-accent-glow:     rgba(246, 140, 31, 0.12);
+  --hiw-primary:         #0a1c3c;   /* deep navy — step 2 icon              */
+  --hiw-primary-mid:     #1a3c6e;
+  --hiw-primary-glow:    rgba(10, 28, 60, 0.10);
+  --hiw-green:           #388e3c;   /* step 3 icon                          */
+  --hiw-green-glow:      rgba(56, 142, 60, 0.12);
+  --hiw-heading:         #1a2740;   /* all heading text                     */
+  --hiw-text:            #7a8898;   /* body / muted text                    */
+  --hiw-border:          #e8ecef;   /* card border & connector line         */
+  --hiw-white:           #ffffff;
+  --hiw-bg:              #ffffff;   /* section background — white           */
+
+  --hiw-font-heading:    'Nunito', sans-serif;
+  --hiw-font-body:       'Open Sans', sans-serif;
+
+  --hiw-radius-card:     10px;
+  --hiw-radius-icon:     50%;
+  --hiw-radius-badge:    50%;
+  --hiw-radius-pill:     9999px;
+
+  --hiw-shadow-hover:    0 12px 36px rgba(0, 0, 0, 0.10);
+
+  --hiw-container:       1200px;
+  --hiw-gutter:          clamp(1rem, 4vw, 2rem);
+
+  --hiw-transition:      250ms ease;
+  --hiw-transition-slow: 380ms ease;
+}
+
+
+/* ---------------------------------------------------------------
+   02. SECTION WRAPPER
+   White background; ample top/bottom padding.
+--------------------------------------------------------------- */
+.how-it-works {
+  background: var(--hiw-bg);
+  padding-block: clamp(3.5rem, 7vw, 5rem);
+  overflow: hidden;           /* contains connector pseudo-element */
+}
+
+.how-it-works .container {
+  max-width: var(--hiw-container);
+  margin-inline: auto;
+  padding-inline: var(--hiw-gutter);
+}
+
+
+/* ---------------------------------------------------------------
+   03. SECTION HEADER
+   Centred block: orange eyebrow → bold title → grey description.
+--------------------------------------------------------------- */
+.hiw-header {
+  text-align: center;
+  max-width: 580px;
+  margin-inline: auto;
+  margin-bottom: 48px;
+}
+
+/* Orange ALL-CAPS eyebrow  e.g. "Simple Process" */
+.hiw-eyebrow {
+  display: block;
+  font-family: var(--hiw-font-heading);
+  font-size: 0.70rem;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--hiw-accent);
+  margin-bottom: 8px;
+}
+
+/* Main section title  e.g. "How It Works" */
+.hiw-title {
+  font-family: var(--hiw-font-heading);
+  font-size: clamp(1.55rem, 3vw, 2.1rem);
+  font-weight: 800;
+  color: var(--hiw-heading);
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+/* One-liner sub-description */
+.hiw-desc {
+  font-family: var(--hiw-font-body);
+  font-size: 0.875rem;
+  color: var(--hiw-text);
+  line-height: 1.75;
+  margin: 0;
+}
+
+
+/* ---------------------------------------------------------------
+   04. STEPS GRID & HORIZONTAL CONNECTOR LINE
+   3-column grid. The dashed pseudo-element sits behind the icons.
+--------------------------------------------------------------- */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  position: relative;   /* establishes stacking context for ::before */
+}
+
+/*
+  Dashed connector line running through the centres of the three
+  icon circles on desktop.
+  top value = card top-padding (32px) + half icon height (34px) = 66px
+*/
+.steps-grid::before {
+  content: '';
+  position: absolute;
+  top: 66px;
+  /* from centre of leftmost icon to centre of rightmost icon */
+  left:  calc(16.67% + 34px);
+  right: calc(16.67% + 34px);
+  height: 2px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      var(--hiw-border)  0px,
+      var(--hiw-border)  8px,
+      transparent         8px,
+      transparent         16px
+    );
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------------
+   05. STEP CARD BASE
+--------------------------------------------------------------- */
+.step-card {
+  position: relative;
+  z-index: 1;           /* lifts above connector line */
+  background: var(--hiw-white);
+  border: 1px solid var(--hiw-border);
+  border-radius: var(--hiw-radius-card);
+  padding: 32px 24px;
+  text-align: center;
+  transition:
+    box-shadow    var(--hiw-transition),
+    transform     var(--hiw-transition),
+    border-color  var(--hiw-transition);
+}
+
+/* Animated bottom-border reveal on hover */
+.step-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: var(--hiw-accent);
+  border-radius: 0 0 var(--hiw-radius-card) var(--hiw-radius-card);
+  transition: width var(--hiw-transition-slow);
+}
+
+
+/* ---------------------------------------------------------------
+   06. STEP CARD — ICON CIRCLE  (3 colour variants)
+
+   Each step has:
+     • A 68×68 coloured circle as the icon holder  (.step-icon)
+     • A Flaticon / FA icon inside it
+     • A small numbered badge in the bottom-right corner (.step-badge)
+
+   Colour variants: --s1 orange  --s2 navy  --s3 green
+--------------------------------------------------------------- */
+
+/* Icon circle */
+.step-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: var(--hiw-radius-icon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  font-size: 1.75rem;     /* icon size — adjust per icon font */
+  position: relative;     /* badge is absolute inside */
+  z-index: 2;
+  transition:
+    background  var(--hiw-transition),
+    color       var(--hiw-transition),
+    box-shadow  var(--hiw-transition),
+    transform   var(--hiw-transition);
+}
+
+/* Step 1 — orange (accent) */
+.step-icon--1 {
+  background: var(--hiw-accent-glow);
+  color: var(--hiw-accent);
+}
+
+/* Step 2 — navy (primary) */
+.step-icon--2 {
+  background: var(--hiw-primary-glow);
+  color: var(--hiw-primary-mid);
+}
+
+/* Step 3 — green (success/completion) */
+.step-icon--3 {
+  background: var(--hiw-green-glow);
+  color: var(--hiw-green);
+}
+
+/*
+  Small numbered badge  (e.g. "01")
+  Positioned at the bottom-right of the icon circle.
+  HTML: <span class="step-badge">01</span> inside .step-icon
+*/
+.step-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--hiw-radius-badge);
+  background: var(--hiw-accent);       /* default; override inline for step 3 */
+  color: var(--hiw-white);
+  font-family: var(--hiw-font-heading);
+  font-size: 0.6rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--hiw-white);
+  line-height: 1;
+}
+
+/* Override badge colour per step */
+.step-icon--2 .step-badge { background: var(--hiw-primary-mid); }
+.step-icon--3 .step-badge { background: var(--hiw-green);       }
+
+
+/* ---------------------------------------------------------------
+   07. STEP CARD — GHOST NUMBER
+   Large, very light numeral displayed between icon and title.
+   Purely decorative — no semantic role.
+--------------------------------------------------------------- */
+.step-number {
+  font-family: var(--hiw-font-heading);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--hiw-border);       /* near-invisible by default */
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 6px;
+  user-select: none;
+  transition: color var(--hiw-transition);
+}
+
+
+/* ---------------------------------------------------------------
+   08. STEP CARD — TITLE & BODY TEXT
+--------------------------------------------------------------- */
+.step-title {
+  font-family: var(--hiw-font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--hiw-heading);
+  margin-bottom: 8px;
+  line-height: 1.3;
+  transition: color var(--hiw-transition);
+}
+
+.step-text {
+  font-family: var(--hiw-font-body);
+  font-size: 0.8125rem;     /* 13px */
+  color: var(--hiw-text);
+  line-height: 1.75;
+  margin: 0 0 0 0;
+}
+
+
+/* ---------------------------------------------------------------
+   09. STEP CARD — "READ MORE" LINK
+   Small arrow-link beneath the body text.
+--------------------------------------------------------------- */
+.step-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--hiw-font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--hiw-primary-mid);
+  text-decoration: none;
+  margin-top: 12px;
+  transition:
+    color var(--hiw-transition),
+    gap   100ms ease;
+}
+
+.step-link:hover {
+  color: var(--hiw-accent);
+  gap: 10px;
+}
+
+/* Arrow icon inside the link — size it relative to the link text */
+.step-link .link-arrow {
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+
+/* ---------------------------------------------------------------
+   10. STEP CARD — HOVER STATE
+   Lift + shadow + orange border + icon fills + title tint.
+--------------------------------------------------------------- */
+.step-card:hover {
+  box-shadow: var(--hiw-shadow-hover);
+  transform: translateY(-7px);
+  border-color: var(--hiw-accent);
+}
+
+/* Reveal bottom border bar on hover */
+.step-card:hover::after {
+  width: 55%;
+}
+
+/* Ghost number becomes a pale orange tint on hover */
+.step-card:hover .step-number {
+  color: rgba(246, 140, 31, 0.18);
+}
+
+/* Title turns orange on hover */
+.step-card:hover .step-title {
+  color: var(--hiw-accent);
+}
+
+/* Icon circles fill on hover -------------------- */
+.step-card:hover .step-icon--1 {
+  background: var(--hiw-accent);
+  color: var(--hiw-white);
+  box-shadow: 0 0 0 8px var(--hiw-accent-glow);
+  transform: scale(1.06);
+}
+
+.step-card:hover .step-icon--2 {
+  background: var(--hiw-primary-mid);
+  color: var(--hiw-white);
+  box-shadow: 0 0 0 8px var(--hiw-primary-glow);
+  transform: scale(1.06);
+}
+
+.step-card:hover .step-icon--3 {
+  background: var(--hiw-green);
+  color: var(--hiw-white);
+  box-shadow: 0 0 0 8px var(--hiw-green-glow);
+  transform: scale(1.06);
+}
+
+/* Keyboard / programmatic focus ring */
+.step-card:focus-within {
+  outline: 2px solid var(--hiw-accent);
+  outline-offset: 3px;
+}
+
+
+/* ---------------------------------------------------------------
+   11. SCROLL-REVEAL ANIMATION
+   Cards start hidden. JS adds .revealed via IntersectionObserver.
+   Staggered delays: card 2 → 0.12s, card 3 → 0.24s.
+--------------------------------------------------------------- */
+.step-card {
+  opacity: 0;
+  transform: translateY(28px);
+  /*
+    Merge reveal transition with hover.
+    The longer values govern the scroll entrance;
+    once revealed the hover transition values take precedence.
+  */
+  transition:
+    opacity       0.50s ease,
+    transform     0.50s ease,
+    box-shadow    var(--hiw-transition),
+    border-color  var(--hiw-transition);
+}
+
+.step-card.revealed {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0s;    /* reset delay so hover is instant */
+}
+
+/* Hover after reveal — faster than the entrance */
+.step-card.revealed:hover {
+  transform: translateY(-7px);
+  transition:
+    box-shadow    var(--hiw-transition),
+    transform     var(--hiw-transition),
+    border-color  var(--hiw-transition);
+}
+
+/* Stagger */
+.step-card:nth-child(1) { transition-delay: 0.00s; }
+.step-card:nth-child(2) { transition-delay: 0.12s; }
+.step-card:nth-child(3) { transition-delay: 0.24s; }
+
+/* Accessibility: skip animation for reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  .step-card {
+    opacity: 1;
+    transform: none;
+    transition:
+      box-shadow   var(--hiw-transition),
+      border-color var(--hiw-transition);
+  }
+}
+
+
+/* ===============================================================
+   12. RESPONSIVE — TABLET  (max-width: 900px)
+=============================================================== */
+@media (max-width: 900px) {
+
+  .how-it-works {
+    padding-block: 3rem;
+  }
+
+  /* Single-column stack; max-width keeps cards from stretching too wide */
+  .steps-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  /* Hide the horizontal connector — irrelevant in single-column */
+  .steps-grid::before {
+    display: none;
+  }
+
+  /*
+    On tablet each card switches to a horizontal 2-col layout:
+    [icon | number + title + text + link]
+    This matches the compact style common in recruitment templates.
+  */
+  .step-card {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    grid-template-rows: auto auto auto auto;  /* num · title · text · link */
+    column-gap: 18px;
+    text-align: left;
+    padding: 24px 20px;
+  }
+
+  /* Icon stays in left column, spanning all rows */
+  .step-card .step-icon {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    align-self: center;
+    margin: 0;
+  }
+
+  /* Ghost number in right column row 1 — smaller on tablet */
+  .step-card .step-number {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 1.6rem;
+    margin-bottom: 2px;
+    line-height: 1.2;
+  }
+
+  /* Title in right column row 2 */
+  .step-card .step-title {
+    grid-column: 2;
+    grid-row: 2;
+    margin-bottom: 4px;
+  }
+
+  /* Text spans full width below the icon+meta row */
+  .step-card .step-text {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin-top: 10px;
+  }
+
+  /* Link full-width */
+  .step-card .step-link {
+    grid-column: 1 / -1;
+    grid-row: 4;
+  }
+
+  /* Bottom accent bar goes full-width on tablet */
+  .step-card:hover::after {
+    width: 100%;
+    left: 0;
+    transform: none;
+    border-radius: 0 0 var(--hiw-radius-card) var(--hiw-radius-card);
+  }
+}
+
+
+/* ===============================================================
+   13. RESPONSIVE — MOBILE  (max-width: 640px)
+=============================================================== */
+@media (max-width: 640px) {
+
+  .how-it-works {
+    padding-block: 2.5rem;
+  }
+
+  .hiw-title {
+    font-size: 1.5rem;
+  }
+
+  /* Revert to vertical centred layout on narrow phones */
+  .step-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 20px;
+  }
+
+  .step-card .step-icon {
+    margin-bottom: 10px;
+  }
+
+  .step-card .step-text,
+  .step-card .step-link {
+    grid-column: auto;
+    grid-row: auto;
+    margin-top: 0;
+  }
+
+  .step-card .step-text {
+    margin-top: 8px;
+  }
+
+  /* Reduce hover lift on touch */
+  .step-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .step-card.revealed:hover {
+    transform: translateY(-4px);
+  }
+}

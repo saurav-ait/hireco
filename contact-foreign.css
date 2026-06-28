@@ -1,0 +1,252 @@
+    /* ============================================================
+       SECTION WRAPPER
+       Background: HireCo orange gradient — replaces the salmon/coral
+       of the original screenshot.
+       The original used a flat coral (#e8736a); we use the HireCo
+       brand gradient for consistency.
+    ============================================================ */
+    .cf-section {
+      background: linear-gradient(135deg, #f68c1f 0%, #e07b10 55%, #c96a08 100%);
+      padding: 0 0 64px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Subtle radial highlight — adds depth like the original */
+    .cf-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        ellipse at 80% 60%,
+        rgba(255,255,255,0.07) 0%,
+        transparent 65%
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================================
+       FULL-WIDTH HEADLINE BAND
+       "FOREIGN WORKERS READY TO START IMMEDIATELY"
+       From screenshot:
+       - Fills the full section width edge-to-edge
+       - Huge bold white ALL-CAPS, Nunito 900
+       - ~80–90px at desktop, fluid
+       - Centred
+       - Padding top matches section top
+    ============================================================ */
+    .cf-headline-band {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 56px 32px 40px;
+    }
+
+    .cf-headline {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(2.2rem, 6.5vw, 5.5rem);
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       CONTAINER (for the 2-column body)
+    ============================================================ */
+    .cf-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ============================================================
+       TWO-COLUMN BODY
+       Left (~42%): Lottie animated globe
+       Right (~58%): subtitle + body text + CTA
+    ============================================================ */
+    .cf-body {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    /* ────────────────────────────────
+       LEFT — Lottie Globe
+    ──────────────────────────────── */
+    .cf-globe-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Lottie renders into this div */
+    #lottieGlobe {
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 1 / 1;
+      /* Lottie SVG inherits this sizing */
+    }
+
+    /* ────────────────────────────────
+       RIGHT — Content
+    ──────────────────────────────── */
+    .cf-content {}
+
+    /* Subtitle H2: "Foreign Employment Agency in Serbia" */
+    .cf-subtitle {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.25;
+      margin-bottom: 24px;
+    }
+
+    /* Body paragraph */
+    .cf-body-text {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(13px, 1.3vw, 15px);
+      color: rgba(255, 255, 255, 0.90);
+      line-height: 1.82;
+      margin-bottom: 12px;
+    }
+
+    /* Bold highlights within body text */
+    .cf-body-text strong {
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    /* ============================================================
+       CTA ROW
+       Left: white pill "Contact us now" button with arrow icon
+       Right: "Or call us directly…" + bold orange-tinted phone link
+    ============================================================ */
+    .cf-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    /* White pill button */
+    .cf-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #ffffff;
+      color: #1a1a1a;
+      border: none;
+      border-radius: 50px;         /* full pill */
+      padding: 14px 32px 14px 20px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background 0.22s, color 0.22s, transform 0.15s, box-shadow 0.22s;
+    }
+
+    .cf-cta-btn:hover {
+      background: #1d1d1d;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+
+    /* Arrow circle inside button */
+    .cf-cta-btn .arrow-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #f68c1f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.22s;
+    }
+
+    .cf-cta-btn:hover .arrow-circle {
+      background: #ffffff;
+    }
+
+    .cf-cta-btn .arrow-circle svg {
+      width: 14px;
+      height: 14px;
+      stroke: #fff;
+      stroke-width: 2.4;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.22s;
+    }
+
+    .cf-cta-btn:hover .arrow-circle svg {
+      stroke: #f68c1f;
+    }
+
+    /* Phone call block */
+    .cf-phone-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .cf-phone-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.80);
+      line-height: 1.4;
+    }
+
+    .cf-phone-link {
+      font-family: 'Nunito', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      text-decoration: underline;
+      text-decoration-color: rgba(255,255,255,0.45);
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.2s, opacity 0.2s;
+    }
+
+    .cf-phone-link:hover {
+      opacity: 0.85;
+      text-decoration-color: #ffffff;
+    }
+
+    /* ============================================================
+       RESPONSIVE — Tablet ≤ 900px
+    ============================================================ */
+    @media (max-width: 900px) {
+      .cf-body {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      #lottieGlobe {
+        max-width: 300px;
+        margin: 0 auto;
+      }
+
+      .cf-headline-band { padding: 44px 24px 28px; }
+    }
+
+    /* ============================================================
+       RESPONSIVE — Mobile ≤ 580px
+    ============================================================ */
+    @media (max-width: 580px) {
+      .cf-section { padding-bottom: 48px; }
+      .cf-container { padding: 0 20px; }
+      .cf-headline-band { padding: 36px 20px 24px; }
+      .cf-cta-row { flex-direction: column; align-items: flex-start; gap: 20px; }
+      #lottieGlobe { max-width: 240px; }
+    }
