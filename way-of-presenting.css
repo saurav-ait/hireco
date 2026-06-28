@@ -1,0 +1,272 @@
+    /* ============================================================
+       SECTION
+       Background: #f2f2f2 light grey — matches screenshot exactly
+    ============================================================ */
+    .wop-section {
+      background: #f2f2f2;
+      padding: 60px 0 72px;
+    }
+
+    /* ============================================================
+       CONTAINER
+    ============================================================ */
+    .wop-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ============================================================
+       SECTION HEADER
+       "Way of presenting the candidate"
+       From screenshot: centred, large bold, Nunito 800, ~36–40px
+       NO eyebrow label — just the H2 alone
+    ============================================================ */
+    .wop-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .wop-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(1.75rem, 3.5vw, 2.625rem);
+      font-weight: 800;
+      color: #1a1a1a;
+      line-height: 1.2;
+    }
+
+    /* ============================================================
+       3-COLUMN VIDEO GRID
+       3 cards per row at desktop
+       gap: 28px between columns
+    ============================================================ */
+    .wop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px 24px;
+    }
+
+    /* ============================================================
+       VIDEO CARD
+       From screenshot:
+       - Bold dark label ABOVE the video frame
+       - YouTube iframe embed below the label
+       - No card background — sits directly on grey section bg
+    ============================================================ */
+    .wop-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Card label (above the video) */
+    .wop-card__label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a1a;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* ── YouTube iframe wrapper ──
+       Maintains 16:9 aspect ratio responsively via
+       the padding-bottom trick (padding is relative to WIDTH).
+    */
+    .wop-video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;  /* 16:9 = 9/16 = 56.25% */
+      height: 0;
+      overflow: hidden;
+      border-radius: 4px;       /* slight rounding — visible in screenshot */
+      background: #000;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+    }
+
+    .wop-video-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ── Lazy-load placeholder ──
+       Shows a thumbnail + play button before user clicks.
+       Clicking loads the real iframe (saves bandwidth).
+    */
+    .wop-thumb {
+      position: absolute;
+      inset: 0;
+      cursor: pointer;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease;
+    }
+
+    .wop-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.85;
+    }
+
+    /* YouTube-style red play button */
+    .wop-play-btn {
+      position: absolute;
+      width: 68px;
+      height: 48px;
+      background: #ff0000;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, transform 0.15s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .wop-thumb:hover .wop-play-btn {
+      background: #cc0000;
+      transform: scale(1.08);
+    }
+
+    .wop-play-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: #fff;
+      margin-left: 4px;  /* optical centre for triangle */
+    }
+
+    /* Channel avatar + name overlay (top-left — matches screenshot) */
+    .wop-overlay-info {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,0,0,0.55);
+      border-radius: 20px;
+      padding: 5px 12px 5px 5px;
+    }
+
+    .wop-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #1a7340;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .wop-overlay-text { display: flex; flex-direction: column; }
+
+    .wop-overlay-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .wop-overlay-channel {
+      font-size: 10px;
+      color: rgba(255,255,255,0.75);
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    /* "Watch on YouTube" bar at bottom of thumbnail */
+    .wop-watch-bar {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.65);
+      border-radius: 20px;
+      padding: 6px 18px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: #fff;
+      white-space: nowrap;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .wop-watch-bar .yt-icon {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .wop-watch-bar .yt-logo {
+      background: #ff0000;
+      border-radius: 4px;
+      padding: 1px 4px;
+      font-size: 9px;
+      font-weight: 900;
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      letter-spacing: 0.02em;
+    }
+
+    /* Hidden state — once iframe loaded, thumb hides */
+    .wop-thumb.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       BACK TO TOP — orange circle fixed bottom-right
+    ============================================================ */
+    .back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      background: #f68c1f;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(246,140,31,0.45);
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity .22s, visibility .22s, transform .22s, background .2s;
+      text-decoration: none;
+    }
+    .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+    .back-to-top:hover { background: #e07b10; }
+    .back-to-top svg { width: 16px; height: 16px; stroke: #fff; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ============================================================
+       RESPONSIVE — Tablet ≤ 860px  →  2 columns
+    ============================================================ */
+    @media (max-width: 860px) {
+      .wop-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ============================================================
+       RESPONSIVE — Mobile ≤ 560px  →  1 column
+    ============================================================ */
+    @media (max-width: 560px) {
+      .wop-section { padding: 44px 0 52px; }
+      .wop-container { padding: 0 16px; }
+      .wop-grid { grid-template-columns: 1fr; gap: 24px; }
+    }

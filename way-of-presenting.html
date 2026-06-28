@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HireCo – Way of Presenting the Candidate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ============================================================
+       BASE RESET
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Open Sans', sans-serif; background: #f2f2f2; }
+
+    /* ============================================================
+       SECTION
+       Background: #f2f2f2 light grey — matches screenshot exactly
+    ============================================================ */
+    .wop-section {
+      background: #f2f2f2;
+      padding: 60px 0 72px;
+    }
+
+    /* ============================================================
+       CONTAINER
+    ============================================================ */
+    .wop-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ============================================================
+       SECTION HEADER
+       "Way of presenting the candidate"
+       From screenshot: centred, large bold, Nunito 800, ~36–40px
+       NO eyebrow label — just the H2 alone
+    ============================================================ */
+    .wop-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .wop-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(1.75rem, 3.5vw, 2.625rem);
+      font-weight: 800;
+      color: #1a1a1a;
+      line-height: 1.2;
+    }
+
+    /* ============================================================
+       3-COLUMN VIDEO GRID
+       3 cards per row at desktop
+       gap: 28px between columns
+    ============================================================ */
+    .wop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px 24px;
+    }
+
+    /* ============================================================
+       VIDEO CARD
+       From screenshot:
+       - Bold dark label ABOVE the video frame
+       - YouTube iframe embed below the label
+       - No card background — sits directly on grey section bg
+    ============================================================ */
+    .wop-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Card label (above the video) */
+    .wop-card__label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a1a;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* ── YouTube iframe wrapper ──
+       Maintains 16:9 aspect ratio responsively via
+       the padding-bottom trick (padding is relative to WIDTH).
+    */
+    .wop-video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;  /* 16:9 = 9/16 = 56.25% */
+      height: 0;
+      overflow: hidden;
+      border-radius: 4px;       /* slight rounding — visible in screenshot */
+      background: #000;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+    }
+
+    .wop-video-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ── Lazy-load placeholder ──
+       Shows a thumbnail + play button before user clicks.
+       Clicking loads the real iframe (saves bandwidth).
+    */
+    .wop-thumb {
+      position: absolute;
+      inset: 0;
+      cursor: pointer;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease;
+    }
+
+    .wop-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.85;
+    }
+
+    /* YouTube-style red play button */
+    .wop-play-btn {
+      position: absolute;
+      width: 68px;
+      height: 48px;
+      background: #ff0000;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, transform 0.15s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .wop-thumb:hover .wop-play-btn {
+      background: #cc0000;
+      transform: scale(1.08);
+    }
+
+    .wop-play-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: #fff;
+      margin-left: 4px;  /* optical centre for triangle */
+    }
+
+    /* Channel avatar + name overlay (top-left — matches screenshot) */
+    .wop-overlay-info {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,0,0,0.55);
+      border-radius: 20px;
+      padding: 5px 12px 5px 5px;
+    }
+
+    .wop-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #1a7340;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .wop-overlay-text { display: flex; flex-direction: column; }
+
+    .wop-overlay-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .wop-overlay-channel {
+      font-size: 10px;
+      color: rgba(255,255,255,0.75);
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    /* "Watch on YouTube" bar at bottom of thumbnail */
+    .wop-watch-bar {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.65);
+      border-radius: 20px;
+      padding: 6px 18px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: #fff;
+      white-space: nowrap;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .wop-watch-bar .yt-icon {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .wop-watch-bar .yt-logo {
+      background: #ff0000;
+      border-radius: 4px;
+      padding: 1px 4px;
+      font-size: 9px;
+      font-weight: 900;
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      letter-spacing: 0.02em;
+    }
+
+    /* Hidden state — once iframe loaded, thumb hides */
+    .wop-thumb.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       BACK TO TOP — orange circle fixed bottom-right
+    ============================================================ */
+    .back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      background: #f68c1f;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(246,140,31,0.45);
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity .22s, visibility .22s, transform .22s, background .2s;
+      text-decoration: none;
+    }
+    .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+    .back-to-top:hover { background: #e07b10; }
+    .back-to-top svg { width: 16px; height: 16px; stroke: #fff; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ============================================================
+       RESPONSIVE — Tablet ≤ 860px  →  2 columns
+    ============================================================ */
+    @media (max-width: 860px) {
+      .wop-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ============================================================
+       RESPONSIVE — Mobile ≤ 560px  →  1 column
+    ============================================================ */
+    @media (max-width: 560px) {
+      .wop-section { padding: 44px 0 52px; }
+      .wop-container { padding: 0 16px; }
+      .wop-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     WAY OF PRESENTING THE CANDIDATE SECTION
+     ─────────────────────────────────────────────────────────
+     Layout: centred H2 + 3-per-row video grid
+     Videos: lazy-load thumbnail → iframe on click
+             Uses youtube-nocookie.com (privacy-enhanced)
+     To add a video: copy a .wop-card block and update
+       data-videoid  = YouTube video ID (e.g. "dQw4w9WgXcQ")
+       data-title    = overlay title text
+       label text    = job role + country
+============================================================ -->
+<section class="wop-section" id="way-of-presenting">
+  <div class="wop-container">
+
+    <!-- Section heading -->
+    <header class="wop-header">
+      <h2 class="wop-title">Way of presenting the candidate</h2>
+    </header>
+
+    <!-- 3-column video grid -->
+    <div class="wop-grid" id="wopGrid">
+
+      <!-- ── VIDEO CARD 1: Baker – Nepal ── -->
+      <div class="wop-card">
+        <span class="wop-card__label">Baker – Nepal</span>
+        <div class="wop-video-wrap">
+          <!-- Thumbnail lazy-load layer -->
+          <div class="wop-thumb" data-videoid="rAQFNZhLqHc" data-title="Pekar – Nepal" role="button" aria-label="Play Baker - Nepal video" tabindex="0">
+            <img src="https://i.ytimg.com/vi/rAQFNZhLqHc/hqdefault.jpg" alt="Baker Nepal candidate video" loading="lazy" onerror="this.src='https://via.placeholder.com/640x360/333/fff?text=Baker+Nepal'"/>
+            <!-- Channel overlay -->
+            <div class="wop-overlay-info" aria-hidden="true">
+              <div class="wop-avatar">N</div>
+              <div class="wop-overlay-text">
+                <span class="wop-overlay-title">Pekar – Nepal</span>
+                <span class="wop-overlay-channel">Nikola Milic</span>
+              </div>
+            </div>
+            <!-- Play button -->
+            <div class="wop-play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+            <!-- Watch on YouTube bar -->
+            <div class="wop-watch-bar" aria-hidden="true">
+              <span style="opacity:.7;font-size:13px">↗</span>
+              <span style="opacity:.7;font-size:12px">⏱</span>
+              <span class="yt-icon">
+                Watch on
+                <span class="yt-logo" style="margin-left:4px">▶ YouTube</span>
+              </span>
+            </div>
+          </div>
+          <!-- iframe inserted here on click -->
+        </div>
+      </div>
+
+      <!-- ── VIDEO CARD 2: Beautician – Nepal ── -->
+      <div class="wop-card">
+        <span class="wop-card__label">Beautician – Nepal</span>
+        <div class="wop-video-wrap">
+          <div class="wop-thumb" data-videoid="7JsBn-FwQ-k" data-title="Kozmetičar – Nepal" role="button" aria-label="Play Beautician - Nepal video" tabindex="0">
+            <img src="https://i.ytimg.com/vi/7JsBn-FwQ-k/hqdefault.jpg" alt="Beautician Nepal candidate video" loading="lazy" onerror="this.src='https://via.placeholder.com/640x360/334455/fff?text=Beautician+Nepal'"/>
+            <div class="wop-overlay-info" aria-hidden="true">
+              <div class="wop-avatar">N</div>
+              <div class="wop-overlay-text">
+                <span class="wop-overlay-title">Kozmetičar – Nepal</span>
+                <span class="wop-overlay-channel">Nikola Milic</span>
+              </div>
+            </div>
+            <div class="wop-play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+            <div class="wop-watch-bar" aria-hidden="true">
+              <span style="opacity:.7;font-size:13px">↗</span>
+              <span style="opacity:.7;font-size:12px">⏱</span>
+              <span class="yt-icon">Watch on <span class="yt-logo" style="margin-left:4px">▶ YouTube</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── VIDEO CARD 3: Kitchen worker – Nepal ── -->
+      <div class="wop-card">
+        <span class="wop-card__label">Kitchen worker – Nepal</span>
+        <div class="wop-video-wrap">
+          <div class="wop-thumb" data-videoid="dqT-UlYlg1s" data-title="Kitchen Worker – Nepal" role="button" aria-label="Play Kitchen Worker - Nepal video" tabindex="0">
+            <img src="https://i.ytimg.com/vi/dqT-UlYlg1s/hqdefault.jpg" alt="Kitchen Worker Nepal candidate video" loading="lazy" onerror="this.src='https://via.placeholder.com/640x360/2d4a2d/fff?text=Kitchen+Worker+Nepal'"/>
+            <div class="wop-overlay-info" aria-hidden="true">
+              <div class="wop-avatar">N</div>
+              <div class="wop-overlay-text">
+                <span class="wop-overlay-title">Kitchen Worker – Nepal</span>
+                <span class="wop-overlay-channel">Nikola Milic</span>
+              </div>
+            </div>
+            <div class="wop-play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+            <div class="wop-watch-bar" aria-hidden="true">
+              <span style="opacity:.7;font-size:13px">↗</span>
+              <span style="opacity:.7;font-size:12px">⏱</span>
+              <span class="yt-icon">Watch on <span class="yt-logo" style="margin-left:4px">▶ YouTube</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── VIDEO CARD 4: Welder – Bangladesh ── -->
+      <div class="wop-card">
+        <span class="wop-card__label">Welder – Bangladesh</span>
+        <div class="wop-video-wrap">
+          <div class="wop-thumb" data-videoid="zZ3fjQa5Hls" data-title="Welder – Bangladesh" role="button" aria-label="Play Welder - Bangladesh video" tabindex="0">
+            <img src="https://i.ytimg.com/vi/zZ3fjQa5Hls/hqdefault.jpg" alt="Welder Bangladesh candidate video" loading="lazy" onerror="this.src='https://via.placeholder.com/640x360/4a2a1a/fff?text=Welder+Bangladesh'"/>
+            <div class="wop-overlay-info" aria-hidden="true">
+              <div class="wop-avatar">N</div>
+              <div class="wop-overlay-text">
+                <span class="wop-overlay-title">Welder – Bangladesh</span>
+                <span class="wop-overlay-channel">Nikola Milic</span>
+              </div>
+            </div>
+            <div class="wop-play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+            <div class="wop-watch-bar" aria-hidden="true">
+              <span style="opacity:.7;font-size:13px">↗</span>
+              <span style="opacity:.7;font-size:12px">⏱</span>
+              <span class="yt-icon">Watch on <span class="yt-logo" style="margin-left:4px">▶ YouTube</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── VIDEO CARD 5: Electrician – Sri Lanka ── -->
+      <div class="wop-card">
+        <span class="wop-card__label">Electrician – Sri Lanka</span>
+        <div class="wop-video-wrap">
+          <div class="wop-thumb" data-videoid="5qap5aO4i9A" data-title="Electrician – Sri Lanka" role="button" aria-label="Play Electrician - Sri Lanka video" tabindex="0">
+            <img src="https://i.ytimg.com/vi/5qap5aO4i9A/hqdefault.jpg" alt="Electrician Sri Lanka candidate video" loading="lazy" onerror="this.src='https://via.placeholder.com/640x360/1a2a4a/fff?text=Electrician+Sri+Lanka'"/>
+            <div class="wop-overlay-info" aria-hidden="true">
+              <div class="wop-avatar">N</div>
+              <div class="wop-overlay-text">
+                <span class="wop-overlay-title">Electrician – Sri Lanka</span>
+                <span class="wop-overlay-channel">Nikola Milic</span>
+              </div>
+            </div>
+            <div class="wop-play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+            <div class="wop-watch-bar" aria-hidden="true">
+              <span style="opacity:.7;font-size:13px">↗</span>
+              <span style="opacity:.7;font-size:12px">⏱</span>
+              <span class="yt-icon">Watch on <span class="yt-logo" style="margin-left:4px">▶ YouTube</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── VIDEO CARD 6: Driver – India ── -->
+      <div class="wop-card">
+        <span class="wop-card__label">Driver – India</span>
+        <div class="wop-video-wrap">
+          <div class="wop-thumb" data-videoid="3JZ_D3ELwOQ" data-title="Driver – India" role="button" aria-label="Play Driver - India video" tabindex="0">
+            <img src="https://i.ytimg.com/vi/3JZ_D3ELwOQ/hqdefault.jpg" alt="Driver India candidate video" loading="lazy" onerror="this.src='https://via.placeholder.com/640x360/2a1a3a/fff?text=Driver+India'"/>
+            <div class="wop-overlay-info" aria-hidden="true">
+              <div class="wop-avatar">N</div>
+              <div class="wop-overlay-text">
+                <span class="wop-overlay-title">Driver – India</span>
+                <span class="wop-overlay-channel">Nikola Milic</span>
+              </div>
+            </div>
+            <div class="wop-play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+            <div class="wop-watch-bar" aria-hidden="true">
+              <span style="opacity:.7;font-size:13px">↗</span>
+              <span style="opacity:.7;font-size:12px">⏱</span>
+              <span class="yt-icon">Watch on <span class="yt-logo" style="margin-left:4px">▶ YouTube</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /wop-grid -->
+
+  </div>
+  <!-- /wop-container -->
+</section>
+
+<!-- Back to top -->
+<a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</a>
+
+
+<!-- ============================================================
+     JAVASCRIPT
+     ─────────────────────────────────────────────────────────
+     1. Thumbnail lazy-load click → inserts real YouTube iframe
+        Uses youtube-nocookie.com (privacy-enhanced embed mode)
+        Parameters:
+          autoplay=1    — auto-starts when user clicks
+          rel=0         — hides unrelated recommendations
+          modestbranding=1 — minimal YouTube branding
+     2. Keyboard (Enter/Space) support on thumbnails
+     3. Back-to-top button visibility + smooth scroll
+     ─────────────────────────────────────────────────────────
+     TO REPLACE A VIDEO: change the data-videoid attribute on
+     the .wop-thumb element to any valid YouTube video ID.
+     The thumbnail is automatically fetched from YouTube's CDN.
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Lazy-load YouTube iframes ── */
+  function loadVideo(thumb) {
+    if (thumb.classList.contains('hidden')) return;
+
+    var videoId = thumb.getAttribute('data-videoid');
+    if (!videoId) return;
+
+    /* Build privacy-enhanced iframe URL */
+    var src = 'https://www.youtube-nocookie.com/embed/'
+      + videoId
+      + '?autoplay=1&rel=0&modestbranding=1&color=white';
+
+    /* Create iframe */
+    var iframe = document.createElement('iframe');
+    iframe.setAttribute('src', src);
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+    iframe.setAttribute('title', thumb.getAttribute('data-title') || 'Candidate video');
+
+    /* Insert iframe into the wrapper (sibling of thumb) */
+    var wrap = thumb.closest('.wop-video-wrap');
+    wrap.appendChild(iframe);
+
+    /* Hide the thumbnail */
+    thumb.classList.add('hidden');
+
+    /* Remove thumb from DOM after transition */
+    thumb.addEventListener('transitionend', function () {
+      thumb.remove();
+    }, { once: true });
+  }
+
+  /* Click handler */
+  document.querySelectorAll('.wop-thumb').forEach(function (thumb) {
+    thumb.addEventListener('click', function () {
+      loadVideo(thumb);
+    });
+
+    /* Keyboard: Enter or Space */
+    thumb.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        loadVideo(thumb);
+      }
+    });
+  });
+
+  /* ── Back to top ── */
+  var btt = document.getElementById('backToTop');
+  if (btt) {
+    window.addEventListener('scroll', function () {
+      btt.classList.toggle('visible', window.scrollY > 300);
+    }, { passive: true });
+
+    btt.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+})();
+</script>
+
+</body>
+</html>
