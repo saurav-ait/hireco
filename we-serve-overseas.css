@@ -149,11 +149,15 @@
       gap: 10px;
     }
 
-    /* Flag emoji rendered large */
+    /* Flag image rendered in the card header */
     .country-card__flag {
-      font-size: 26px;
-      line-height: 1;
+      width: 28px;
+      height: auto;
+      display: block;
       flex-shrink: 0;
+      border-radius: 3px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      object-fit: cover;
     }
 
     /* Country name */
