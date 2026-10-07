@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HireCo – Job Listings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+/* ================================================================
+   JOB LISTING PAGE — HireCo
+   Colours: #f68c1f orange · #1a1a1a dark · #f5f5f5 bg · #fff white
+================================================================ */
+:root{
+  --orange:#f68c1f;
+  --orange-h:#e07b10;
+  --dark:#1a1a1a;
+  --text:#555;
+  --muted:#888;
+  --border:#e8e8e8;
+  --bg:#f5f5f5;
+  --white:#fff;
+  --green:#28a745;
+  --red:#e53935;
+  --blue:#1976d2;
+  --radius:6px;
+  --font-h:'Nunito',sans-serif;
+  --font-b:'Open Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-b);background:var(--bg);color:var(--dark);font-size:14px}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+input,select,button{font-family:var(--font-b)}
+
+/* ── Container ── */
+.page{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* ================================================================
+   TOP SEARCH BAR
+================================================================ */
+.search-bar{background:var(--white);padding:16px 24px;box-shadow:0 2px 12px rgba(0,0,0,.08);margin-bottom:32px}
+.search-bar__inner{display:flex;gap:0;align-items:stretch;max-width:900px;margin:0 auto}
+.search-bar__field{
+  flex:1;display:flex;align-items:center;gap:10px;
+  border:1px solid var(--border);padding:0 16px;background:var(--white);
+}
+.search-bar__field:first-child{border-radius:var(--radius) 0 0 var(--radius)}
+.search-bar__field+.search-bar__field{border-left:none}
+.search-bar__field svg{color:var(--muted);flex-shrink:0;width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.search-bar__field input{
+  border:none;outline:none;width:100%;padding:12px 0;
+  font-size:13.5px;color:var(--dark);background:transparent;
+}
+.search-bar__field input::placeholder{color:#aaa}
+.search-bar__btn{
+  background:var(--orange);color:var(--white);border:none;
+  padding:0 28px;border-radius:0 var(--radius) var(--radius) 0;
+  font-family:var(--font-h);font-size:13px;font-weight:700;
+  cursor:pointer;white-space:nowrap;transition:background .2s;
+}
+.search-bar__btn:hover{background:var(--orange-h)}
+
+/* ================================================================
+   BODY LAYOUT — sidebar + main
+================================================================ */
+.layout{display:grid;grid-template-columns:248px 1fr;gap:24px;align-items:start}
+
+/* ================================================================
+   SIDEBAR
+================================================================ */
+.sidebar{display:flex;flex-direction:column;gap:16px}
+
+/* Filter card */
+.filter-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;
+}
+.filter-card__head{
+  display:flex;align-items:center;gap:10px;
+  padding-bottom:14px;border-bottom:1px solid var(--border);
+  margin-bottom:14px;
+}
+.filter-card__head svg{
+  width:16px;height:16px;stroke:var(--orange);
+  stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;
+}
+.filter-card__head span{font-family:var(--font-h);font-size:14.5px;font-weight:700;color:var(--dark)}
+
+/* Radio / checkbox items */
+.filter-item{
+  display:flex;align-items:center;gap:9px;
+  margin-bottom:9px;cursor:pointer;font-size:13px;color:var(--text);
+}
+.filter-item:last-child{margin-bottom:0}
+.filter-item input{
+  width:15px;height:15px;accent-color:var(--orange);cursor:pointer;
+}
+.filter-item.active{color:var(--orange);font-weight:600}
+.filter-item.active input{accent-color:var(--orange)}
+
+/* Download buttons */
+.dl-btn{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);
+  margin-bottom:10px;font-size:13px;font-weight:600;color:var(--dark);
+  cursor:pointer;transition:border-color .2s,background .2s;background:var(--white);
+}
+.dl-btn:last-child{margin-bottom:0}
+.dl-btn:hover{border-color:var(--orange);background:#fff8f0}
+.dl-btn svg{width:16px;height:16px;stroke:var(--orange);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* Resume promo card */
+.promo-card{
+  background:linear-gradient(135deg,#1a2a4a 0%,#0d1a2e 100%);
+  border-radius:var(--radius);padding:22px 18px;
+  text-align:center;overflow:hidden;position:relative;
+}
+.promo-card::before{
+  content:'';position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=60') center/cover no-repeat;
+  opacity:.18;
+}
+.promo-card__content{position:relative;z-index:1}
+.promo-card h4{
+  font-family:var(--font-h);font-size:15px;font-weight:800;
+  color:var(--white);margin-bottom:8px;line-height:1.3;
+}
+.promo-card p{font-size:11.5px;color:rgba(255,255,255,.70);line-height:1.6;margin-bottom:16px}
+.promo-card__btn{
+  display:inline-block;background:var(--orange);color:var(--white);
+  padding:9px 20px;border-radius:4px;font-size:12px;
+  font-weight:700;cursor:pointer;transition:background .2s;
+}
+.promo-card__btn:hover{background:var(--orange-h)}
+
+/* ================================================================
+   MAIN JOB LIST AREA
+================================================================ */
+.job-list-wrap{background:transparent}
+
+/* Results header */
+.results-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);padding:12px 16px;margin-bottom:14px;
+}
+.results-bar__count{font-size:13px;color:var(--text)}
+.results-bar__count span{font-weight:700;color:var(--dark)}
+.results-bar__sort{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text)}
+.results-bar__sort label{font-weight:600;color:var(--dark)}
+.results-bar__sort select{
+  border:1px solid var(--border);border-radius:4px;
+  padding:5px 28px 5px 10px;font-size:13px;color:var(--dark);
+  background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%23555' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E") no-repeat right 10px center;
+  appearance:none;-webkit-appearance:none;cursor:pointer;outline:none;
+  transition:border-color .2s;
+}
+.results-bar__sort select:hover{border-color:var(--orange)}
+
+/* Job cards container */
+.job-cards{display:flex;flex-direction:column;gap:12px}
+
+/* Single job card */
+.job-card{
+  display:flex;align-items:center;gap:16px;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px 18px;
+  position:relative;overflow:hidden;
+  transition:box-shadow .22s,transform .22s,border-color .22s;
+  cursor:pointer;
+}
+.job-card:hover{
+  box-shadow:0 6px 22px rgba(0,0,0,.09);
+  transform:translateY(-2px);border-color:rgba(246,140,31,.35);
+}
+
+/* URGENT ribbon — diagonal red banner top-left */
+.job-card__urgent{
+  position:absolute;top:10px;left:-20px;
+  width:80px;padding:3px 0;
+  background:var(--red);color:var(--white);
+  font-size:9px;font-weight:800;text-align:center;
+  letter-spacing:.08em;text-transform:uppercase;
+  transform:rotate(-45deg);
+  box-shadow:0 2px 6px rgba(229,57,53,.4);
+}
+
+/* Company logo square */
+.job-card__logo{
+  width:64px;height:64px;border-radius:var(--radius);
+  overflow:hidden;flex-shrink:0;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg);font-size:10px;color:var(--muted);font-weight:600;
+}
+.job-card__logo img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* Card body */
+.job-card__body{flex:1;min-width:0}
+.job-card__title{
+  font-family:var(--font-h);font-size:15px;font-weight:700;
+  color:var(--dark);margin-bottom:4px;line-height:1.3;
+}
+.job-card__title .hl{color:var(--orange)}
+.job-card__date{font-size:12px;color:var(--muted);margin-bottom:8px}
+.job-card__meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.job-card__meta-item{
+  display:flex;align-items:center;gap:5px;
+  font-size:12px;color:var(--muted);
+}
+.job-card__meta-item svg{
+  width:13px;height:13px;stroke:var(--orange);
+  stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;
+  flex-shrink:0;
+}
+
+/* Job type badge */
+.job-badge{
+  margin-left:auto;flex-shrink:0;align-self:flex-start;
+  padding:4px 12px;border-radius:3px;
+  font-size:10.5px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;white-space:nowrap;
+}
+.job-badge--full{background:#e8f5e9;color:#2e7d32}
+.job-badge--part{background:#ffebee;color:#c62828}
+.job-badge--contract{background:#e3f2fd;color:#1565c0}
+
+/* ================================================================
+   PAGINATION
+================================================================ */
+.pagination{
+  display:flex;align-items:center;justify-content:center;
+  gap:6px;margin-top:24px;
+}
+.page-btn{
+  min-width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--border);border-radius:4px;
+  font-size:13px;font-weight:600;color:var(--text);
+  background:var(--white);cursor:pointer;padding:0 10px;
+  transition:background .2s,border-color .2s,color .2s;
+}
+.page-btn:hover{background:#fff8f0;border-color:var(--orange);color:var(--orange)}
+.page-btn.active{background:var(--orange);border-color:var(--orange);color:var(--white)}
+.page-btn:disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
+.page-dots{color:var(--muted);padding:0 4px;align-self:flex-end;line-height:2.4}
+
+/* ================================================================
+   RESPONSIVE
+================================================================ */
+@media(max-width:860px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{flex-direction:row;flex-wrap:wrap}
+  .sidebar>*{flex:1 1 200px}
+  .promo-card{display:none}
+}
+@media(max-width:580px){
+  .search-bar__inner{flex-wrap:wrap}
+  .search-bar__field:first-child{border-radius:var(--radius) var(--radius) 0 0;border-bottom:none}
+  .search-bar__field+.search-bar__field{border-left:1px solid var(--border);border-top:none}
+  .search-bar__btn{border-radius:0 0 var(--radius) var(--radius);padding:12px;width:100%}
+  .job-card{flex-wrap:wrap}
+  .job-badge{align-self:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="page" style="padding-top:28px;padding-bottom:48px">
+
+  <!-- ============================================================
+       TOP SEARCH BAR
+  ============================================================ -->
+  <div class="search-bar">
+    <div class="search-bar__inner">
+      <div class="search-bar__field">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchKeyword" placeholder="Job Title or Keywords" aria-label="Job title or keywords"/>
+      </div>
+      <div class="search-bar__field">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <input type="text" id="searchLocation" placeholder="Location" aria-label="Location"/>
+      </div>
+      <button class="search-bar__btn" onclick="doSearch()">Find Jobs</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       BODY LAYOUT
+  ============================================================ -->
+  <div class="layout">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar">
+
+      <!-- Date Posted -->
+      <div class="filter-card">
+        <div class="filter-card__head">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span>Date Posted</span>
+        </div>
+        <label class="filter-item"><input type="radio" name="date" value="today" onchange="applyFilters()"/> Today</label>
+        <label class="filter-item active"><input type="radio" name="date" value="7" checked onchange="applyFilters()"/> Last 7 Days</label>
+        <label class="filter-item"><input type="radio" name="date" value="14" onchange="applyFilters()"/> Last 14 Days</label>
+        <label class="filter-item"><input type="radio" name="date" value="21" onchange="applyFilters()"/> Last 21 Days</label>
+        <label class="filter-item"><input type="radio" name="date" value="30" onchange="applyFilters()"/> Last 30 Days</label>
+      </div>
+
+      <!-- Categories -->
+      <div class="filter-card">
+        <div class="filter-card__head">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span>Categories</span>
+        </div>
+        <label class="filter-item active"><input type="checkbox" name="cat" value="digital" checked onchange="applyFilters()"/> Digital Marketing</label>
+        <label class="filter-item"><input type="checkbox" name="cat" value="charity" onchange="applyFilters()"/> Charity &amp; Voluntary</label>
+        <label class="filter-item"><input type="checkbox" name="cat" value="it" onchange="applyFilters()"/> IT Contractor</label>
+        <label class="filter-item"><input type="checkbox" name="cat" value="estate" onchange="applyFilters()"/> Estate Agency</label>
+        <label class="filter-item"><input type="checkbox" name="cat" value="graduate" onchange="applyFilters()"/> Graduate</label>
+      </div>
+
+      <!-- Experience -->
+      <div class="filter-card">
+        <div class="filter-card__head">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <span>Experience</span>
+        </div>
+        <label class="filter-item"><input type="radio" name="exp" value="0-1" onchange="applyFilters()"/> 0 Year To 1 Year</label>
+        <label class="filter-item active"><input type="radio" name="exp" value="1-2" checked onchange="applyFilters()"/> 1 Year To 2 Year</label>
+        <label class="filter-item"><input type="radio" name="exp" value="2-3" onchange="applyFilters()"/> 2 Year To 3 Year</label>
+        <label class="filter-item"><input type="radio" name="exp" value="3+" onchange="applyFilters()"/> 3 Year Or More</label>
+      </div>
+
+      <!-- Gender -->
+      <div class="filter-card">
+        <div class="filter-card__head">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="7.05" y2="7.05"/></svg>
+          <span>Gender</span>
+        </div>
+        <label class="filter-item active"><input type="radio" name="gender" value="male" checked onchange="applyFilters()"/> Male</label>
+        <label class="filter-item"><input type="radio" name="gender" value="female" onchange="applyFilters()"/> Female</label>
+      </div>
+
+      <!-- Download buttons -->
+      <div class="filter-card">
+        <button class="dl-btn" onclick="alert('Downloading PDF…')">
+          Download.pdf
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </button>
+        <button class="dl-btn" onclick="alert('Downloading TXT…')">
+          Download.txt
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </button>
+      </div>
+
+      <!-- Resume promo -->
+      <div class="promo-card">
+        <div class="promo-card__content">
+          <h4>Make a Difference with Online Resume!</h4>
+          <p>Your Resume in Minutes with Jobs Resume Assistant is Ready!</p>
+          <a href="#" class="promo-card__btn">Appointment</a>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ── MAIN JOB LIST ── -->
+    <main>
+
+      <!-- Results bar -->
+      <div class="results-bar">
+        <div class="results-bar__count">
+          Showing <span id="rangeStart">1</span>–<span id="rangeEnd">10</span> of
+          <span id="totalCount">50</span> Jobs Results :
+        </div>
+        <div class="results-bar__sort">
+          <label for="sortSelect">Sort By:</label>
+          <select id="sortSelect" onchange="applySort()">
+            <option value="az">A to Z</option>
+            <option value="za">Z to A</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Job cards -->
+      <div class="job-cards" id="jobCards"></div>
+
+      <!-- Pagination -->
+      <div class="pagination" id="pagination"></div>
+
+    </main>
+  </div>
+
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT — Data + Render + Filter + Sort + Pagination
+============================================================ -->
+<script>
+(function(){
+'use strict';
+
+/* ── Job Data ── */
+var JOBS = [
+  { id:1,  title:'Vacancy For The Charted Account',  company:'MediGroup',    logo:'https://ui-avatars.com/api/?name=M&background=0D8ABC&color=fff&size=64&bold=true',  type:'full',     location:'California', category:'Automotive Jobs', days:2,  urgent:false },
+  { id:2,  title:'Vacancy For The Business Analyst', company:'FoodCo',       logo:'https://ui-avatars.com/api/?name=F&background=e53935&color=fff&size=64&bold=true',   type:'part',     location:'California', category:'Automotive Jobs', days:2,  urgent:true  },
+  { id:3,  title:'Opening For Social Media Manager', company:'BuildCorp',    logo:'https://ui-avatars.com/api/?name=B&background=455a64&color=fff&size=64&bold=true',   type:'full',     location:'California', category:'Automotive Jobs', days:2,  urgent:false },
+  { id:4,  title:'Opening For The Content Creator',  company:'DataDrive',    logo:'https://ui-avatars.com/api/?name=D&background=00897b&color=fff&size=64&bold=true',   type:'full',     location:'California', category:'Automotive Jobs', days:2,  urgent:false },
+  { id:5,  title:'Job Vacancy For The Bank Manager', company:'PizzaPlus',    logo:'https://ui-avatars.com/api/?name=P&background=f57c00&color=fff&size=64&bold=true',   type:'part',     location:'California', category:'Automotive Jobs', days:2,  urgent:false },
+  { id:6,  title:'Vacancy For The Human Resource',   company:'Prism Tech',   logo:'https://ui-avatars.com/api/?name=PT&background=7b1fa2&color=fff&size=64&bold=true',  type:'part',     location:'California', category:'Automotive Jobs', days:2,  urgent:false },
+  { id:7,  title:'Vacancy For The Business Analyst', company:'FoodCo',       logo:'https://ui-avatars.com/api/?name=F&background=e53935&color=fff&size=64&bold=true',   type:'part',     location:'California', category:'Automotive Jobs', days:2,  urgent:true  },
+  { id:8,  title:'Opening For Social Media Manager', company:'BuildCorp',    logo:'https://ui-avatars.com/api/?name=B&background=455a64&color=fff&size=64&bold=true',   type:'full',     location:'California', category:'Automotive Jobs', days:2,  urgent:false },
+  { id:9,  title:'Opening For The Content Creator',  company:'DataDrive',    logo:'https://ui-avatars.com/api/?name=D&background=00897b&color=fff&size=64&bold=true',   type:'full',     location:'California', category:'Automotive Jobs', days:2,  urgent:false },
+  { id:10, title:'Senior HR Business Partner',       company:'AlphaCorp',    logo:'https://ui-avatars.com/api/?name=A&background=1976d2&color=fff&size=64&bold=true',   type:'full',     location:'New York',    category:'HR Jobs',         days:3,  urgent:false },
+  { id:11, title:'Frontend Developer React',         company:'TechNova',     logo:'https://ui-avatars.com/api/?name=T&background=00838f&color=fff&size=64&bold=true',   type:'full',     location:'Remote',      category:'IT Jobs',         days:1,  urgent:true  },
+  { id:12, title:'Digital Marketing Specialist',     company:'GrowthLab',    logo:'https://ui-avatars.com/api/?name=G&background=558b2f&color=fff&size=64&bold=true',   type:'full',     location:'Texas',       category:'Marketing Jobs',  days:4,  urgent:false },
+  { id:13, title:'Financial Analyst Position',       company:'BankFirst',    logo:'https://ui-avatars.com/api/?name=BF&background=0277bd&color=fff&size=64&bold=true',  type:'contract', location:'Chicago',      category:'Finance Jobs',    days:5,  urgent:false },
+  { id:14, title:'Operations Manager Role',          company:'LogiPlus',     logo:'https://ui-avatars.com/api/?name=L&background=6a1b9a&color=fff&size=64&bold=true',   type:'full',     location:'California',  category:'Management',      days:2,  urgent:false },
+  { id:15, title:'Customer Support Agent',           company:'HelpDesk Co',  logo:'https://ui-avatars.com/api/?name=HD&background=e65100&color=fff&size=64&bold=true',  type:'part',     location:'Remote',      category:'Support Jobs',    days:6,  urgent:false },
+  { id:16, title:'Sales Executive B2B',              company:'SalesForce+',  logo:'https://ui-avatars.com/api/?name=S&background=1565c0&color=fff&size=64&bold=true',   type:'full',     location:'New York',    category:'Sales Jobs',      days:1,  urgent:true  },
+  { id:17, title:'UI/UX Designer Senior',            company:'PixelCraft',   logo:'https://ui-avatars.com/api/?name=PC&background=ad1457&color=fff&size=64&bold=true',  type:'full',     location:'Los Angeles', category:'Design Jobs',     days:3,  urgent:false },
+  { id:18, title:'Backend Engineer Node.js',         company:'ServerStack',  logo:'https://ui-avatars.com/api/?name=SS&background=33691e&color=fff&size=64&bold=true',  type:'full',     location:'Remote',      category:'IT Jobs',         days:2,  urgent:false },
+  { id:19, title:'Accounting Clerk Entry Level',     company:'AuditPro',     logo:'https://ui-avatars.com/api/?name=AP&background=4527a0&color=fff&size=64&bold=true',  type:'part',     location:'Houston',     category:'Finance Jobs',    days:7,  urgent:false },
+  { id:20, title:'Warehouse Supervisor',             company:'LogiPlus',     logo:'https://ui-avatars.com/api/?name=L&background=6a1b9a&color=fff&size=64&bold=true',   type:'full',     location:'Dallas',      category:'Logistics',       days:4,  urgent:false },
+];
+
+/* ── State ── */
+var filtered    = JOBS.slice();
+var currentPage = 1;
+var perPage     = 10;
+
+/* ── Highlight keyword in title ── */
+function highlightTitle(title) {
+  return title.replace(/(For|The|Opening|Vacancy)/g, '<span class="hl">$1</span>');
+}
+
+/* ── Badge HTML ── */
+function badgeHtml(type) {
+  if (type === 'full')     return '<span class="job-badge job-badge--full">Full Time</span>';
+  if (type === 'part')     return '<span class="job-badge job-badge--part">Part Time</span>';
+  if (type === 'contract') return '<span class="job-badge job-badge--contract">Contract</span>';
+  return '';
+}
+
+/* ── Render page ── */
+function render() {
+  var start  = (currentPage - 1) * perPage;
+  var end    = Math.min(start + perPage, filtered.length);
+  var page   = filtered.slice(start, end);
+
+  document.getElementById('rangeStart').textContent = filtered.length ? start + 1 : 0;
+  document.getElementById('rangeEnd').textContent   = end;
+  document.getElementById('totalCount').textContent = filtered.length;
+
+  var html = '';
+  if (!page.length) {
+    html = '<div style="text-align:center;padding:40px;color:#888;font-size:14px">No jobs found matching your criteria.</div>';
+  } else {
+    page.forEach(function(job) {
+      html +=
+        '<div class="job-card" onclick="alert(\'View: ' + job.title.replace(/'/g,"\'") + '\')" role="button" tabindex="0">' +
+          (job.urgent ? '<div class="job-card__urgent">Urgent</div>' : '') +
+          '<div class="job-card__logo"><img src="' + job.logo + '" alt="' + job.company + ' logo"/></div>' +
+          '<div class="job-card__body">' +
+            '<div class="job-card__title">' + highlightTitle(job.title) + '</div>' +
+            '<div class="job-card__date">Published ' + job.days + 'Days Ago.</div>' +
+            '<div class="job-card__meta">' +
+              '<span class="job-card__meta-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' + job.location + '</span>' +
+              '<span class="job-card__meta-item"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>' + job.category + '</span>' +
+            '</div>' +
+          '</div>' +
+          badgeHtml(job.type) +
+        '</div>';
+    });
+  }
+  document.getElementById('jobCards').innerHTML = html;
+
+  renderPagination();
+}
+
+/* ── Pagination ── */
+function renderPagination() {
+  var total = Math.ceil(filtered.length / perPage);
+  if (total <= 1) { document.getElementById('pagination').innerHTML = ''; return; }
+
+  var html  = '';
+  html += '<button class="page-btn" ' + (currentPage===1?'disabled':'') + ' onclick="goPage(' + (currentPage-1) + ')">← Prev</button>';
+
+  for (var i = 1; i <= total; i++) {
+    if (i === 1 || i === total || (i >= currentPage-1 && i <= currentPage+1)) {
+      html += '<button class="page-btn ' + (i===currentPage?'active':'') + '" onclick="goPage(' + i + ')">' + i + '</button>';
+    } else if (i === currentPage-2 || i === currentPage+2) {
+      html += '<span class="page-dots">…</span>';
+    }
+  }
+
+  html += '<button class="page-btn" ' + (currentPage===total?'disabled':'') + ' onclick="goPage(' + (currentPage+1) + ')">Next →</button>';
+  document.getElementById('pagination').innerHTML = html;
+}
+
+/* ── Navigate page ── */
+window.goPage = function(p) {
+  var total = Math.ceil(filtered.length / perPage);
+  if (p < 1 || p > total) return;
+  currentPage = p;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+/* ── Search ── */
+window.doSearch = function() {
+  applyFilters();
+};
+
+/* ── Sort ── */
+window.applySort = function() {
+  var val = document.getElementById('sortSelect').value;
+  filtered.sort(function(a,b) {
+    if (val === 'az') return a.title.localeCompare(b.title);
+    if (val === 'za') return b.title.localeCompare(a.title);
+    if (val === 'newest') return a.days - b.days;
+    if (val === 'oldest') return b.days - a.days;
+    return 0;
+  });
+  currentPage = 1;
+  render();
+};
+
+/* ── Filters ── */
+window.applyFilters = function() {
+  var kw  = (document.getElementById('searchKeyword').value || '').toLowerCase().trim();
+  var loc = (document.getElementById('searchLocation').value || '').toLowerCase().trim();
+
+  filtered = JOBS.filter(function(job) {
+    if (kw  && job.title.toLowerCase().indexOf(kw)       === -1) return false;
+    if (loc && job.location.toLowerCase().indexOf(loc)   === -1) return false;
+    return true;
+  });
+
+  /* Re-apply sort */
+  applySort();
+  currentPage = 1;
+  render();
+};
+
+/* ── Keyboard on cards (accessibility) ── */
+document.getElementById('jobCards').addEventListener('keydown', function(e) {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('job-card')) {
+    e.target.click();
+  }
+});
+
+/* Search on Enter key */
+['searchKeyword','searchLocation'].forEach(function(id){
+  document.getElementById(id).addEventListener('keydown', function(e){
+    if (e.key === 'Enter') doSearch();
+  });
+});
+
+/* ── Init ── */
+render();
+
+})();
+</script>
+
+</body>
+</html>
