@@ -1,270 +1,402 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>HireCo – Job Listings</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"/>
-<style>
-/* ================================================================
-   JOB LISTING PAGE — HireCo
-   Colours: #f68c1f orange · #1a1a1a dark · #f5f5f5 bg · #fff white
-================================================================ */
-:root{
-  --orange:#f68c1f;
-  --orange-h:#e07b10;
-  --dark:#1a1a1a;
-  --text:#555;
-  --muted:#888;
-  --border:#e8e8e8;
-  --bg:#f5f5f5;
-  --white:#fff;
-  --green:#28a745;
-  --red:#e53935;
-  --blue:#1976d2;
-  --radius:6px;
-  --font-h:'Nunito',sans-serif;
-  --font-b:'Open Sans',sans-serif;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-b);background:var(--bg);color:var(--dark);font-size:14px}
-a{text-decoration:none;color:inherit}
-ul{list-style:none}
-input,select,button{font-family:var(--font-b)}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HireAisa Workforce – Hero & How It Works</title>
 
-/* ── Container ── */
-.page{max-width:1160px;margin:0 auto;padding:0 24px}
+  <!--
+    FONTS
+    Nunito 700/800 — logo, headings, buttons, ghost step numbers
+    Open Sans 400/600 — nav, body text, inputs, placeholders
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
 
-/* ================================================================
-   TOP SEARCH BAR
-================================================================ */
-.search-bar{background:var(--white);padding:16px 24px;box-shadow:0 2px 12px rgba(0,0,0,.08);margin-bottom:32px}
-.search-bar__inner{display:flex;gap:0;align-items:stretch;max-width:900px;margin:0 auto}
-.search-bar__field{
-  flex:1;display:flex;align-items:center;gap:10px;
-  border:1px solid var(--border);padding:0 16px;background:var(--white);
-}
-.search-bar__field:first-child{border-radius:var(--radius) 0 0 var(--radius)}
-.search-bar__field+.search-bar__field{border-left:none}
-.search-bar__field svg{color:var(--muted);flex-shrink:0;width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.search-bar__field input{
-  border:none;outline:none;width:100%;padding:12px 0;
-  font-size:13.5px;color:var(--dark);background:transparent;
-}
-.search-bar__field input::placeholder{color:#aaa}
-.search-bar__btn{
-  background:var(--orange);color:var(--white);border:none;
-  padding:0 28px;border-radius:0 var(--radius) var(--radius) 0;
-  font-family:var(--font-h);font-size:13px;font-weight:700;
-  cursor:pointer;white-space:nowrap;transition:background .2s;
-}
-.search-bar__btn:hover{background:var(--orange-h)}
+  <!--
+    ICONS — Font Awesome 6 Free
+    The original template ships a Flaticon custom webfont for the step icons.
+    Swap "fa-solid fa-*" with your Flaticon class names if you have them.
+  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-/* ================================================================
-   BODY LAYOUT — sidebar + main
-================================================================ */
-.layout{display:grid;grid-template-columns:248px 1fr;gap:24px;align-items:start}
+  <!-- SECTION STYLES -->
+   <link rel="stylesheet" href="hero-section.css" />
+  <link rel="stylesheet" href="job-list.css" />
+  
+  <!-- Lottie Web player — renders the animated globe -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <link rel="stylesheet" href="contact-foreign.css" />
+  
+  <link rel="stylesheet" href="footer.css" />
 
-/* ================================================================
-   SIDEBAR
-================================================================ */
-.sidebar{display:flex;flex-direction:column;gap:16px}
-
-/* Filter card */
-.filter-card{
-  background:var(--white);border:1px solid var(--border);
-  border-radius:var(--radius);padding:20px;
-}
-.filter-card__head{
-  display:flex;align-items:center;gap:10px;
-  padding-bottom:14px;border-bottom:1px solid var(--border);
-  margin-bottom:14px;
-}
-.filter-card__head svg{
-  width:16px;height:16px;stroke:var(--orange);
-  stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;
-}
-.filter-card__head span{font-family:var(--font-h);font-size:14.5px;font-weight:700;color:var(--dark)}
-
-/* Radio / checkbox items */
-.filter-item{
-  display:flex;align-items:center;gap:9px;
-  margin-bottom:9px;cursor:pointer;font-size:13px;color:var(--text);
-}
-.filter-item:last-child{margin-bottom:0}
-.filter-item input{
-  width:15px;height:15px;accent-color:var(--orange);cursor:pointer;
-}
-.filter-item.active{color:var(--orange);font-weight:600}
-.filter-item.active input{accent-color:var(--orange)}
-
-/* Download buttons */
-.dl-btn{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);
-  margin-bottom:10px;font-size:13px;font-weight:600;color:var(--dark);
-  cursor:pointer;transition:border-color .2s,background .2s;background:var(--white);
-}
-.dl-btn:last-child{margin-bottom:0}
-.dl-btn:hover{border-color:var(--orange);background:#fff8f0}
-.dl-btn svg{width:16px;height:16px;stroke:var(--orange);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
-
-/* Resume promo card */
-.promo-card{
-  background:linear-gradient(135deg,#1a2a4a 0%,#0d1a2e 100%);
-  border-radius:var(--radius);padding:22px 18px;
-  text-align:center;overflow:hidden;position:relative;
-}
-.promo-card::before{
-  content:'';position:absolute;inset:0;
-  background:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=60') center/cover no-repeat;
-  opacity:.18;
-}
-.promo-card__content{position:relative;z-index:1}
-.promo-card h4{
-  font-family:var(--font-h);font-size:15px;font-weight:800;
-  color:var(--white);margin-bottom:8px;line-height:1.3;
-}
-.promo-card p{font-size:11.5px;color:rgba(255,255,255,.70);line-height:1.6;margin-bottom:16px}
-.promo-card__btn{
-  display:inline-block;background:var(--orange);color:var(--white);
-  padding:9px 20px;border-radius:4px;font-size:12px;
-  font-weight:700;cursor:pointer;transition:background .2s;
-}
-.promo-card__btn:hover{background:var(--orange-h)}
-
-/* ================================================================
-   MAIN JOB LIST AREA
-================================================================ */
-.job-list-wrap{background:transparent}
-
-/* Results header */
-.results-bar{
-  display:flex;align-items:center;justify-content:space-between;
-  background:var(--white);border:1px solid var(--border);
-  border-radius:var(--radius);padding:12px 16px;margin-bottom:14px;
-}
-.results-bar__count{font-size:13px;color:var(--text)}
-.results-bar__count span{font-weight:700;color:var(--dark)}
-.results-bar__sort{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text)}
-.results-bar__sort label{font-weight:600;color:var(--dark)}
-.results-bar__sort select{
-  border:1px solid var(--border);border-radius:4px;
-  padding:5px 28px 5px 10px;font-size:13px;color:var(--dark);
-  background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%23555' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E") no-repeat right 10px center;
-  appearance:none;-webkit-appearance:none;cursor:pointer;outline:none;
-  transition:border-color .2s;
-}
-.results-bar__sort select:hover{border-color:var(--orange)}
-
-/* Job cards container */
-.job-cards{display:flex;flex-direction:column;gap:12px}
-
-/* Single job card */
-.job-card{
-  display:flex;align-items:center;gap:16px;
-  background:var(--white);border:1px solid var(--border);
-  border-radius:var(--radius);padding:16px 18px;
-  position:relative;overflow:hidden;
-  transition:box-shadow .22s,transform .22s,border-color .22s;
-  cursor:pointer;
-}
-.job-card:hover{
-  box-shadow:0 6px 22px rgba(0,0,0,.09);
-  transform:translateY(-2px);border-color:rgba(246,140,31,.35);
-}
-
-/* URGENT ribbon — diagonal red banner top-left */
-.job-card__urgent{
-  position:absolute;top:10px;left:-20px;
-  width:80px;padding:3px 0;
-  background:var(--red);color:var(--white);
-  font-size:9px;font-weight:800;text-align:center;
-  letter-spacing:.08em;text-transform:uppercase;
-  transform:rotate(-45deg);
-  box-shadow:0 2px 6px rgba(229,57,53,.4);
-}
-
-/* Company logo square */
-.job-card__logo{
-  width:64px;height:64px;border-radius:var(--radius);
-  overflow:hidden;flex-shrink:0;border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  background:var(--bg);font-size:10px;color:var(--muted);font-weight:600;
-}
-.job-card__logo img{width:100%;height:100%;object-fit:cover;display:block}
-
-/* Card body */
-.job-card__body{flex:1;min-width:0}
-.job-card__title{
-  font-family:var(--font-h);font-size:15px;font-weight:700;
-  color:var(--dark);margin-bottom:4px;line-height:1.3;
-}
-.job-card__title .hl{color:var(--orange)}
-.job-card__date{font-size:12px;color:var(--muted);margin-bottom:8px}
-.job-card__meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.job-card__meta-item{
-  display:flex;align-items:center;gap:5px;
-  font-size:12px;color:var(--muted);
-}
-.job-card__meta-item svg{
-  width:13px;height:13px;stroke:var(--orange);
-  stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;
-  flex-shrink:0;
-}
-
-/* Job type badge */
-.job-badge{
-  margin-left:auto;flex-shrink:0;align-self:flex-start;
-  padding:4px 12px;border-radius:3px;
-  font-size:10.5px;font-weight:700;letter-spacing:.06em;
-  text-transform:uppercase;white-space:nowrap;
-}
-.job-badge--full{background:#e8f5e9;color:#2e7d32}
-.job-badge--part{background:#ffebee;color:#c62828}
-.job-badge--contract{background:#e3f2fd;color:#1565c0}
-
-/* ================================================================
-   PAGINATION
-================================================================ */
-.pagination{
-  display:flex;align-items:center;justify-content:center;
-  gap:6px;margin-top:24px;
-}
-.page-btn{
-  min-width:34px;height:34px;display:flex;align-items:center;justify-content:center;
-  border:1px solid var(--border);border-radius:4px;
-  font-size:13px;font-weight:600;color:var(--text);
-  background:var(--white);cursor:pointer;padding:0 10px;
-  transition:background .2s,border-color .2s,color .2s;
-}
-.page-btn:hover{background:#fff8f0;border-color:var(--orange);color:var(--orange)}
-.page-btn.active{background:var(--orange);border-color:var(--orange);color:var(--white)}
-.page-btn:disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
-.page-dots{color:var(--muted);padding:0 4px;align-self:flex-end;line-height:2.4}
-
-/* ================================================================
-   RESPONSIVE
-================================================================ */
-@media(max-width:860px){
-  .layout{grid-template-columns:1fr}
-  .sidebar{flex-direction:row;flex-wrap:wrap}
-  .sidebar>*{flex:1 1 200px}
-  .promo-card{display:none}
-}
-@media(max-width:580px){
-  .search-bar__inner{flex-wrap:wrap}
-  .search-bar__field:first-child{border-radius:var(--radius) var(--radius) 0 0;border-bottom:none}
-  .search-bar__field+.search-bar__field{border-left:1px solid var(--border);border-top:none}
-  .search-bar__btn{border-radius:0 0 var(--radius) var(--radius);padding:12px;width:100%}
-  .job-card{flex-wrap:wrap}
-  .job-badge{align-self:auto}
-}
-</style>
+  <style>
+    /* Preloader */
+    .preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .preloader__inner {
+      text-align: center;
+    }
+    .preloader__spinner {
+      width: 58px;
+      height: 58px;
+      border: 6px solid rgba(246, 140, 31, 0.2);
+      border-top-color: #f68c1f;
+      border-radius: 50%;
+      animation: preloader-spin 1.2s linear infinite;
+      margin: 0 auto 16px;
+    }
+    .preloader__text {
+      font-family: 'Open Sans', sans-serif;
+      color: #1a1a1a;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+    }
+    .noscript-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10000;
+      background: #161c27;
+      color: #f5f5f5;
+      border-bottom: 3px solid #f68c1f;
+      padding: 14px 16px;
+      text-align: center;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.025em;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    }
+    .noscript-banner strong {
+      color: #f68c1f;
+    }
+    .noscript-close-checkbox {
+      position: absolute;
+      left: -9999px;
+      visibility: hidden;
+    }
+    .noscript-banner {
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .noscript-close-checkbox:checked + .noscript-banner {
+      opacity: 0;
+      transform: translateY(-10px);
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .noscript-close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+      text-align: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.38);
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .noscript-close:hover {
+      background: rgba(255,255,255,0.16);
+    }
+    .topbar {
+      background: #f7f7f7;
+      color: #161c27;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.2px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      min-height: 40px;
+      height: 40px;
+      border-bottom: 1px solid rgba(22, 28, 39, 0.08);
+    }
+    .topbar__left,
+    .topbar__right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .topbar__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #6b7280;
+      text-decoration: none;
+    }
+    .topbar__item:hover {
+      color: #f68c1f;
+    }
+    .topbar__icon {
+      width: 16px;
+      text-align: center;
+      color: #6b7280;
+    }
+    .topbar__social {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .topbar__social a,
+    .topbar__social-toggle {
+      color: #6b7280;
+      text-decoration: none;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topbar__social a:hover,
+    .topbar__social-toggle:hover {
+      color: #f68c1f;
+    }
+    .topbar__social-links {
+      display: inline-flex;
+      gap: 12px;
+    }
+    @media (max-width: 768px) {
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px 16px;
+      }
+      .topbar__left,
+      .topbar__right {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .topbar__left {
+        gap: 12px;
+      }
+      .topbar__right {
+        gap: 12px;
+      }
+      .topbar__item {
+        width: 100%;
+        justify-content: center;
+        padding: 6px 0;
+      }
+      .topbar__social {
+        justify-content: center;
+        width: 100%;
+      }
+      .topbar__social-links {
+        display: none;
+      }
+      .topbar__social-toggle {
+        justify-content: center;
+        width: 100%;
+        padding: 8px 0;
+      }
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      clip-path: inset(50%);
+      border: 0;
+      white-space: nowrap;
+    }
+    @keyframes preloader-spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
+<div class="preloader" id="pagePreloader" aria-hidden="true">
+  <div class="preloader__inner">
+    <div class="preloader__spinner"></div>
+    <div class="preloader__text">Loading HireAisa Workforce...</div>
+  </div>
+</div>
+<noscript>
+  <input type="checkbox" id="noscriptClose" class="noscript-close-checkbox" />
+  <div class="noscript-banner" role="alert">
+    <label for="noscriptClose" class="noscript-close" aria-label="Dismiss message">
+      ×
+      <span class="sr-only">Dismiss this warning</span>
+    </label>
+    <strong>JavaScript is disabled.</strong> Some site features may not work correctly.
+  </div>
+</noscript>
+<div class="topbar">
+  <div class="topbar__left">
+    <a href="tel:+8801711924102" class="topbar__item">
+      <span class="topbar__icon"><i class="fa-solid fa-phone"></i></span>
+      <span>+8801711924102</span>
+    </a>
+    <a href="mailto:hireasiaworkforce@gmail.com" class="topbar__item">
+      <span class="topbar__icon"><i class="fa-solid fa-envelope"></i></span>
+      <span>hireasiaworkforce@gmail.com</span>
+    </a>
+  </div>
+  <div class="topbar__right topbar__social" aria-label="Social media links">
+    <a href="#" aria-label="Open social links" class="topbar__item topbar__social-toggle">
+      <span class="topbar__icon"><i class="fa-solid fa-share-nodes"></i></span>
+      <span>Social</span>
+    </a>
+    <div class="topbar__social-links">
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     HEADER
+     CSS:  .hc-header, .hc-header__inner, .hc-logo, .hc-nav,
+           .hc-header__auth, .hc-auth-btn, .hc-hamburger
+============================================================ -->
+<header class="hc-header" id="site-header">
+  <div class="hc-header__inner">
+
+    <!-- Logo -->
+    <a href="#" class="hc-logo" aria-label="HireAisa Workforce home">
+      <!-- Clock icon with speed lines — inline SVG replicates the template logo -->
+      <div class="hc-logo__icon" aria-hidden="true">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Speed lines left of the clock -->
+          <line x1="0" y1="14" x2="10" y2="14" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="2" y1="19" x2="9"  y2="19" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="0" y1="24" x2="10" y2="24" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Clock circle -->
+          <circle cx="24" cy="19" r="12" fill="#f68c1f"/>
+          <circle cx="24" cy="19" r="9"  fill="#fff"/>
+          <!-- Clock hands -->
+          <line x1="24" y1="19" x2="24" y2="13" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="24" y1="19" x2="29" y2="21" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="24" cy="19" r="1.2" fill="#1a1a1a"/>
+        </svg>
+      </div>
+      <span class="hc-logo__text">Hire<span class="logo-co">Asia Workforce</span></span>
+    </a>
+
+    <!-- Primary nav -->
+    <nav class="hc-nav" id="mainNav" aria-label="Main navigation">
+      <ul class="hc-nav__list">
+
+        <li class="hc-nav__item hc-nav__item--active">
+          <a href="#" class="hc-nav__link">
+            Home <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <!--<ul class="hc-dropdown">-->
+          <!--  <li><a href="#">Home 1 – Job Seeker</a></li>-->
+          <!--  <li><a href="#">Home 2 – Job Consultancy</a></li>-->
+          <!--  <li><a href="#">Home 3 – Human Resource</a></li>-->
+          <!--</ul>-->
+        </li>
+
+        <li class="hc-nav__item">
+          <a href="#" class="hc-nav__link">
+            Pages <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <!--<ul class="hc-dropdown">-->
+          <!--  <li><a href="#">About Us</a></li>-->
+          <!--  <li><a href="#">Pricing</a></li>-->
+          <!--  <li><a href="#">FAQ</a></li>-->
+          <!--  <li><a href="#">Contact</a></li>-->
+          <!--</ul>-->
+        </li>
+
+        <li class="hc-nav__item">
+          <a href="#" class="hc-nav__link">
+            Jobs <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="joblist.html">Job Listing</a></li>
+            <li><a href="#">Job Grid</a></li>
+            <li><a href="#">Job Detail</a></li>
+            <li><a href="#">Apply for Job</a></li>
+          </ul>
+        </li>
+
+        <li class="hc-nav__item">
+          <a href="#" class="hc-nav__link">
+            Employers <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="#">Employer Listing</a></li>
+            <li><a href="#">Employer Profile</a></li>
+            <li><a href="#">Post a Job</a></li>
+          </ul>
+        </li>
+
+        <li class="hc-nav__item">
+          <a href="#" class="hc-nav__link">
+            Candidates <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="#">Candidate Listing</a></li>
+            <li><a href="#">Candidate Profile</a></li>
+            <li><a href="#">Upload Resume</a></li>
+          </ul>
+        </li>
+
+        <li class="hc-nav__item">
+          <a href="#" class="hc-nav__link">
+            Blog <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="#">Blog List</a></li>
+            <li><a href="#">Blog Detail</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- Auth button — matches screenshot: outlined pill "👤 Sign Up / 🔒 Login" -->
+    <!--<div class="hc-header__auth">-->
+    <!--  <a href="#" class="hc-auth-btn">-->
+    <!--    <i class="fa-regular fa-user" aria-hidden="true"></i>-->
+    <!--    Sign Up-->
+    <!--    <span class="auth-sep">/</span>-->
+    <!--    <i class="fa-solid fa-lock" aria-hidden="true"></i>-->
+    <!--    Login-->
+    <!--  </a>-->
+    <!--</div>-->
+
+    <!-- Mobile hamburger (shown via CSS at ≤992px) -->
+    <button class="hc-hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+</header>
+<!-- /HEADER -->
+
 
 <div class="page" style="padding-top:28px;padding-bottom:48px">
 
@@ -565,5 +697,807 @@ render();
 })();
 </script>
 
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="ft" id="footer">
+  <div class="ft-container">
+
+    <!-- ══════════════════════════════════════════════════
+         MAIN BODY — 3 columns
+    ══════════════════════════════════════════════════ -->
+    <div class="ft-body">
+
+      <!-- ────────────────────────────────────────
+           COLUMN 1 — Logo · Desc · Social · CTA
+      ──────────────────────────────────────── -->
+      <div class="ft-col ft-col--brand">
+
+        <!-- Logo: speed-lines + clock circle + HireAisa Workforce text -->
+        <a href="#" class="ft-logo" aria-label="HireAisa Workforce home">
+          <svg class="ft-logo__icon" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Speed lines -->
+            <line x1="0"  y1="15" x2="11" y2="15" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="2"  y1="21" x2="10" y2="21" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="0"  y1="27" x2="11" y2="27" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Clock outer circle -->
+            <circle cx="27" cy="21" r="13" fill="#f68c1f"/>
+            <circle cx="27" cy="21" r="10" fill="#161c27"/>
+            <!-- Clock face inner ring -->
+            <circle cx="27" cy="21" r="10" fill="none" stroke="#f68c1f" stroke-width="1"/>
+            <!-- Clock hands -->
+            <line x1="27" y1="21" x2="27" y2="14" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="27" y1="21" x2="33" y2="23" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="27" cy="21" r="1.4" fill="#fff"/>
+          </svg>
+          <span class="ft-logo__text">Hire<span class="co">Aisa Workforce</span></span>
+        </a>
+
+        <!-- Description -->
+        <p class="ft-desc" style="text-align: justify;text-justify: inter-word;">
+          <strong>HireAisa Workforce</strong> is a multi award-winning staffing, executive search, 
+          employee recruitment, and employer branding Service, Provided by 
+          <strong>EURO IMMIGRATION CONSULTING S.R.L.</strong> Our customized recruitment process 
+          delivers fast, reliable, & accurate hiring solutions for employers and 
+          career opportunities for job seekers worldwide.
+        </p>
+
+        <!-- Social Share -->
+        <!-- <div class="ft-social">
+          <span class="ft-social__label">Social Share:</span>
+          <div class="ft-social__links"> -->
+
+            <!-- Facebook -->
+            <!-- <a href="#" class="ft-social__link" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a> -->
+
+            <!-- Twitter / X -->
+            <!-- <a href="#" class="ft-social__link" aria-label="Twitter">
+              <svg viewBox="0 0 24 24"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+            </a> -->
+
+            <!-- Instagram -->
+            <!-- <a href="#" class="ft-social__link" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a> -->
+
+            <!-- Pinterest -->
+            <!-- <a href="#" class="ft-social__link" aria-label="Pinterest">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.77 1.22-5.16 1.22-5.16s-.31-.62-.31-1.55c0-1.45.84-2.54 1.89-2.54.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.87 3.48-.25 1.04.52 1.88 1.54 1.88 1.85 0 3.28-1.95 3.28-4.76 0-2.49-1.79-4.23-4.34-4.23-2.96 0-4.7 2.22-4.7 4.51 0 .89.34 1.85.77 2.37.08.1.09.19.07.29-.08.32-.25 1.04-.28 1.19-.04.19-.14.23-.32.14-1.25-.58-2.03-2.42-2.03-3.89 0-3.15 2.29-6.05 6.61-6.05 3.47 0 6.17 2.47 6.17 5.77 0 3.45-2.17 6.22-5.19 6.22-1.01 0-1.97-.53-2.3-1.15l-.62 2.33c-.23.87-.84 1.96-1.25 2.62.94.29 1.94.45 2.97.45 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+            </a> -->
+          <!-- </div>
+        </div> -->
+
+        <!-- CTA Button -->
+        <!-- <a href="https://wa.me/+8801711924102?text=I'm%20inquiring%20about%20foreign%20workers" class="ft-cta-btn">Request A Free Quotes</a> -->
+
+      </div>
+      <!-- /COL 1 -->
+
+
+      <!-- ────────────────────────────────────────
+           COLUMN 2 — Recent Posts
+      ──────────────────────────────────────── -->
+      <div class="ft-col ft-col--posts">
+
+        <h4 class="ft-col-title">Licensed & Approved</h4>
+
+        <div class="ft-posts">
+
+          <!-- licensed info -->
+          <div class="ft-post">
+            <p class="ft-desc" style="text-align: justify;text-justify: inter-word;">
+              <strong>HireAisa WorkForce</strong> Solution Offered by Employment Placement Agency 
+              <strong>EURO IMMIGRATION CONSULTING S.R.L.</strong>,
+              Licensed and Approved by the Romanian Government
+              Employment Agency.<br>
+              <strong>License No: J40/10901/2022</strong><br>
+              <strong>CUI: 46271458</strong><br>
+              Authorized to operate throughout the Entire Balkan Region.
+            </p>
+          </div>
+
+          <!-- Post 3 -->
+          <!-- <div class="ft-post">
+            <a href="#" class="ft-post__cat">Business</a>
+            <a href="#" class="ft-post__title">Shame: Does It Fine to Fit In The Workplace?</a>
+          </div> -->
+
+        </div>
+      </div>
+      <!-- /COL 2 -->
+
+
+      <!-- ────────────────────────────────────────
+           COLUMN 3 — Quick Contact box
+      ──────────────────────────────────────── -->
+      <div class="ft-col ft-col--contact">
+        <div class="ft-contact-box">
+
+          <h4 class="ft-contact-title">Quick Contact!</h4>
+
+          <!-- Phone -->
+          <div class="ft-contact-item">
+            <div class="ft-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.26 12 19.79 19.79 0 0 1 1.16 3.4 2 2 0 0 1 3.12 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/>
+              </svg>
+            </div>
+            <div>
+              <span class="ft-contact-label">Call Us On:</span>
+              <span class="ft-contact-value">+8801711924102</span>
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="ft-contact-item">
+            <div class="ft-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <span class="ft-contact-label">Address:</span>
+              <span class="ft-contact-value"><strong>Romania Office:</strong> Lămâiului St. no 4, Camera 1, Sector 1, Bucharest, Romania.</span>
+              <span class="ft-contact-value"><strong>Bangladesh Office:</strong> 1/5, Sat Masjid Road, Mohammadpur, Dhaka, Bangladesh.</span>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="ft-contact-item">
+            <div class="ft-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div>
+              <span class="ft-contact-label">Email:</span>
+              <span class="ft-contact-value">hireasiaworkforce@gmail.com</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- /COL 3 -->
+
+    </div>
+    <!-- /ft-body -->
+
+
+    <!-- ══════════════════════════════════════════════════
+         BOTTOM BAR
+         Left: copyright + legal links
+         Right: email newsletter subscribe
+    ══════════════════════════════════════════════════ -->
+    <div class="ft-bottom">
+      <div class="ft-bottom-inner">
+
+        <!-- Left: copyright + legal -->
+        <div class="ft-bottom-left">
+          <p class="ft-copyright">
+            Copyright &copy; 2026 <span class="hl">HireAsia Workforce</span> All rights reserved.
+          </p>
+          <div class="ft-legal">
+            <a href="#">Privacy &amp; Policy</a>
+            <span class="ft-legal-sep">|</span>
+            <a href="#">Terms &amp; Conditions</a>
+          </div>
+        </div>
+
+        <!-- Right: newsletter -->
+        <form class="ft-newsletter" id="ftNewsletter" action="#" onsubmit="handleSubscribe(event)">
+          <input
+            type="email"
+            id="ftEmail"
+            placeholder="Enter Your Email Address..."
+            aria-label="Newsletter email address"
+            required
+          />
+          <button type="submit" class="ft-newsletter-btn" aria-label="Subscribe">
+            <!-- Paper plane / send icon -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 2 11 13"/>
+              <path d="M22 2 15 22 11 13 2 9l20-7z" stroke="#f68c1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </button>
+        </form>
+
+      </div>
+    </div>
+    <!-- /ft-bottom -->
+
+  </div>
+  <!-- /ft-container -->
+</footer>
+
+
+<!-- ============================================================
+     BACK-TO-TOP BUTTON
+     Fixed orange circle in bottom-right corner.
+     JS below adds .visible class when user scrolls past 400px.
+============================================================ -->
+<a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+</a>
+
+<!-- ============================================================
+     SCRIPTS
+============================================================ -->
+<script>
+(function () {
+  /* ── Mobile nav toggle ── */
+  var hamburger = document.getElementById('hamburger');
+  var nav       = document.getElementById('mainNav');
+
+  if (hamburger && nav) {
+    hamburger.addEventListener('click', function () {
+      var isOpen = nav.classList.toggle('is-open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+  }
+
+  /* ── Sticky header shadow ── */
+  var header = document.getElementById('site-header');
+  window.addEventListener('scroll', function () {
+    header.style.boxShadow = window.scrollY > 10
+      ? '0 2px 16px rgba(0,0,0,0.12)'
+      : 'none';
+  }, { passive: true });
+
+  /* ── Scroll-reveal: adds .revealed to .step-card on viewport entry ── */
+  var cards = document.querySelectorAll('.step-card');
+  if (cards.length && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    cards.forEach(function (c) { io.observe(c); });
+  } else {
+    /* Fallback: reveal all immediately if IO not supported */
+    cards.forEach(function (c) { c.classList.add('revealed'); });
+  }
+})();
+</script>
+<script>
+(function () {
+  var btn = document.getElementById('backToTop');
+  if (!btn) return;
+
+  window.addEventListener('scroll', function () {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+<script>
+(function () {
+  var preloader = document.getElementById('pagePreloader');
+  if (!preloader) return;
+
+  window.addEventListener('load', function () {
+    preloader.classList.add('hidden');
+  });
+})();
+</script>
+<!-- ============================================================
+     SLIDER JAVASCRIPT
+     Features:
+       • Responsive: 4 cards (≥900px) · 2 cards (≥540px) · 1 card (<540px)
+       • Auto-play every 4 seconds (pauses on hover)
+       • Prev / Next buttons with disabled state at boundaries
+       • Dot indicators sync with current slide
+       • Touch / mouse drag support
+       • Keyboard arrow-key support
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Elements ── */
+  var track     = document.getElementById('sliderTrack');
+  var prevBtn   = document.getElementById('prevBtn');
+  var nextBtn   = document.getElementById('nextBtn');
+  var dotsWrap  = document.getElementById('sliderDots');
+  var section   = document.getElementById('overseas');
+
+  var cards     = Array.from(track.querySelectorAll('.country-card'));
+  var total     = cards.length;
+
+  /* ── State ── */
+  var current   = 0;        // index of leftmost visible card
+  var perView   = 4;        // cards shown at once
+  var cardW     = 0;        // card width + gap in px
+  var gap       = 20;       // must match CSS gap
+  var dots      = [];
+  var autoTimer = null;
+  var isDragging= false;
+  var dragStartX= 0;
+  var dragDelta = 0;
+
+  /* ── Responsive: how many cards to show ── */
+  function getPerView() {
+    var w = window.innerWidth;
+    if (w <= 540)  return 1;
+    if (w <= 900)  return 2;
+    return 4;
+  }
+
+  /* ── Calculate card width from actual DOM ── */
+  function calcCardW() {
+    perView = getPerView();
+    /* set flex-basis via JS so it's always accurate */
+    var vpW = track.parentElement.clientWidth - 16; /* minus padding */
+    var totalGap = gap * (perView - 1);
+    cardW = (vpW - totalGap) / perView;
+    cards.forEach(function (c) {
+      c.style.flex = '0 0 ' + cardW + 'px';
+      c.style.width = cardW + 'px';
+    });
+  }
+
+  /* ── Max slide index ── */
+  function maxIndex() {
+    return Math.max(0, total - perView);
+  }
+
+  /* ── Move track to current index ── */
+  function moveTo(idx, animate) {
+    idx = Math.max(0, Math.min(idx, maxIndex()));
+    current = idx;
+    var offset = current * (cardW + gap);
+    if (animate === false) {
+      track.style.transition = 'none';
+    } else {
+      track.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)';
+    }
+    track.style.transform = 'translateX(-' + offset + 'px)';
+    updateUI();
+  }
+
+  /* ── Sync arrows + dots ── */
+  function updateUI() {
+    prevBtn.disabled = (current === 0);
+    nextBtn.disabled = (current >= maxIndex());
+    dots.forEach(function (d, i) {
+      d.classList.toggle('active', i === current);
+      d.setAttribute('aria-current', i === current ? 'true' : 'false');
+    });
+  }
+
+  /* ── Build dots ── */
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    dots = [];
+    var count = maxIndex() + 1;
+    for (var i = 0; i < count; i++) {
+      (function (idx) {
+        var d = document.createElement('button');
+        d.className = 'slider-dot';
+        d.setAttribute('aria-label', 'Go to slide ' + (idx + 1));
+        d.addEventListener('click', function () { moveTo(idx); resetAuto(); });
+        dotsWrap.appendChild(d);
+        dots.push(d);
+      })(i);
+    }
+  }
+
+  /* ── Auto-play ── */
+//   function startAuto() {
+//     clearInterval(autoTimer);
+//     autoTimer = setInterval(function () {
+//       var next = (current >= maxIndex()) ? 0 : current + 1;
+//       moveTo(next);
+//     }, 4000);
+//   }
+    /* ── Auto-play (disabled) ── */
+// function startAuto() {
+//   clearInterval(autoTimer);
+//   /* autoplay intentionally disabled — slider only moves on
+//      user interaction (arrows, dots, drag) */
+// }
+/* ── Start/stop autoplay based on scroll visibility ── */
+if ('IntersectionObserver' in window) {
+  var sliderVisibility = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        startAuto();
+      } else {
+        clearInterval(autoTimer);
+      }
+    });
+  }, { threshold: 0.3 }); // fires once 30% of the section is visible
+
+  sliderVisibility.observe(section);
+} else {
+  /* Fallback for old browsers: just start immediately */
+  startAuto();
+}
+
+/* ── Run ── */
+init();
+
+  function resetAuto() { startAuto(); }
+
+  /* ── Init / resize ── */
+  function init() {
+    calcCardW();
+    buildDots();
+    moveTo(current, false);
+    startAuto();
+  }
+
+  window.addEventListener('resize', function () {
+    var oldPer = perView;
+    calcCardW();
+    if (perView !== oldPer) {
+      buildDots();
+      current = Math.min(current, maxIndex());
+    }
+    moveTo(current, false);
+  });
+
+  /* ── Button listeners ── */
+  prevBtn.addEventListener('click', function () {
+    moveTo(current - 1);
+    resetAuto();
+  });
+
+  nextBtn.addEventListener('click', function () {
+    moveTo(current + 1);
+    resetAuto();
+  });
+
+  /* ── Keyboard support ── */
+  section.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft')  { moveTo(current - 1); resetAuto(); }
+    if (e.key === 'ArrowRight') { moveTo(current + 1); resetAuto(); }
+  });
+
+  /* ── Pause auto on hover ── */
+  section.addEventListener('mouseenter', function () { clearInterval(autoTimer); });
+  section.addEventListener('mouseleave', function () { startAuto(); });
+
+  /* ── Touch / Mouse drag ── */
+  function onDragStart(x) {
+    isDragging = true;
+    dragStartX = x;
+    dragDelta  = 0;
+    track.style.transition = 'none';
+  }
+
+  function onDragMove(x) {
+    if (!isDragging) return;
+    dragDelta = x - dragStartX;
+    var base  = current * (cardW + gap);
+    track.style.transform = 'translateX(-' + (base - dragDelta) + 'px)';
+  }
+
+  function onDragEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    var threshold = cardW * 0.25;
+    if (dragDelta < -threshold)      moveTo(current + 1);
+    else if (dragDelta > threshold)  moveTo(current - 1);
+    else                             moveTo(current);   /* snap back */
+    resetAuto();
+  }
+
+  /* Touch events */
+  track.addEventListener('touchstart',  function (e) { onDragStart(e.touches[0].clientX); }, { passive: true });
+  track.addEventListener('touchmove',   function (e) { onDragMove(e.touches[0].clientX); },  { passive: true });
+  track.addEventListener('touchend',    onDragEnd);
+
+  /* Mouse drag */
+  track.addEventListener('mousedown',  function (e) { onDragStart(e.clientX); e.preventDefault(); });
+  window.addEventListener('mousemove', function (e) { onDragMove(e.clientX); });
+  window.addEventListener('mouseup',   onDragEnd);
+
+  /* Prevent drag from firing click on cards */
+  track.addEventListener('click', function (e) {
+    if (Math.abs(dragDelta) > 8) e.preventDefault();
+  });
+
+  /* ── Run ── */
+  init();
+
+})();
+</script>
+<!-- ============================================================
+     JAVASCRIPT
+     1. Click on any step → highlight it (is-active)
+     2. Auto-cycle through steps every 3s
+     3. Back-to-top visibility
+     4. Step photos swap on active change (optional array)
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Step photos (one per step — swap with your own images) ── */
+  var PHOTOS = [
+    'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80',  /* 01 */
+    'https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?w=700&q=80',      /* 02 */
+    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=700&q=80',  /* 03 */
+    'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=700&q=80',  /* 04 */
+    'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=700&q=80',     /* 05 */
+    'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&q=80',     /* 06 */
+  ];
+
+  var steps     = Array.from(document.querySelectorAll('.rp-step'));
+  var photo     = document.getElementById('rpPhoto');
+  var btt       = document.getElementById('backToTop');
+  var current   = 0;
+  var autoTimer = null;
+
+  /* ── Activate a step ── */
+  function activate(idx) {
+    steps.forEach(function (s, i) {
+      s.classList.toggle('is-active', i === idx);
+    });
+
+    /* Swap photo with fade */
+    if (photo && PHOTOS[idx]) {
+      photo.style.opacity = '0';
+      photo.style.transition = 'opacity 0.35s ease';
+      setTimeout(function () {
+        photo.src = PHOTOS[idx];
+        photo.onload = function () {
+          photo.style.opacity = '1';
+        };
+        /* fallback if already cached */
+        if (photo.complete) photo.style.opacity = '1';
+      }, 200);
+    }
+
+    current = idx;
+  }
+
+  /* ── Click on a step ── */
+  steps.forEach(function (step, idx) {
+    step.addEventListener('click', function () {
+      activate(idx);
+      resetAuto();
+    });
+
+    /* Cursor pointer on card */
+    step.style.cursor = 'pointer';
+  });
+
+  /* ── Auto-cycle ── */
+  function startAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function () {
+      var next = (current + 1) % steps.length;
+      activate(next);
+    }, 3000);
+  }
+
+  function resetAuto() {
+    startAuto();
+  }
+
+  /* ── Pause on hover ── */
+  var section = document.getElementById('recruitment-process');
+  section.addEventListener('mouseenter', function () { clearInterval(autoTimer); });
+  section.addEventListener('mouseleave', function () { startAuto(); });
+
+  /* ── Back to top ── */
+  window.addEventListener('scroll', function () {
+    btt.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+
+  btt.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ── Init ── */
+  activate(0);
+  startAuto();
+
+})();
+</script>
+<!-- ============================================================
+     JAVASCRIPT
+     1. Newsletter form subscribe with confirmation
+     2. Social icon hover handled via CSS
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Newsletter submit ── */
+  window.handleSubscribe = function (e) {
+    e.preventDefault();
+    var input = document.getElementById('ftEmail');
+    var email = input.value.trim();
+    if (!email) return;
+
+    /* Visual feedback — change placeholder to confirm */
+    input.value = '';
+    input.placeholder = 'Thank you for subscribing!';
+    input.style.color = '#f68c1f';
+
+    setTimeout(function () {
+      input.placeholder = 'Enter Your Email Address...';
+      input.style.color = '';
+    }, 3000);
+  };
+})();
+function handleSubscribe(e) {
+  e.preventDefault();
+  var input = document.getElementById('ftEmail');
+  var email = input.value.trim();
+  if (!email) return;
+
+  /* Visual feedback — change placeholder to confirm */
+  input.value = '';
+  input.placeholder = 'Thank you for subscribing!';
+  input.style.color = '#f68c1f';
+
+  setTimeout(function () {
+    input.placeholder = 'Enter Your Email Address...';
+    input.style.color = '';
+  }, 3000);
+}
+</script>
+<!-- ============================================================
+     LOTTIE GLOBE — loaded via JS
+     Uses the public LottieFiles "Globe Network" animation.
+     Fallback animation data is inline if CDN fetch fails.
+
+     Animation source: LottieFiles free globe/network animations
+     Options:
+       loop:      true   — plays continuously
+       autoplay:  true   — starts immediately
+       renderer:  'svg'  — crisp at all sizes, no rasterization
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* Globe Lottie animation JSON URL
+     Using a reliable public globe network animation from LottieFiles CDN.
+     Replace this URL with any Lottie JSON URL you prefer.
+  */
+  var GLOBE_URL = 'https://assets10.lottiefiles.com/packages/lf20_ywt4zvoo.json';
+  var FALLBACK_URL = 'https://assets2.lottiefiles.com/packages/lf20_qmfs6c3i.json';
+
+  var container = document.getElementById('lottieGlobe');
+  if (!container) return;
+
+  /* ── Load primary globe animation ── */
+  var anim = lottie.loadAnimation({
+    container:  container,
+    renderer:   'svg',
+    loop:       true,
+    autoplay:   true,
+    path:       GLOBE_URL
+  });
+
+  /* ── Fallback: if primary fails, try secondary ── */
+  anim.addEventListener('data_failed', function () {
+    lottie.destroy();
+    lottie.loadAnimation({
+      container:  container,
+      renderer:   'svg',
+      loop:       true,
+      autoplay:   true,
+      path:       FALLBACK_URL
+    });
+  });
+
+  /* ── Pause animation when off-screen (performance) ── */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          anim.play();
+        } else {
+          anim.pause();
+        }
+      });
+    }, { threshold: 0.1 });
+
+    io.observe(container);
+  }
+
+})();
+</script>
+<!-- ============================================================
+     JAVASCRIPT
+     ─────────────────────────────────────────────────────────
+     1. Thumbnail lazy-load click → inserts real YouTube iframe
+        Uses youtube-nocookie.com (privacy-enhanced embed mode)
+        Parameters:
+          autoplay=1    — auto-starts when user clicks
+          rel=0         — hides unrelated recommendations
+          modestbranding=1 — minimal YouTube branding
+     2. Keyboard (Enter/Space) support on thumbnails
+     3. Back-to-top button visibility + smooth scroll
+     ─────────────────────────────────────────────────────────
+     TO REPLACE A VIDEO: change the data-videoid attribute on
+     the .wop-thumb element to any valid YouTube video ID.
+     The thumbnail is automatically fetched from YouTube's CDN.
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Lazy-load YouTube iframes ── */
+  function loadVideo(thumb) {
+    if (thumb.classList.contains('hidden')) return;
+
+    var videoId = thumb.getAttribute('data-videoid');
+    if (!videoId) return;
+
+    /* Build privacy-enhanced iframe URL */
+    var src = 'https://www.youtube-nocookie.com/embed/'
+      + videoId
+      + '?autoplay=1&rel=0&modestbranding=1&color=white';
+
+    /* Create iframe */
+    var iframe = document.createElement('iframe');
+    iframe.setAttribute('src', src);
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+    iframe.setAttribute('title', thumb.getAttribute('data-title') || 'Candidate video');
+
+    /* Insert iframe into the wrapper (sibling of thumb) */
+    var wrap = thumb.closest('.wop-video-wrap');
+    wrap.appendChild(iframe);
+
+    /* Hide the thumbnail */
+    thumb.classList.add('hidden');
+
+    /* Remove thumb from DOM after transition */
+    thumb.addEventListener('transitionend', function () {
+      thumb.remove();
+    }, { once: true });
+  }
+
+  /* Click handler */
+  document.querySelectorAll('.wop-thumb').forEach(function (thumb) {
+    thumb.addEventListener('click', function () {
+      loadVideo(thumb);
+    });
+
+    /* Keyboard: Enter or Space */
+    thumb.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        loadVideo(thumb);
+      }
+    });
+  });
+
+  /* ── Back to top ── */
+  var btt = document.getElementById('backToTop');
+  if (btt) {
+    window.addEventListener('scroll', function () {
+      btt.classList.toggle('visible', window.scrollY > 300);
+    }, { passive: true });
+
+    btt.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+})();
+</script>
 </body>
 </html>

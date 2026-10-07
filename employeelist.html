@@ -1,0 +1,2993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HireAisa Workforce – Hero & How It Works</title>
+
+  <!--
+    FONTS
+    Nunito 700/800 — logo, headings, buttons, ghost step numbers
+    Open Sans 400/600 — nav, body text, inputs, placeholders
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!--
+    ICONS — Font Awesome 6 Free
+    The original template ships a Flaticon custom webfont for the step icons.
+    Swap "fa-solid fa-*" with your Flaticon class names if you have them.
+  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- SECTION STYLES -->
+  <link rel="stylesheet" href="hero-section.css" />
+  <link rel="stylesheet" href="how-it-works.css" />
+  <link rel="stylesheet" href="who-we-are.css" />
+  <link rel="stylesheet" href="what-we-serve.css" />
+  <link rel="stylesheet" href="country-section.css" />
+  <link rel="stylesheet" href="we-serve-overseas.css" />
+  <link rel="stylesheet" href="recruitement-process.css" />
+  <link rel="stylesheet" href="operation-process.css" />
+  <link rel="stylesheet" href="way-of-presenting.css" />
+  <link rel="stylesheet" href="job-list.css" />
+  <link rel="stylesheet" href="employee-list.css" />
+  
+  <!-- Lottie Web player — renders the animated globe -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <link rel="stylesheet" href="contact-foreign.css" />
+  
+  <link rel="stylesheet" href="footer.css" />
+
+  <style>
+    /* Preloader */
+    .preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .preloader__inner {
+      text-align: center;
+    }
+    .preloader__spinner {
+      width: 58px;
+      height: 58px;
+      border: 6px solid rgba(246, 140, 31, 0.2);
+      border-top-color: #f68c1f;
+      border-radius: 50%;
+      animation: preloader-spin 1.2s linear infinite;
+      margin: 0 auto 16px;
+    }
+    .preloader__text {
+      font-family: 'Open Sans', sans-serif;
+      color: #1a1a1a;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+    }
+    .noscript-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10000;
+      background: #161c27;
+      color: #f5f5f5;
+      border-bottom: 3px solid #f68c1f;
+      padding: 14px 16px;
+      text-align: center;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.025em;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    }
+    .noscript-banner strong {
+      color: #f68c1f;
+    }
+    .noscript-close-checkbox {
+      position: absolute;
+      left: -9999px;
+      visibility: hidden;
+    }
+    .noscript-banner {
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .noscript-close-checkbox:checked + .noscript-banner {
+      opacity: 0;
+      transform: translateY(-10px);
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .noscript-close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+      text-align: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.38);
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .noscript-close:hover {
+      background: rgba(255,255,255,0.16);
+    }
+    .topbar {
+      background: #f7f7f7;
+      color: #161c27;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.2px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      min-height: 40px;
+      height: 40px;
+      border-bottom: 1px solid rgba(22, 28, 39, 0.08);
+    }
+    .topbar__left,
+    .topbar__right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .topbar__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #6b7280;
+      text-decoration: none;
+    }
+    .topbar__item:hover {
+      color: #f68c1f;
+    }
+    .topbar__icon {
+      width: 16px;
+      text-align: center;
+      color: #6b7280;
+    }
+    .topbar__social {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .topbar__social a,
+    .topbar__social-toggle {
+      color: #6b7280;
+      text-decoration: none;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topbar__social a:hover,
+    .topbar__social-toggle:hover {
+      color: #f68c1f;
+    }
+    .topbar__social-links {
+      display: inline-flex;
+      gap: 12px;
+    }
+    @media (max-width: 768px) {
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px 16px;
+      }
+      .topbar__left,
+      .topbar__right {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .topbar__left {
+        gap: 12px;
+      }
+      .topbar__right {
+        gap: 12px;
+      }
+      .topbar__item {
+        width: 100%;
+        justify-content: center;
+        padding: 6px 0;
+      }
+      .topbar__social {
+        justify-content: center;
+        width: 100%;
+      }
+      .topbar__social-links {
+        display: none;
+      }
+      .topbar__social-toggle {
+        justify-content: center;
+        width: 100%;
+        padding: 8px 0;
+      }
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      clip-path: inset(50%);
+      border: 0;
+      white-space: nowrap;
+    }
+    @keyframes preloader-spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+<div class="preloader" id="pagePreloader" aria-hidden="true">
+  <div class="preloader__inner">
+    <div class="preloader__spinner"></div>
+    <div class="preloader__text">Loading HireAisa Workforce...</div>
+  </div>
+</div>
+<noscript>
+  <input type="checkbox" id="noscriptClose" class="noscript-close-checkbox" />
+  <div class="noscript-banner" role="alert">
+    <label for="noscriptClose" class="noscript-close" aria-label="Dismiss message">
+      ×
+      <span class="sr-only">Dismiss this warning</span>
+    </label>
+    <strong>JavaScript is disabled.</strong> Some site features may not work correctly.
+  </div>
+</noscript>
+<div class="topbar">
+  <div class="topbar__left">
+    <a href="tel:+8801711924102" class="topbar__item">
+      <span class="topbar__icon"><i class="fa-solid fa-phone"></i></span>
+      <span>+8801711924102</span>
+    </a>
+    <a href="mailto:hireasiaworkforce@gmail.com" class="topbar__item">
+      <span class="topbar__icon"><i class="fa-solid fa-envelope"></i></span>
+      <span>hireasiaworkforce@gmail.com</span>
+    </a>
+  </div>
+  <div class="topbar__right topbar__social" aria-label="Social media links">
+    <a href="#" aria-label="Open social links" class="topbar__item topbar__social-toggle">
+      <span class="topbar__icon"><i class="fa-solid fa-share-nodes"></i></span>
+      <span>Social</span>
+    </a>
+    <div class="topbar__social-links">
+      <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     HEADER
+     CSS:  .hc-header, .hc-header__inner, .hc-logo, .hc-nav,
+           .hc-header__auth, .hc-auth-btn, .hc-hamburger
+============================================================ -->
+<header class="hc-header" id="site-header">
+  <div class="hc-header__inner">
+
+    <!-- Logo -->
+    <a href="#" class="hc-logo" aria-label="HireAisa Workforce home">
+      <!-- Clock icon with speed lines — inline SVG replicates the template logo -->
+      <div class="hc-logo__icon" aria-hidden="true">
+        <svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Speed lines left of the clock -->
+          <line x1="0" y1="14" x2="10" y2="14" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="2" y1="19" x2="9"  y2="19" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="0" y1="24" x2="10" y2="24" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Clock circle -->
+          <circle cx="24" cy="19" r="12" fill="#f68c1f"/>
+          <circle cx="24" cy="19" r="9"  fill="#fff"/>
+          <!-- Clock hands -->
+          <line x1="24" y1="19" x2="24" y2="13" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="24" y1="19" x2="29" y2="21" stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="24" cy="19" r="1.2" fill="#1a1a1a"/>
+        </svg>
+      </div>
+      <span class="hc-logo__text">Hire<span class="logo-co">Asia Workforce</span></span>
+    </a>
+
+    <!-- Primary nav -->
+    <nav class="hc-nav" id="mainNav" aria-label="Main navigation">
+      <ul class="hc-nav__list">
+
+        <li class="hc-nav__item hc-nav__item--active">
+          <a href="#" class="hc-nav__link">
+            Home <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="#">Home 1 – Job Seeker</a></li>
+            <li><a href="#">Home 2 – Job Consultancy</a></li>
+            <li><a href="#">Home 3 – Human Resource</a></li>
+          </ul>
+        </li>
+
+        <li class="hc-nav__item">
+          <a href="#" class="hc-nav__link">
+            Pages <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </li>
+
+        <li class="hc-nav__item">
+          <a href="#" class="hc-nav__link">
+            Jobs <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="#">Job Listing</a></li>
+            <li><a href="#">Job Grid</a></li>
+            <li><a href="#">Job Detail</a></li>
+            <li><a href="#">Apply for Job</a></li>
+          </ul>
+        </li>
+
+        <li class="hc-nav__item">
+          <a href="#" class="hc-nav__link">
+            Employers <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="#">Employer Listing</a></li>
+            <li><a href="#">Employer Profile</a></li>
+            <li><a href="#">Post a Job</a></li>
+          </ul>
+        </li>
+
+        <li class="hc-nav__item">
+          <a href="#" class="hc-nav__link">
+            Candidates <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="#">Candidate Listing</a></li>
+            <li><a href="#">Candidate Profile</a></li>
+            <li><a href="#">Upload Resume</a></li>
+          </ul>
+        </li>
+
+        <li class="hc-nav__item">
+          <a href="#" class="hc-nav__link">
+            Blog <i class="fa-solid fa-chevron-down chevron" aria-hidden="true"></i>
+          </a>
+          <ul class="hc-dropdown">
+            <li><a href="#">Blog List</a></li>
+            <li><a href="#">Blog Detail</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- Auth button — matches screenshot: outlined pill "👤 Sign Up / 🔒 Login" -->
+    <div class="hc-header__auth">
+      <a href="#" class="hc-auth-btn">
+        <i class="fa-regular fa-user" aria-hidden="true"></i>
+        Sign Up
+        <span class="auth-sep">/</span>
+        <i class="fa-solid fa-lock" aria-hidden="true"></i>
+        Login
+      </a>
+    </div>
+
+    <!-- Mobile hamburger (shown via CSS at ≤992px) -->
+    <button class="hc-hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+</header>
+<!-- /HEADER -->
+
+
+<section class="employee-section">
+
+    <!-- Mobile filter toggle -->
+    <button
+        class="mobile-filter-button"
+        id="filterToggle"
+        type="button"
+    >
+        ☰ &nbsp; Show Filters
+    </button>
+
+
+    <div class="employee-layout">
+
+
+        <!-- =====================================================
+             SIDEBAR
+        ====================================================== -->
+
+        <aside class="employee-sidebar" id="employeeSidebar">
+
+
+            <!-- DATE -->
+            <div class="filter-card">
+
+                <div class="filter-heading">
+
+                    <svg class="filter-heading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+
+                    Date Posted
+
+                </div>
+
+
+                <label class="filter-option">
+                    <input type="radio" name="date" value="1">
+                    Today
+                </label>
+
+                <label class="filter-option">
+                    <input type="radio" name="date" value="7" checked>
+                    Last 7 Days
+                </label>
+
+                <label class="filter-option">
+                    <input type="radio" name="date" value="14">
+                    Last 14 Days
+                </label>
+
+                <label class="filter-option">
+                    <input type="radio" name="date" value="21">
+                    Last 21 Days
+                </label>
+
+                <label class="filter-option">
+                    <input type="radio" name="date" value="30">
+                    Last 30 Days
+                </label>
+
+            </div>
+
+
+            <!-- CATEGORY -->
+            <div class="filter-card">
+
+                <div class="filter-heading">
+
+                    <svg class="filter-heading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"/>
+                        <rect x="14" y="3" width="7" height="7"/>
+                        <rect x="3" y="14" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/>
+                    </svg>
+
+                    Categories
+
+                </div>
+
+
+                <label class="filter-option">
+                    <input type="checkbox" name="category" value="Digital Marketing">
+                    Digital Marketing
+                </label>
+
+                <label class="filter-option">
+                    <input type="checkbox" name="category" value="Charity & Voluntary">
+                    Charity & Voluntary
+                </label>
+
+                <label class="filter-option">
+                    <input type="checkbox" name="category" value="IT">
+                    IT Contractor
+                </label>
+
+                <label class="filter-option">
+                    <input type="checkbox" name="category" value="Estate Agency">
+                    Estate Agency
+                </label>
+
+                <label class="filter-option">
+                    <input type="checkbox" name="category" value="Graduate">
+                    Graduate
+                </label>
+
+            </div>
+
+
+            <!-- EXPERIENCE -->
+            <div class="filter-card">
+
+                <div class="filter-heading">
+
+                    <svg class="filter-heading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="8" r="4"/>
+                        <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/>
+                    </svg>
+
+                    Experience
+
+                </div>
+
+
+                <label class="filter-option">
+                    <input type="radio" name="experience" value="0-1">
+                    0 Year To 1 Year
+                </label>
+
+                <label class="filter-option">
+                    <input type="radio" name="experience" value="1-2" checked>
+                    1 Year To 2 Year
+                </label>
+
+                <label class="filter-option">
+                    <input type="radio" name="experience" value="2-3">
+                    2 Year To 3 Year
+                </label>
+
+                <label class="filter-option">
+                    <input type="radio" name="experience" value="3+">
+                    3 Year Or More
+                </label>
+
+            </div>
+
+
+            <!-- GENDER -->
+            <div class="filter-card">
+
+                <div class="filter-heading">
+
+                    <svg class="filter-heading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="4"/>
+                        <line x1="12" y1="2" x2="12" y2="6"/>
+                        <line x1="12" y1="18" x2="12" y2="22"/>
+                    </svg>
+
+                    Gender
+
+                </div>
+
+
+                <label class="filter-option">
+                    <input type="radio" name="gender" value="male" checked>
+                    Male
+                </label>
+
+                <label class="filter-option">
+                    <input type="radio" name="gender" value="female">
+                    Female
+                </label>
+
+                <label class="filter-option">
+                    <input type="radio" name="gender" value="all">
+                    All
+                </label>
+
+            </div>
+
+
+            <!-- DOWNLOAD -->
+            <div class="filter-card download-card">
+
+                <button
+                    class="download-button"
+                    id="downloadPdf"
+                    type="button"
+                >
+                    Download.pdf
+
+                    <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 3v12"/>
+                        <path d="m7 10 5 5 5-5"/>
+                        <path d="M5 21h14"/>
+                    </svg>
+
+                </button>
+
+
+                <button
+                    class="download-button"
+                    id="downloadTxt"
+                    type="button"
+                >
+                    Download.txt
+
+                    <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 3v12"/>
+                        <path d="m7 10 5 5 5-5"/>
+                        <path d="M5 21h14"/>
+                    </svg>
+
+                </button>
+
+            </div>
+
+
+            <!-- PROMO -->
+            <div class="resume-promo">
+
+                <div class="resume-content">
+
+                    <h3>
+                        Make a Difference with
+                        Online Resume!
+                    </h3>
+
+                    <p>
+                        Your Resume in Minutes with
+                        Jobs Resume Assistant is Ready!
+                    </p>
+
+                    <a href="#" class="resume-button">
+                        Appointment
+                    </a>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =====================================================
+             MAIN
+        ====================================================== -->
+
+        <main class="employee-main">
+
+
+            <!-- RESULTS -->
+            <div class="results-bar">
+
+                <div class="results-text">
+
+                    Showing
+                    <strong id="rangeStart">1</strong> -
+                    <strong id="rangeEnd">8</strong>
+                    of
+                    <strong id="totalResults">20</strong>
+                    Job Results :
+
+                </div>
+
+
+                <div class="sort-area">
+
+                    <label for="sortSelect">
+                        Sort By:
+                    </label>
+
+                    <select
+                        class="sort-select"
+                        id="sortSelect"
+                    >
+                        <option value="az">A to Z</option>
+                        <option value="za">Z to A</option>
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- EMPLOYEES -->
+            <div
+                class="employee-list"
+                id="employeeList"
+            ></div>
+
+
+            <!-- PAGINATION -->
+            <div
+                class="pagination"
+                id="pagination"
+            ></div>
+
+        </main>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PROFILE MODAL
+========================================================= -->
+
+<div
+    class="modal-overlay"
+    id="profileModal"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+>
+
+    <div class="employee-modal">
+
+        <div class="modal-header">
+
+            <div class="modal-photo">
+                <img
+                    id="modalPhoto"
+                    src=""
+                    alt=""
+                >
+            </div>
+
+            <div>
+                <h2
+                    class="modal-name"
+                    id="modalName"
+                ></h2>
+
+                <div
+                    class="modal-position"
+                    id="modalPosition"
+                ></div>
+            </div>
+
+            <button
+                class="modal-close"
+                id="modalClose"
+                type="button"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <div class="modal-details">
+
+                <div class="detail-box">
+                    <div class="detail-label">Location</div>
+                    <div
+                        class="detail-value"
+                        id="modalLocation"
+                    ></div>
+                </div>
+
+                <div class="detail-box">
+                    <div class="detail-label">Experience</div>
+                    <div
+                        class="detail-value"
+                        id="modalExperience"
+                    ></div>
+                </div>
+
+                <div class="detail-box">
+                    <div class="detail-label">Category</div>
+                    <div
+                        class="detail-value"
+                        id="modalCategory"
+                    ></div>
+                </div>
+
+                <div class="detail-box">
+                    <div class="detail-label">Gender</div>
+                    <div
+                        class="detail-value"
+                        id="modalGender"
+                    ></div>
+                </div>
+
+            </div>
+
+
+            <h3 class="modal-section-title">
+                About Employee
+            </h3>
+
+            <p
+                class="modal-description"
+                id="modalDescription"
+            ></p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="ft" id="footer">
+  <div class="ft-container">
+
+    <!-- ══════════════════════════════════════════════════
+         MAIN BODY — 3 columns
+    ══════════════════════════════════════════════════ -->
+    <div class="ft-body">
+
+      <!-- ────────────────────────────────────────
+           COLUMN 1 — Logo · Desc · Social · CTA
+      ──────────────────────────────────────── -->
+      <div class="ft-col ft-col--brand">
+
+        <!-- Logo: speed-lines + clock circle + HireAisa Workforce text -->
+        <a href="#" class="ft-logo" aria-label="HireAisa Workforce home">
+          <svg class="ft-logo__icon" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Speed lines -->
+            <line x1="0"  y1="15" x2="11" y2="15" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="2"  y1="21" x2="10" y2="21" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="0"  y1="27" x2="11" y2="27" stroke="#f68c1f" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Clock outer circle -->
+            <circle cx="27" cy="21" r="13" fill="#f68c1f"/>
+            <circle cx="27" cy="21" r="10" fill="#161c27"/>
+            <!-- Clock face inner ring -->
+            <circle cx="27" cy="21" r="10" fill="none" stroke="#f68c1f" stroke-width="1"/>
+            <!-- Clock hands -->
+            <line x1="27" y1="21" x2="27" y2="14" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="27" y1="21" x2="33" y2="23" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="27" cy="21" r="1.4" fill="#fff"/>
+          </svg>
+          <span class="ft-logo__text">Hire<span class="co">Aisa Workforce</span></span>
+        </a>
+
+        <!-- Description -->
+        <p class="ft-desc" style="text-align: justify;text-justify: inter-word;">
+          <strong>HireAisa Workforce</strong> is a multi award-winning staffing, executive search, 
+          employee recruitment, and employer branding Service, Provided by 
+          <strong>EURO IMMIGRATION CONSULTING S.R.L.</strong> Our customized recruitment process 
+          delivers fast, reliable, & accurate hiring solutions for employers and 
+          career opportunities for job seekers worldwide.
+        </p>
+
+        <!-- Social Share -->
+        <!-- <div class="ft-social">
+          <span class="ft-social__label">Social Share:</span>
+          <div class="ft-social__links"> -->
+
+            <!-- Facebook -->
+            <!-- <a href="#" class="ft-social__link" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a> -->
+
+            <!-- Twitter / X -->
+            <!-- <a href="#" class="ft-social__link" aria-label="Twitter">
+              <svg viewBox="0 0 24 24"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+            </a> -->
+
+            <!-- Instagram -->
+            <!-- <a href="#" class="ft-social__link" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a> -->
+
+            <!-- Pinterest -->
+            <!-- <a href="#" class="ft-social__link" aria-label="Pinterest">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.77 1.22-5.16 1.22-5.16s-.31-.62-.31-1.55c0-1.45.84-2.54 1.89-2.54.89 0 1.32.67 1.32 1.47 0 .9-.57 2.24-.87 3.48-.25 1.04.52 1.88 1.54 1.88 1.85 0 3.28-1.95 3.28-4.76 0-2.49-1.79-4.23-4.34-4.23-2.96 0-4.7 2.22-4.7 4.51 0 .89.34 1.85.77 2.37.08.1.09.19.07.29-.08.32-.25 1.04-.28 1.19-.04.19-.14.23-.32.14-1.25-.58-2.03-2.42-2.03-3.89 0-3.15 2.29-6.05 6.61-6.05 3.47 0 6.17 2.47 6.17 5.77 0 3.45-2.17 6.22-5.19 6.22-1.01 0-1.97-.53-2.3-1.15l-.62 2.33c-.23.87-.84 1.96-1.25 2.62.94.29 1.94.45 2.97.45 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+            </a> -->
+          <!-- </div>
+        </div> -->
+
+        <!-- CTA Button -->
+        <!-- <a href="https://wa.me/+8801711924102?text=I'm%20inquiring%20about%20foreign%20workers" class="ft-cta-btn">Request A Free Quotes</a> -->
+
+      </div>
+      <!-- /COL 1 -->
+
+
+      <!-- ────────────────────────────────────────
+           COLUMN 2 — Recent Posts
+      ──────────────────────────────────────── -->
+      <div class="ft-col ft-col--posts">
+
+        <h4 class="ft-col-title">Licensed & Approved</h4>
+
+        <div class="ft-posts">
+
+          <!-- licensed info -->
+          <div class="ft-post">
+            <p class="ft-desc" style="text-align: justify;text-justify: inter-word;">
+              <strong>HireAisa WorkForce</strong> Solution Offered by Employment Placement Agency 
+              <strong>EURO IMMIGRATION CONSULTING S.R.L.</strong>,
+              Licensed and Approved by the Romanian Government
+              Employment Agency.<br>
+              <strong>License No: J40/10901/2022</strong><br>
+              <strong>CUI: 46271458</strong><br>
+              Authorized to operate throughout the Entire Balkan Region.
+            </p>
+          </div>
+
+          <!-- Post 3 -->
+          <!-- <div class="ft-post">
+            <a href="#" class="ft-post__cat">Business</a>
+            <a href="#" class="ft-post__title">Shame: Does It Fine to Fit In The Workplace?</a>
+          </div> -->
+
+        </div>
+      </div>
+      <!-- /COL 2 -->
+
+
+      <!-- ────────────────────────────────────────
+           COLUMN 3 — Quick Contact box
+      ──────────────────────────────────────── -->
+      <div class="ft-col ft-col--contact">
+        <div class="ft-contact-box">
+
+          <h4 class="ft-contact-title">Quick Contact!</h4>
+
+          <!-- Phone -->
+          <div class="ft-contact-item">
+            <div class="ft-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.26 12 19.79 19.79 0 0 1 1.16 3.4 2 2 0 0 1 3.12 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/>
+              </svg>
+            </div>
+            <div>
+              <span class="ft-contact-label">Call Us On:</span>
+              <span class="ft-contact-value">+8801711924102</span>
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="ft-contact-item">
+            <div class="ft-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <span class="ft-contact-label">Address:</span>
+              <span class="ft-contact-value"><strong>Romania Office:</strong> Lămâiului St. no 4, Camera 1, Sector 1, Bucharest, Romania.</span>
+              <span class="ft-contact-value"><strong>Bangladesh Office:</strong> 1/5, Sat Masjid Road, Mohammadpur, Dhaka, Bangladesh.</span>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="ft-contact-item">
+            <div class="ft-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div>
+              <span class="ft-contact-label">Email:</span>
+              <span class="ft-contact-value">hireasiaworkforce@gmail.com</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- /COL 3 -->
+
+    </div>
+    <!-- /ft-body -->
+
+
+    <!-- ══════════════════════════════════════════════════
+         BOTTOM BAR
+         Left: copyright + legal links
+         Right: email newsletter subscribe
+    ══════════════════════════════════════════════════ -->
+    <div class="ft-bottom">
+      <div class="ft-bottom-inner">
+
+        <!-- Left: copyright + legal -->
+        <div class="ft-bottom-left">
+          <p class="ft-copyright">
+            Copyright &copy; 2026 <span class="hl">HireAsia Workforce</span> All rights reserved.
+          </p>
+          <div class="ft-legal">
+            <a href="#">Privacy &amp; Policy</a>
+            <span class="ft-legal-sep">|</span>
+            <a href="#">Terms &amp; Conditions</a>
+          </div>
+        </div>
+
+        <!-- Right: newsletter -->
+        <form class="ft-newsletter" id="ftNewsletter" action="#" onsubmit="handleSubscribe(event)">
+          <input
+            type="email"
+            id="ftEmail"
+            placeholder="Enter Your Email Address..."
+            aria-label="Newsletter email address"
+            required
+          />
+          <button type="submit" class="ft-newsletter-btn" aria-label="Subscribe">
+            <!-- Paper plane / send icon -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 2 11 13"/>
+              <path d="M22 2 15 22 11 13 2 9l20-7z" stroke="#f68c1f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </button>
+        </form>
+
+      </div>
+    </div>
+    <!-- /ft-bottom -->
+
+  </div>
+  <!-- /ft-container -->
+</footer>
+
+
+<!-- ============================================================
+     BACK-TO-TOP BUTTON
+     Fixed orange circle in bottom-right corner.
+     JS below adds .visible class when user scrolls past 400px.
+============================================================ -->
+<a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+</a>
+
+<!-- ============================================================
+     SCRIPTS
+============================================================ -->
+<script>
+(function () {
+  /* ── Mobile nav toggle ── */
+  var hamburger = document.getElementById('hamburger');
+  var nav       = document.getElementById('mainNav');
+
+  if (hamburger && nav) {
+    hamburger.addEventListener('click', function () {
+      var isOpen = nav.classList.toggle('is-open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+  }
+
+  /* ── Sticky header shadow ── */
+  var header = document.getElementById('site-header');
+  window.addEventListener('scroll', function () {
+    header.style.boxShadow = window.scrollY > 10
+      ? '0 2px 16px rgba(0,0,0,0.12)'
+      : 'none';
+  }, { passive: true });
+
+  /* ── Scroll-reveal: adds .revealed to .step-card on viewport entry ── */
+  var cards = document.querySelectorAll('.step-card');
+  if (cards.length && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    cards.forEach(function (c) { io.observe(c); });
+  } else {
+    /* Fallback: reveal all immediately if IO not supported */
+    cards.forEach(function (c) { c.classList.add('revealed'); });
+  }
+})();
+</script>
+<script>
+(function () {
+  var btn = document.getElementById('backToTop');
+  if (!btn) return;
+
+  window.addEventListener('scroll', function () {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+<script>
+(function () {
+  var preloader = document.getElementById('pagePreloader');
+  if (!preloader) return;
+
+  window.addEventListener('load', function () {
+    preloader.classList.add('hidden');
+  });
+})();
+</script>
+<!-- ============================================================
+     SLIDER JAVASCRIPT
+     Features:
+       • Responsive: 4 cards (≥900px) · 2 cards (≥540px) · 1 card (<540px)
+       • Auto-play every 4 seconds (pauses on hover)
+       • Prev / Next buttons with disabled state at boundaries
+       • Dot indicators sync with current slide
+       • Touch / mouse drag support
+       • Keyboard arrow-key support
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Elements ── */
+  var track     = document.getElementById('sliderTrack');
+  var prevBtn   = document.getElementById('prevBtn');
+  var nextBtn   = document.getElementById('nextBtn');
+  var dotsWrap  = document.getElementById('sliderDots');
+  var section   = document.getElementById('overseas');
+
+  var cards     = Array.from(track.querySelectorAll('.country-card'));
+  var total     = cards.length;
+
+  /* ── State ── */
+  var current   = 0;        // index of leftmost visible card
+  var perView   = 4;        // cards shown at once
+  var cardW     = 0;        // card width + gap in px
+  var gap       = 20;       // must match CSS gap
+  var dots      = [];
+  var autoTimer = null;
+  var isDragging= false;
+  var dragStartX= 0;
+  var dragDelta = 0;
+
+  /* ── Responsive: how many cards to show ── */
+  function getPerView() {
+    var w = window.innerWidth;
+    if (w <= 540)  return 1;
+    if (w <= 900)  return 2;
+    return 4;
+  }
+
+  /* ── Calculate card width from actual DOM ── */
+  function calcCardW() {
+    perView = getPerView();
+    /* set flex-basis via JS so it's always accurate */
+    var vpW = track.parentElement.clientWidth - 16; /* minus padding */
+    var totalGap = gap * (perView - 1);
+    cardW = (vpW - totalGap) / perView;
+    cards.forEach(function (c) {
+      c.style.flex = '0 0 ' + cardW + 'px';
+      c.style.width = cardW + 'px';
+    });
+  }
+
+  /* ── Max slide index ── */
+  function maxIndex() {
+    return Math.max(0, total - perView);
+  }
+
+  /* ── Move track to current index ── */
+  function moveTo(idx, animate) {
+    idx = Math.max(0, Math.min(idx, maxIndex()));
+    current = idx;
+    var offset = current * (cardW + gap);
+    if (animate === false) {
+      track.style.transition = 'none';
+    } else {
+      track.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)';
+    }
+    track.style.transform = 'translateX(-' + offset + 'px)';
+    updateUI();
+  }
+
+  /* ── Sync arrows + dots ── */
+  function updateUI() {
+    prevBtn.disabled = (current === 0);
+    nextBtn.disabled = (current >= maxIndex());
+    dots.forEach(function (d, i) {
+      d.classList.toggle('active', i === current);
+      d.setAttribute('aria-current', i === current ? 'true' : 'false');
+    });
+  }
+
+  /* ── Build dots ── */
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    dots = [];
+    var count = maxIndex() + 1;
+    for (var i = 0; i < count; i++) {
+      (function (idx) {
+        var d = document.createElement('button');
+        d.className = 'slider-dot';
+        d.setAttribute('aria-label', 'Go to slide ' + (idx + 1));
+        d.addEventListener('click', function () { moveTo(idx); resetAuto(); });
+        dotsWrap.appendChild(d);
+        dots.push(d);
+      })(i);
+    }
+  }
+
+  /* ── Auto-play ── */
+  function startAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function () {
+      var next = (current >= maxIndex()) ? 0 : current + 1;
+      moveTo(next);
+    }, 4000);
+  }
+
+  function resetAuto() { startAuto(); }
+
+  /* ── Init / resize ── */
+  function init() {
+    calcCardW();
+    buildDots();
+    moveTo(current, false);
+    startAuto();
+  }
+
+  window.addEventListener('resize', function () {
+    var oldPer = perView;
+    calcCardW();
+    if (perView !== oldPer) {
+      buildDots();
+      current = Math.min(current, maxIndex());
+    }
+    moveTo(current, false);
+  });
+
+  /* ── Button listeners ── */
+  prevBtn.addEventListener('click', function () {
+    moveTo(current - 1);
+    resetAuto();
+  });
+
+  nextBtn.addEventListener('click', function () {
+    moveTo(current + 1);
+    resetAuto();
+  });
+
+  /* ── Keyboard support ── */
+  section.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft')  { moveTo(current - 1); resetAuto(); }
+    if (e.key === 'ArrowRight') { moveTo(current + 1); resetAuto(); }
+  });
+
+  /* ── Pause auto on hover ── */
+  section.addEventListener('mouseenter', function () { clearInterval(autoTimer); });
+  section.addEventListener('mouseleave', function () { startAuto(); });
+
+  /* ── Touch / Mouse drag ── */
+  function onDragStart(x) {
+    isDragging = true;
+    dragStartX = x;
+    dragDelta  = 0;
+    track.style.transition = 'none';
+  }
+
+  function onDragMove(x) {
+    if (!isDragging) return;
+    dragDelta = x - dragStartX;
+    var base  = current * (cardW + gap);
+    track.style.transform = 'translateX(-' + (base - dragDelta) + 'px)';
+  }
+
+  function onDragEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    var threshold = cardW * 0.25;
+    if (dragDelta < -threshold)      moveTo(current + 1);
+    else if (dragDelta > threshold)  moveTo(current - 1);
+    else                             moveTo(current);   /* snap back */
+    resetAuto();
+  }
+
+  /* Touch events */
+  track.addEventListener('touchstart',  function (e) { onDragStart(e.touches[0].clientX); }, { passive: true });
+  track.addEventListener('touchmove',   function (e) { onDragMove(e.touches[0].clientX); },  { passive: true });
+  track.addEventListener('touchend',    onDragEnd);
+
+  /* Mouse drag */
+  track.addEventListener('mousedown',  function (e) { onDragStart(e.clientX); e.preventDefault(); });
+  window.addEventListener('mousemove', function (e) { onDragMove(e.clientX); });
+  window.addEventListener('mouseup',   onDragEnd);
+
+  /* Prevent drag from firing click on cards */
+  track.addEventListener('click', function (e) {
+    if (Math.abs(dragDelta) > 8) e.preventDefault();
+  });
+
+  /* ── Run ── */
+  init();
+
+})();
+</script>
+<!-- ============================================================
+     JAVASCRIPT
+     1. Click on any step → highlight it (is-active)
+     2. Auto-cycle through steps every 3s
+     3. Back-to-top visibility
+     4. Step photos swap on active change (optional array)
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Step photos (one per step — swap with your own images) ── */
+  var PHOTOS = [
+    'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80',  /* 01 */
+    'https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?w=700&q=80',      /* 02 */
+    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=700&q=80',  /* 03 */
+    'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=700&q=80',  /* 04 */
+    'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=700&q=80',     /* 05 */
+    'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&q=80',     /* 06 */
+  ];
+
+  var steps     = Array.from(document.querySelectorAll('.rp-step'));
+  var photo     = document.getElementById('rpPhoto');
+  var btt       = document.getElementById('backToTop');
+  var current   = 0;
+  var autoTimer = null;
+
+  /* ── Activate a step ── */
+  function activate(idx) {
+    steps.forEach(function (s, i) {
+      s.classList.toggle('is-active', i === idx);
+    });
+
+    /* Swap photo with fade */
+    if (photo && PHOTOS[idx]) {
+      photo.style.opacity = '0';
+      photo.style.transition = 'opacity 0.35s ease';
+      setTimeout(function () {
+        photo.src = PHOTOS[idx];
+        photo.onload = function () {
+          photo.style.opacity = '1';
+        };
+        /* fallback if already cached */
+        if (photo.complete) photo.style.opacity = '1';
+      }, 200);
+    }
+
+    current = idx;
+  }
+
+  /* ── Click on a step ── */
+  steps.forEach(function (step, idx) {
+    step.addEventListener('click', function () {
+      activate(idx);
+      resetAuto();
+    });
+
+    /* Cursor pointer on card */
+    step.style.cursor = 'pointer';
+  });
+
+  /* ── Auto-cycle ── */
+  function startAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function () {
+      var next = (current + 1) % steps.length;
+      activate(next);
+    }, 3000);
+  }
+
+  function resetAuto() {
+    startAuto();
+  }
+
+  /* ── Pause on hover ── */
+  var section = document.getElementById('recruitment-process');
+  section.addEventListener('mouseenter', function () { clearInterval(autoTimer); });
+  section.addEventListener('mouseleave', function () { startAuto(); });
+
+  /* ── Back to top ── */
+  window.addEventListener('scroll', function () {
+    btt.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+
+  btt.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ── Init ── */
+  activate(0);
+  startAuto();
+
+})();
+</script>
+<!-- ============================================================
+     JAVASCRIPT
+     1. Newsletter form subscribe with confirmation
+     2. Social icon hover handled via CSS
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Newsletter submit ── */
+  window.handleSubscribe = function (e) {
+    e.preventDefault();
+    var input = document.getElementById('ftEmail');
+    var email = input.value.trim();
+    if (!email) return;
+
+    /* Visual feedback — change placeholder to confirm */
+    input.value = '';
+    input.placeholder = 'Thank you for subscribing!';
+    input.style.color = '#f68c1f';
+
+    setTimeout(function () {
+      input.placeholder = 'Enter Your Email Address...';
+      input.style.color = '';
+    }, 3000);
+  };
+})();
+function handleSubscribe(e) {
+  e.preventDefault();
+  var input = document.getElementById('ftEmail');
+  var email = input.value.trim();
+  if (!email) return;
+
+  /* Visual feedback — change placeholder to confirm */
+  input.value = '';
+  input.placeholder = 'Thank you for subscribing!';
+  input.style.color = '#f68c1f';
+
+  setTimeout(function () {
+    input.placeholder = 'Enter Your Email Address...';
+    input.style.color = '';
+  }, 3000);
+}
+</script>
+<!-- ============================================================
+     LOTTIE GLOBE — loaded via JS
+     Uses the public LottieFiles "Globe Network" animation.
+     Fallback animation data is inline if CDN fetch fails.
+
+     Animation source: LottieFiles free globe/network animations
+     Options:
+       loop:      true   — plays continuously
+       autoplay:  true   — starts immediately
+       renderer:  'svg'  — crisp at all sizes, no rasterization
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* Globe Lottie animation JSON URL
+     Using a reliable public globe network animation from LottieFiles CDN.
+     Replace this URL with any Lottie JSON URL you prefer.
+  */
+  var GLOBE_URL = 'https://assets10.lottiefiles.com/packages/lf20_ywt4zvoo.json';
+  var FALLBACK_URL = 'https://assets2.lottiefiles.com/packages/lf20_qmfs6c3i.json';
+
+  var container = document.getElementById('lottieGlobe');
+  if (!container) return;
+
+  /* ── Load primary globe animation ── */
+  var anim = lottie.loadAnimation({
+    container:  container,
+    renderer:   'svg',
+    loop:       true,
+    autoplay:   true,
+    path:       GLOBE_URL
+  });
+
+  /* ── Fallback: if primary fails, try secondary ── */
+  anim.addEventListener('data_failed', function () {
+    lottie.destroy();
+    lottie.loadAnimation({
+      container:  container,
+      renderer:   'svg',
+      loop:       true,
+      autoplay:   true,
+      path:       FALLBACK_URL
+    });
+  });
+
+  /* ── Pause animation when off-screen (performance) ── */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          anim.play();
+        } else {
+          anim.pause();
+        }
+      });
+    }, { threshold: 0.1 });
+
+    io.observe(container);
+  }
+
+})();
+</script>
+<!-- ============================================================
+     JAVASCRIPT
+     ─────────────────────────────────────────────────────────
+     1. Thumbnail lazy-load click → inserts real YouTube iframe
+        Uses youtube-nocookie.com (privacy-enhanced embed mode)
+        Parameters:
+          autoplay=1    — auto-starts when user clicks
+          rel=0         — hides unrelated recommendations
+          modestbranding=1 — minimal YouTube branding
+     2. Keyboard (Enter/Space) support on thumbnails
+     3. Back-to-top button visibility + smooth scroll
+     ─────────────────────────────────────────────────────────
+     TO REPLACE A VIDEO: change the data-videoid attribute on
+     the .wop-thumb element to any valid YouTube video ID.
+     The thumbnail is automatically fetched from YouTube's CDN.
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Lazy-load YouTube iframes ── */
+  function loadVideo(thumb) {
+    if (thumb.classList.contains('hidden')) return;
+
+    var videoId = thumb.getAttribute('data-videoid');
+    if (!videoId) return;
+
+    /* Build privacy-enhanced iframe URL */
+    var src = 'https://www.youtube-nocookie.com/embed/'
+      + videoId
+      + '?autoplay=1&rel=0&modestbranding=1&color=white';
+
+    /* Create iframe */
+    var iframe = document.createElement('iframe');
+    iframe.setAttribute('src', src);
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+    iframe.setAttribute('title', thumb.getAttribute('data-title') || 'Candidate video');
+
+    /* Insert iframe into the wrapper (sibling of thumb) */
+    var wrap = thumb.closest('.wop-video-wrap');
+    wrap.appendChild(iframe);
+
+    /* Hide the thumbnail */
+    thumb.classList.add('hidden');
+
+    /* Remove thumb from DOM after transition */
+    thumb.addEventListener('transitionend', function () {
+      thumb.remove();
+    }, { once: true });
+  }
+
+  /* Click handler */
+  document.querySelectorAll('.wop-thumb').forEach(function (thumb) {
+    thumb.addEventListener('click', function () {
+      loadVideo(thumb);
+    });
+
+    /* Keyboard: Enter or Space */
+    thumb.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        loadVideo(thumb);
+      }
+    });
+  });
+
+  /* ── Back to top ── */
+  var btt = document.getElementById('backToTop');
+  if (btt) {
+    window.addEventListener('scroll', function () {
+      btt.classList.toggle('visible', window.scrollY > 300);
+    }, { passive: true });
+
+    btt.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+})();
+</script>
+<script>
+"use strict";
+
+
+/* =========================================================
+   EMPLOYEE DATA
+========================================================= */
+
+const employees = [
+
+    {
+        id: 1,
+        name: "Jimmy Divison",
+        position: "Digital Marketing Executive",
+        location: "Los Angeles, USA",
+        salary: "$720 - $900 / month",
+        experience: 1,
+        category: "Digital Marketing",
+        gender: "male",
+        daysAgo: 2,
+        skills: "SEO, HTML, CSS, JavaScript, WordPress, PHP",
+        photo: "https://randomuser.me/api/portraits/men/32.jpg",
+        description:
+            "Digital marketing professional with experience in SEO, content marketing, social media and website management."
+    },
+
+    {
+        id: 2,
+        name: "Jessica & Alexia Costa",
+        position: "Marketing Specialist",
+        location: "New York, USA",
+        salary: "$700 - $950 / month",
+        experience: 2,
+        category: "Digital Marketing",
+        gender: "female",
+        daysAgo: 4,
+        skills: "SEO, Marketing, HTML, CSS, Social Media",
+        photo: "https://randomuser.me/api/portraits/women/44.jpg",
+        description:
+            "Marketing specialist focused on social media campaigns, content strategy and digital brand growth."
+    },
+
+    {
+        id: 3,
+        name: "Anne Smith",
+        position: "Digital Marketing Manager",
+        location: "Chicago, USA",
+        salary: "$900 - $1200 / month",
+        experience: 3,
+        category: "Digital Marketing",
+        gender: "female",
+        daysAgo: 6,
+        skills: "SEO, SEM, Google Ads, Analytics, WordPress",
+        photo: "https://randomuser.me/api/portraits/women/68.jpg",
+        description:
+            "Experienced marketing manager specializing in search marketing, analytics and performance campaigns."
+    },
+
+    {
+        id: 4,
+        name: "Rafael Briggs",
+        position: "Web Developer",
+        location: "Houston, USA",
+        salary: "$850 - $1100 / month",
+        experience: 2,
+        category: "IT",
+        gender: "male",
+        daysAgo: 3,
+        skills: "HTML, CSS, JavaScript, React, PHP",
+        photo: "https://randomuser.me/api/portraits/men/45.jpg",
+        description:
+            "Frontend and backend developer with experience building responsive websites and web applications."
+    },
+
+    {
+        id: 5,
+        name: "Michael Brown",
+        position: "Software Engineer",
+        location: "Austin, USA",
+        salary: "$1200 - $1600 / month",
+        experience: 4,
+        category: "IT",
+        gender: "male",
+        daysAgo: 1,
+        skills: "JavaScript, React, Node.js, API, Git",
+        photo: "https://randomuser.me/api/portraits/men/52.jpg",
+        description:
+            "Software engineer experienced in modern JavaScript applications, REST APIs and scalable web systems."
+    },
+
+    {
+        id: 6,
+        name: "Sophia Williams",
+        position: "UI UX Designer",
+        location: "Boston, USA",
+        salary: "$800 - $1100 / month",
+        experience: 2,
+        category: "Graduate",
+        gender: "female",
+        daysAgo: 8,
+        skills: "Figma, UI Design, UX, Photoshop, HTML",
+        photo: "https://randomuser.me/api/portraits/women/65.jpg",
+        description:
+            "UI/UX designer passionate about creating clean, accessible and user-friendly digital experiences."
+    },
+
+    {
+        id: 7,
+        name: "Daniel Wilson",
+        position: "Business Analyst",
+        location: "Seattle, USA",
+        salary: "$900 - $1250 / month",
+        experience: 3,
+        category: "Estate Agency",
+        gender: "male",
+        daysAgo: 5,
+        skills: "Excel, Analytics, Business Strategy, SQL",
+        photo: "https://randomuser.me/api/portraits/men/71.jpg",
+        description:
+            "Business analyst with strong analytical skills and experience translating business requirements into solutions."
+    },
+
+    {
+        id: 8,
+        name: "Emma Johnson",
+        position: "HR Executive",
+        location: "Miami, USA",
+        salary: "$750 - $1000 / month",
+        experience: 1,
+        category: "Charity & Voluntary",
+        gender: "female",
+        daysAgo: 7,
+        skills: "Recruitment, HR, Communication, Payroll",
+        photo: "https://randomuser.me/api/portraits/women/33.jpg",
+        description:
+            "HR professional experienced in recruitment, employee relations and organizational administration."
+    },
+
+    {
+        id: 9,
+        name: "Robert Davis",
+        position: "Frontend Developer",
+        location: "Dallas, USA",
+        salary: "$1000 - $1350 / month",
+        experience: 2,
+        category: "IT",
+        gender: "male",
+        daysAgo: 10,
+        skills: "React, JavaScript, CSS, HTML, Git",
+        photo: "https://randomuser.me/api/portraits/men/61.jpg",
+        description:
+            "Frontend developer specializing in responsive interfaces and modern component-based applications."
+    },
+
+    {
+        id: 10,
+        name: "Olivia Martin",
+        position: "Content Writer",
+        location: "Denver, USA",
+        salary: "$650 - $900 / month",
+        experience: 1,
+        category: "Graduate",
+        gender: "female",
+        daysAgo: 12,
+        skills: "Writing, SEO, WordPress, Research",
+        photo: "https://randomuser.me/api/portraits/women/21.jpg",
+        description:
+            "Creative content writer with a strong background in SEO writing, research and editorial content."
+    },
+
+    {
+        id: 11,
+        name: "William Taylor",
+        position: "Sales Executive",
+        location: "Phoenix, USA",
+        salary: "$700 - $1000 / month",
+        experience: 3,
+        category: "Estate Agency",
+        gender: "male",
+        daysAgo: 13,
+        skills: "Sales, CRM, Communication, Negotiation",
+        photo: "https://randomuser.me/api/portraits/men/18.jpg",
+        description:
+            "Sales professional with experience managing customer relationships, leads and business development."
+    },
+
+    {
+        id: 12,
+        name: "Ava Anderson",
+        position: "Social Media Manager",
+        location: "Portland, USA",
+        salary: "$750 - $1050 / month",
+        experience: 2,
+        category: "Digital Marketing",
+        gender: "female",
+        daysAgo: 15,
+        skills: "Instagram, Facebook, SEO, Canva, Analytics",
+        photo: "https://randomuser.me/api/portraits/women/12.jpg",
+        description:
+            "Social media manager specializing in content planning, audience engagement and campaign analytics."
+    },
+
+    {
+        id: 13,
+        name: "James Thomas",
+        position: "Accountant",
+        location: "Atlanta, USA",
+        salary: "$850 - $1150 / month",
+        experience: 4,
+        category: "Charity & Voluntary",
+        gender: "male",
+        daysAgo: 16,
+        skills: "Accounting, Excel, Finance, Payroll",
+        photo: "https://randomuser.me/api/portraits/men/15.jpg",
+        description:
+            "Accountant with experience in financial reporting, payroll processing and account reconciliation."
+    },
+
+    {
+        id: 14,
+        name: "Isabella Jackson",
+        position: "Graphic Designer",
+        location: "San Diego, USA",
+        salary: "$700 - $1000 / month",
+        experience: 2,
+        category: "Graduate",
+        gender: "female",
+        daysAgo: 18,
+        skills: "Photoshop, Illustrator, Figma, Branding",
+        photo: "https://randomuser.me/api/portraits/women/24.jpg",
+        description:
+            "Graphic designer focused on visual identity, digital graphics and creative brand experiences."
+    },
+
+    {
+        id: 15,
+        name: "Benjamin White",
+        position: "Project Manager",
+        location: "New York, USA",
+        salary: "$1100 - $1500 / month",
+        experience: 5,
+        category: "Estate Agency",
+        gender: "male",
+        daysAgo: 19,
+        skills: "Management, Agile, Scrum, Jira",
+        photo: "https://randomuser.me/api/portraits/men/36.jpg",
+        description:
+            "Project manager experienced in Agile delivery, stakeholder management and cross-functional teams."
+    },
+
+    {
+        id: 16,
+        name: "Mia Harris",
+        position: "Recruitment Specialist",
+        location: "Los Angeles, USA",
+        salary: "$700 - $950 / month",
+        experience: 1,
+        category: "Charity & Voluntary",
+        gender: "female",
+        daysAgo: 20,
+        skills: "Recruitment, HR, Interviews, Communication",
+        photo: "https://randomuser.me/api/portraits/women/48.jpg",
+        description:
+            "Recruitment specialist experienced in sourcing candidates, interviews and employee onboarding."
+    },
+
+    {
+        id: 17,
+        name: "Henry Martin",
+        position: "Backend Developer",
+        location: "Chicago, USA",
+        salary: "$1100 - $1450 / month",
+        experience: 3,
+        category: "IT",
+        gender: "male",
+        daysAgo: 21,
+        skills: "Node.js, PHP, MySQL, API, Docker",
+        photo: "https://randomuser.me/api/portraits/men/76.jpg",
+        description:
+            "Backend developer experienced in API development, databases and server-side applications."
+    },
+
+    {
+        id: 18,
+        name: "Charlotte Thompson",
+        position: "Marketing Coordinator",
+        location: "Boston, USA",
+        salary: "$700 - $950 / month",
+        experience: 1,
+        category: "Digital Marketing",
+        gender: "female",
+        daysAgo: 23,
+        skills: "Marketing, SEO, Content, Social Media",
+        photo: "https://randomuser.me/api/portraits/women/57.jpg",
+        description:
+            "Marketing coordinator supporting content campaigns, social media and digital marketing initiatives."
+    },
+
+    {
+        id: 19,
+        name: "Alexander Garcia",
+        position: "Full Stack Developer",
+        location: "Austin, USA",
+        salary: "$1200 - $1650 / month",
+        experience: 5,
+        category: "IT",
+        gender: "male",
+        daysAgo: 25,
+        skills: "React, Node.js, SQL, AWS, JavaScript",
+        photo: "https://randomuser.me/api/portraits/men/83.jpg",
+        description:
+            "Full-stack developer experienced in frontend applications, backend APIs and cloud infrastructure."
+    },
+
+    {
+        id: 20,
+        name: "Amelia Martinez",
+        position: "Digital Content Specialist",
+        location: "San Francisco, USA",
+        salary: "$800 - $1100 / month",
+        experience: 2,
+        category: "Digital Marketing",
+        gender: "female",
+        daysAgo: 28,
+        skills: "Content, SEO, WordPress, Analytics",
+        photo: "https://randomuser.me/api/portraits/women/79.jpg",
+        description:
+            "Digital content specialist focused on SEO-friendly content, websites and audience engagement."
+    }
+
+];
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+const state = {
+
+    employees: [...employees],
+
+    filteredEmployees: [...employees],
+
+    currentPage: 1,
+
+    perPage: 8,
+
+    sort: "az"
+
+};
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const employeeList = document.getElementById("employeeList");
+
+const pagination = document.getElementById("pagination");
+
+const totalResults = document.getElementById("totalResults");
+
+const rangeStart = document.getElementById("rangeStart");
+
+const rangeEnd = document.getElementById("rangeEnd");
+
+const sortSelect = document.getElementById("sortSelect");
+
+const profileModal = document.getElementById("profileModal");
+
+const modalClose = document.getElementById("modalClose");
+
+const filterToggle = document.getElementById("filterToggle");
+
+const employeeSidebar = document.getElementById("employeeSidebar");
+
+
+/* =========================================================
+   ICONS
+========================================================= */
+
+const icons = {
+
+    location: `
+        <svg class="meta-icon" viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+        </svg>
+    `,
+
+    money: `
+        <svg class="meta-icon" viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v10"/>
+            <path d="M15 9.5c0-1-1-1.5-3-1.5s-3 .5-3 1.5 1 1.5 3 2 3 1 3 2-1 1.5-3 1.5-3-.5-3-1.5"/>
+        </svg>
+    `,
+
+    calendar: `
+        <svg class="meta-icon" viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+    `
+
+};
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   EXPERIENCE FILTER
+========================================================= */
+
+function matchesExperience(employee, value) {
+
+    if (!value) {
+        return true;
+    }
+
+    if (value === "0-1") {
+        return employee.experience >= 0 &&
+               employee.experience <= 1;
+    }
+
+    if (value === "1-2") {
+        return employee.experience >= 1 &&
+               employee.experience <= 2;
+    }
+
+    if (value === "2-3") {
+        return employee.experience >= 2 &&
+               employee.experience <= 3;
+    }
+
+    if (value === "3+") {
+        return employee.experience >= 3;
+    }
+
+    return true;
+}
+
+
+/* =========================================================
+   APPLY FILTERS
+========================================================= */
+
+function applyFilters() {
+
+    const selectedDate =
+        document.querySelector(
+            'input[name="date"]:checked'
+        )?.value;
+
+    const selectedExperience =
+        document.querySelector(
+            'input[name="experience"]:checked'
+        )?.value;
+
+    const selectedGender =
+        document.querySelector(
+            'input[name="gender"]:checked'
+        )?.value;
+
+    const selectedCategories =
+        [...document.querySelectorAll(
+            'input[name="category"]:checked'
+        )].map(input => input.value);
+
+
+    state.filteredEmployees = state.employees.filter(employee => {
+
+        /* Date */
+
+        if (
+            selectedDate &&
+            employee.daysAgo > Number(selectedDate)
+        ) {
+            return false;
+        }
+
+
+        /* Experience */
+
+        if (
+            selectedExperience &&
+            !matchesExperience(
+                employee,
+                selectedExperience
+            )
+        ) {
+            return false;
+        }
+
+
+        /* Gender */
+
+        if (
+            selectedGender &&
+            selectedGender !== "all" &&
+            employee.gender !== selectedGender
+        ) {
+            return false;
+        }
+
+
+        /* Category */
+
+        if (
+            selectedCategories.length &&
+            !selectedCategories.includes(
+                employee.category
+            )
+        ) {
+            return false;
+        }
+
+
+        return true;
+
+    });
+
+
+    sortEmployees();
+
+    state.currentPage = 1;
+
+    render();
+
+}
+
+
+/* =========================================================
+   SORT
+========================================================= */
+
+function sortEmployees() {
+
+    const sort = state.sort;
+
+    state.filteredEmployees.sort((a, b) => {
+
+        if (sort === "az") {
+
+            return a.name.localeCompare(b.name);
+
+        }
+
+        if (sort === "za") {
+
+            return b.name.localeCompare(a.name);
+
+        }
+
+        if (sort === "newest") {
+
+            return a.daysAgo - b.daysAgo;
+
+        }
+
+        if (sort === "oldest") {
+
+            return b.daysAgo - a.daysAgo;
+
+        }
+
+        return 0;
+
+    });
+
+}
+
+
+/* =========================================================
+   RENDER EMPLOYEES
+========================================================= */
+
+function render() {
+
+    const total = state.filteredEmployees.length;
+
+    const totalPages =
+        Math.max(
+            1,
+            Math.ceil(
+                total / state.perPage
+            )
+        );
+
+
+    if (state.currentPage > totalPages) {
+
+        state.currentPage = totalPages;
+
+    }
+
+
+    const start =
+        (state.currentPage - 1) *
+        state.perPage;
+
+    const end =
+        Math.min(
+            start + state.perPage,
+            total
+        );
+
+
+    const currentEmployees =
+        state.filteredEmployees.slice(
+            start,
+            end
+        );
+
+
+    totalResults.textContent = total;
+
+    rangeStart.textContent =
+        total ? start + 1 : 0;
+
+    rangeEnd.textContent =
+        end;
+
+
+    if (!currentEmployees.length) {
+
+        employeeList.innerHTML = `
+            <div class="empty-state">
+
+                <svg
+                    class="empty-state-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                >
+                    <circle cx="11" cy="11" r="8"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+
+                <h3>No employees found</h3>
+
+                <p>
+                    Try changing your filter options.
+                </p>
+
+            </div>
+        `;
+
+        pagination.innerHTML = "";
+
+        return;
+    }
+
+
+    employeeList.innerHTML =
+        currentEmployees
+            .map(employee => createEmployeeCard(employee))
+            .join("");
+
+
+    renderPagination();
+
+}
+
+
+/* =========================================================
+   EMPLOYEE CARD
+========================================================= */
+
+function createEmployeeCard(employee) {
+
+    return `
+
+        <article
+            class="employee-card"
+            data-id="${employee.id}"
+        >
+
+            <div class="employee-photo">
+
+                <img
+                    src="${escapeHTML(employee.photo)}"
+                    alt="${escapeHTML(employee.name)}"
+                    loading="lazy"
+                >
+
+            </div>
+
+
+            <div class="employee-info">
+
+                <h3 class="employee-name">
+                    ${escapeHTML(employee.name)}
+                </h3>
+
+
+                <div class="employee-meta">
+
+                    <span class="meta-item">
+                        ${icons.location}
+                        ${escapeHTML(employee.location)}
+                    </span>
+
+
+                    <span class="meta-item">
+                        ${icons.money}
+                        ${escapeHTML(employee.salary)}
+                    </span>
+
+
+                    <span class="meta-item">
+                        ${icons.calendar}
+                        ${employee.daysAgo} days ago
+                    </span>
+
+                </div>
+
+
+                <div class="employee-skills">
+                    Skills: ${escapeHTML(employee.skills)}
+                </div>
+
+            </div>
+
+
+            <button
+                class="profile-button"
+                type="button"
+                data-profile-id="${employee.id}"
+            >
+                View Profile
+            </button>
+
+        </article>
+
+    `;
+
+}
+
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+function renderPagination() {
+
+    const totalPages =
+        Math.ceil(
+            state.filteredEmployees.length /
+            state.perPage
+        );
+
+
+    if (totalPages <= 1) {
+
+        pagination.innerHTML = "";
+
+        return;
+    }
+
+
+    let html = "";
+
+
+    /* Previous */
+
+    html += `
+
+        <button
+            class="page-button"
+            data-page="${state.currentPage - 1}"
+            ${state.currentPage === 1 ? "disabled" : ""}
+        >
+            Prev
+        </button>
+
+    `;
+
+
+    const pages = getPaginationPages(
+        state.currentPage,
+        totalPages
+    );
+
+
+    pages.forEach(page => {
+
+        if (page === "...") {
+
+            html += `
+                <span class="page-dots">
+                    ...
+                </span>
+            `;
+
+            return;
+        }
+
+
+        html += `
+
+            <button
+                class="
+                    page-button
+                    ${page === state.currentPage ? "active" : ""}
+                "
+                data-page="${page}"
+            >
+                ${page}
+            </button>
+
+        `;
+
+    });
+
+
+    /* Next */
+
+    html += `
+
+        <button
+            class="page-button"
+            data-page="${state.currentPage + 1}"
+            ${state.currentPage === totalPages ? "disabled" : ""}
+        >
+            Next
+        </button>
+
+    `;
+
+
+    pagination.innerHTML = html;
+
+}
+
+
+/* =========================================================
+   PAGINATION PAGE NUMBERS
+========================================================= */
+
+function getPaginationPages(current, total) {
+
+    if (total <= 5) {
+
+        return Array.from(
+            { length: total },
+            (_, index) => index + 1
+        );
+
+    }
+
+
+    const pages = [1];
+
+
+    if (current > 3) {
+
+        pages.push("...");
+
+    }
+
+
+    const start =
+        Math.max(2, current - 1);
+
+    const end =
+        Math.min(total - 1, current + 1);
+
+
+    for (let i = start; i <= end; i++) {
+
+        pages.push(i);
+
+    }
+
+
+    if (current < total - 2) {
+
+        pages.push("...");
+
+    }
+
+
+    pages.push(total);
+
+
+    return pages;
+
+}
+
+
+/* =========================================================
+   OPEN PROFILE
+========================================================= */
+
+function openProfile(id) {
+
+    const employee =
+        state.employees.find(
+            employee => employee.id === id
+        );
+
+
+    if (!employee) {
+        return;
+    }
+
+
+    document.getElementById("modalPhoto").src =
+        employee.photo;
+
+    document.getElementById("modalPhoto").alt =
+        employee.name;
+
+    document.getElementById("modalName").textContent =
+        employee.name;
+
+    document.getElementById("modalPosition").textContent =
+        employee.position;
+
+    document.getElementById("modalLocation").textContent =
+        employee.location;
+
+    document.getElementById("modalExperience").textContent =
+        `${employee.experience} ${
+            employee.experience === 1
+                ? "Year"
+                : "Years"
+        }`;
+
+    document.getElementById("modalCategory").textContent =
+        employee.category;
+
+    document.getElementById("modalGender").textContent =
+        employee.gender;
+
+    document.getElementById("modalDescription").textContent =
+        employee.description;
+
+
+    profileModal.classList.add("open");
+
+    profileModal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+/* =========================================================
+   CLOSE PROFILE
+========================================================= */
+
+function closeProfile() {
+
+    profileModal.classList.remove("open");
+
+    profileModal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+    document.body.style.overflow = "";
+
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+
+/* Filter changes */
+
+document
+    .querySelectorAll(
+        'input[name="date"], input[name="category"], input[name="experience"], input[name="gender"]'
+    )
+    .forEach(input => {
+
+        input.addEventListener(
+            "change",
+            applyFilters
+        );
+
+    });
+
+
+/* Sorting */
+
+sortSelect.addEventListener(
+    "change",
+    function() {
+
+        state.sort = this.value;
+
+        sortEmployees();
+
+        state.currentPage = 1;
+
+        render();
+
+    }
+);
+
+
+/* Profile buttons */
+
+employeeList.addEventListener(
+    "click",
+    function(event) {
+
+        const button =
+            event.target.closest(
+                "[data-profile-id]"
+            );
+
+
+        if (!button) {
+            return;
+        }
+
+
+        const id =
+            Number(
+                button.dataset.profileId
+            );
+
+
+        openProfile(id);
+
+    }
+);
+
+
+/* Pagination */
+
+pagination.addEventListener(
+    "click",
+    function(event) {
+
+        const button =
+            event.target.closest(
+                "[data-page]"
+            );
+
+
+        if (!button || button.disabled) {
+            return;
+        }
+
+
+        const page =
+            Number(
+                button.dataset.page
+            );
+
+
+        if (!page) {
+            return;
+        }
+
+
+        state.currentPage = page;
+
+        render();
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+);
+
+
+/* Modal close */
+
+modalClose.addEventListener(
+    "click",
+    closeProfile
+);
+
+
+/* Close when clicking outside */
+
+profileModal.addEventListener(
+    "click",
+    function(event) {
+
+        if (event.target === profileModal) {
+
+            closeProfile();
+
+        }
+
+    }
+);
+
+
+/* ESC */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape" &&
+            profileModal.classList.contains("open")
+        ) {
+
+            closeProfile();
+
+        }
+
+    }
+);
+
+
+/* Mobile filters */
+
+filterToggle.addEventListener(
+    "click",
+    function() {
+
+        const open =
+            employeeSidebar.classList.toggle(
+                "open"
+            );
+
+
+        this.textContent =
+            open
+                ? "×  Hide Filters"
+                : "☰  Show Filters";
+
+    }
+);
+
+
+/* =========================================================
+   DOWNLOAD TXT
+========================================================= */
+
+document
+    .getElementById("downloadTxt")
+    .addEventListener(
+        "click",
+        function() {
+
+            const rows =
+                state.filteredEmployees
+                    .map(employee => {
+
+                        return [
+                            employee.name,
+                            employee.position,
+                            employee.location,
+                            employee.salary,
+                            employee.category,
+                            employee.skills
+                        ].join(" | ");
+
+                    });
+
+
+            const content =
+                [
+                    "HIRECO EMPLOYEE LIST",
+                    "",
+                    ...rows
+                ].join("\n");
+
+
+            downloadFile(
+                content,
+                "hireco-employees.txt",
+                "text/plain"
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   DOWNLOAD CSV
+========================================================= */
+
+document
+    .getElementById("downloadPdf")
+    .addEventListener(
+        "click",
+        function() {
+
+            /*
+             * A real PDF generator normally requires
+             * a library such as jsPDF.
+             *
+             * This standalone version creates a printable
+             * employee report instead.
+             */
+
+            const printWindow =
+                window.open(
+                    "",
+                    "_blank"
+                );
+
+
+            if (!printWindow) {
+                return;
+            }
+
+
+            const rows =
+                state.filteredEmployees
+                    .map(employee => `
+
+                        <tr>
+                            <td>${escapeHTML(employee.name)}</td>
+                            <td>${escapeHTML(employee.position)}</td>
+                            <td>${escapeHTML(employee.location)}</td>
+                            <td>${escapeHTML(employee.category)}</td>
+                        </tr>
+
+                    `)
+                    .join("");
+
+
+            printWindow.document.write(`
+
+                <!DOCTYPE html>
+
+                <html>
+
+                <head>
+
+                    <title>HireCo Employee List</title>
+
+                    <style>
+
+                        body {
+                            font-family: Arial;
+                            padding: 30px;
+                        }
+
+                        h1 {
+                            margin-bottom: 20px;
+                        }
+
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+
+                        th,
+                        td {
+                            padding: 8px;
+                            border: 1px solid #ddd;
+                            text-align: left;
+                        }
+
+                        th {
+                            background: #f68c1f;
+                            color: white;
+                        }
+
+                    </style>
+
+                </head>
+
+                <body>
+
+                    <h1>HireCo Employee List</h1>
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Location</th>
+                                <th>Category</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+                            ${rows}
+                        </tbody>
+
+                    </table>
+
+                </body>
+
+                </html>
+
+            `);
+
+
+            printWindow.document.close();
+
+            printWindow.focus();
+
+            setTimeout(
+                () => printWindow.print(),
+                300
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   DOWNLOAD HELPER
+========================================================= */
+
+function downloadFile(
+    content,
+    filename,
+    type
+) {
+
+    const blob =
+        new Blob(
+            [content],
+            { type }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const link =
+        document.createElement("a");
+
+
+    link.href = url;
+
+    link.download = filename;
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+/* =========================================================
+   INITIAL RENDER
+========================================================= */
+
+sortEmployees();
+
+render();
+
+</script>
+</body>
+</html>

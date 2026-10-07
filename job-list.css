@@ -1,0 +1,254 @@
+/* ================================================================
+   JOB LISTING PAGE — HireCo
+   Colours: #f68c1f orange · #1a1a1a dark · #f5f5f5 bg · #fff white
+================================================================ */
+:root{
+  --orange:#f68c1f;
+  --orange-h:#e07b10;
+  --dark:#1a1a1a;
+  --text:#555;
+  --muted:#888;
+  --border:#e8e8e8;
+  --bg:#f5f5f5;
+  --white:#fff;
+  --green:#28a745;
+  --red:#e53935;
+  --blue:#1976d2;
+  --radius:6px;
+  --font-h:'Nunito',sans-serif;
+  --font-b:'Open Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-b);background:var(--bg);color:var(--dark);font-size:14px}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+input,select,button{font-family:var(--font-b)}
+
+/* ── Container ── */
+.page{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* ================================================================
+   TOP SEARCH BAR
+================================================================ */
+.search-bar{background:var(--white);padding:16px 24px;box-shadow:0 2px 12px rgba(0,0,0,.08);margin-bottom:32px}
+.search-bar__inner{display:flex;gap:0;align-items:stretch;max-width:900px;margin:0 auto}
+.search-bar__field{
+  flex:1;display:flex;align-items:center;gap:10px;
+  border:1px solid var(--border);padding:0 16px;background:var(--white);
+}
+.search-bar__field:first-child{border-radius:var(--radius) 0 0 var(--radius)}
+.search-bar__field+.search-bar__field{border-left:none}
+.search-bar__field svg{color:var(--muted);flex-shrink:0;width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.search-bar__field input{
+  border:none;outline:none;width:100%;padding:12px 0;
+  font-size:13.5px;color:var(--dark);background:transparent;
+}
+.search-bar__field input::placeholder{color:#aaa}
+.search-bar__btn{
+  background:var(--orange);color:var(--white);border:none;
+  padding:0 28px;border-radius:0 var(--radius) var(--radius) 0;
+  font-family:var(--font-h);font-size:13px;font-weight:700;
+  cursor:pointer;white-space:nowrap;transition:background .2s;
+}
+.search-bar__btn:hover{background:var(--orange-h)}
+
+/* ================================================================
+   BODY LAYOUT — sidebar + main
+================================================================ */
+.layout{display:grid;grid-template-columns:248px 1fr;gap:24px;align-items:start}
+
+/* ================================================================
+   SIDEBAR
+================================================================ */
+.sidebar{display:flex;flex-direction:column;gap:16px}
+
+/* Filter card */
+.filter-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;
+}
+.filter-card__head{
+  display:flex;align-items:center;gap:10px;
+  padding-bottom:14px;border-bottom:1px solid var(--border);
+  margin-bottom:14px;
+}
+.filter-card__head svg{
+  width:16px;height:16px;stroke:var(--orange);
+  stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;
+}
+.filter-card__head span{font-family:var(--font-h);font-size:14.5px;font-weight:700;color:var(--dark)}
+
+/* Radio / checkbox items */
+.filter-item{
+  display:flex;align-items:center;gap:9px;
+  margin-bottom:9px;cursor:pointer;font-size:13px;color:var(--text);
+}
+.filter-item:last-child{margin-bottom:0}
+.filter-item input{
+  width:15px;height:15px;accent-color:var(--orange);cursor:pointer;
+}
+.filter-item.active{color:var(--orange);font-weight:600}
+.filter-item.active input{accent-color:var(--orange)}
+
+/* Download buttons */
+.dl-btn{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);
+  margin-bottom:10px;font-size:13px;font-weight:600;color:var(--dark);
+  cursor:pointer;transition:border-color .2s,background .2s;background:var(--white);
+}
+.dl-btn:last-child{margin-bottom:0}
+.dl-btn:hover{border-color:var(--orange);background:#fff8f0}
+.dl-btn svg{width:16px;height:16px;stroke:var(--orange);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* Resume promo card */
+.promo-card{
+  background:linear-gradient(135deg,#1a2a4a 0%,#0d1a2e 100%);
+  border-radius:var(--radius);padding:22px 18px;
+  text-align:center;overflow:hidden;position:relative;
+}
+.promo-card::before{
+  content:'';position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=60') center/cover no-repeat;
+  opacity:.18;
+}
+.promo-card__content{position:relative;z-index:1}
+.promo-card h4{
+  font-family:var(--font-h);font-size:15px;font-weight:800;
+  color:var(--white);margin-bottom:8px;line-height:1.3;
+}
+.promo-card p{font-size:11.5px;color:rgba(255,255,255,.70);line-height:1.6;margin-bottom:16px}
+.promo-card__btn{
+  display:inline-block;background:var(--orange);color:var(--white);
+  padding:9px 20px;border-radius:4px;font-size:12px;
+  font-weight:700;cursor:pointer;transition:background .2s;
+}
+.promo-card__btn:hover{background:var(--orange-h)}
+
+/* ================================================================
+   MAIN JOB LIST AREA
+================================================================ */
+.job-list-wrap{background:transparent}
+
+/* Results header */
+.results-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);padding:12px 16px;margin-bottom:14px;
+}
+.results-bar__count{font-size:13px;color:var(--text)}
+.results-bar__count span{font-weight:700;color:var(--dark)}
+.results-bar__sort{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text)}
+.results-bar__sort label{font-weight:600;color:var(--dark)}
+.results-bar__sort select{
+  border:1px solid var(--border);border-radius:4px;
+  padding:5px 28px 5px 10px;font-size:13px;color:var(--dark);
+  background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%23555' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E") no-repeat right 10px center;
+  appearance:none;-webkit-appearance:none;cursor:pointer;outline:none;
+  transition:border-color .2s;
+}
+.results-bar__sort select:hover{border-color:var(--orange)}
+
+/* Job cards container */
+.job-cards{display:flex;flex-direction:column;gap:12px}
+
+/* Single job card */
+.job-card{
+  display:flex;align-items:center;gap:16px;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px 18px;
+  position:relative;overflow:hidden;
+  transition:box-shadow .22s,transform .22s,border-color .22s;
+  cursor:pointer;
+}
+.job-card:hover{
+  box-shadow:0 6px 22px rgba(0,0,0,.09);
+  transform:translateY(-2px);border-color:rgba(246,140,31,.35);
+}
+
+/* URGENT ribbon — diagonal red banner top-left */
+.job-card__urgent{
+  position:absolute;top:10px;left:-20px;
+  width:80px;padding:3px 0;
+  background:var(--red);color:var(--white);
+  font-size:9px;font-weight:800;text-align:center;
+  letter-spacing:.08em;text-transform:uppercase;
+  transform:rotate(-45deg);
+  box-shadow:0 2px 6px rgba(229,57,53,.4);
+}
+
+/* Company logo square */
+.job-card__logo{
+  width:64px;height:64px;border-radius:var(--radius);
+  overflow:hidden;flex-shrink:0;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg);font-size:10px;color:var(--muted);font-weight:600;
+}
+.job-card__logo img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* Card body */
+.job-card__body{flex:1;min-width:0}
+.job-card__title{
+  font-family:var(--font-h);font-size:15px;font-weight:700;
+  color:var(--dark);margin-bottom:4px;line-height:1.3;
+}
+.job-card__title .hl{color:var(--orange)}
+.job-card__date{font-size:12px;color:var(--muted);margin-bottom:8px}
+.job-card__meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.job-card__meta-item{
+  display:flex;align-items:center;gap:5px;
+  font-size:12px;color:var(--muted);
+}
+.job-card__meta-item svg{
+  width:13px;height:13px;stroke:var(--orange);
+  stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;
+  flex-shrink:0;
+}
+
+/* Job type badge */
+.job-badge{
+  margin-left:auto;flex-shrink:0;align-self:flex-start;
+  padding:4px 12px;border-radius:3px;
+  font-size:10.5px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;white-space:nowrap;
+}
+.job-badge--full{background:#e8f5e9;color:#2e7d32}
+.job-badge--part{background:#ffebee;color:#c62828}
+.job-badge--contract{background:#e3f2fd;color:#1565c0}
+
+/* ================================================================
+   PAGINATION
+================================================================ */
+.pagination{
+  display:flex;align-items:center;justify-content:center;
+  gap:6px;margin-top:24px;
+}
+.page-btn{
+  min-width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--border);border-radius:4px;
+  font-size:13px;font-weight:600;color:var(--text);
+  background:var(--white);cursor:pointer;padding:0 10px;
+  transition:background .2s,border-color .2s,color .2s;
+}
+.page-btn:hover{background:#fff8f0;border-color:var(--orange);color:var(--orange)}
+.page-btn.active{background:var(--orange);border-color:var(--orange);color:var(--white)}
+.page-btn:disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
+.page-dots{color:var(--muted);padding:0 4px;align-self:flex-end;line-height:2.4}
+
+/* ================================================================
+   RESPONSIVE
+================================================================ */
+@media(max-width:860px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{flex-direction:row;flex-wrap:wrap}
+  .sidebar>*{flex:1 1 200px}
+  .promo-card{display:none}
+}
+@media(max-width:580px){
+  .search-bar__inner{flex-wrap:wrap}
+  .search-bar__field:first-child{border-radius:var(--radius) var(--radius) 0 0;border-bottom:none}
+  .search-bar__field+.search-bar__field{border-left:1px solid var(--border);border-top:none}
+  .search-bar__btn{border-radius:0 0 var(--radius) var(--radius);padding:12px;width:100%}
+  .job-card{flex-wrap:wrap}
+  .job-badge{align-self:auto}
+}
