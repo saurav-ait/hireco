@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HireCo – We Serve Overseas</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       GLOBAL RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Open Sans', sans-serif; background: #fff; color: #333; }
+
+    /* ============================================================
+       SECTION WRAPPER
+       Background: very light grey with a faded world-map SVG watermark
+       centred behind everything — matches the template exactly.
+    ============================================================ */
+    .overseas {
+      position: relative;
+      background-color: #f5f5f5;
+      padding: 70px 0 80px;
+      overflow: hidden;
+    }
+
+    /* World-map watermark (SVG inline via background-image) */
+    .overseas::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 600'%3E%3Cpath fill='%23cccccc' fill-opacity='0.18' d='M200 120 Q220 100 260 110 Q300 120 320 105 Q360 85 400 100 Q440 115 460 105 Q500 90 540 105 Q560 115 580 108 Q620 95 660 110 Q700 125 720 115 Q760 100 800 110 Q840 120 860 108 Q900 90 940 105 Q980 120 1000 115 L1000 180 Q980 195 940 185 Q900 170 860 180 Q820 190 800 178 Q760 165 720 175 Q680 185 660 175 Q620 160 580 172 Q560 178 540 170 Q500 158 460 168 Q440 175 400 165 Q360 153 320 163 Q300 170 260 162 Q220 153 200 165 Z M100 200 Q130 185 160 195 Q180 202 200 195 L200 260 Q180 270 160 262 Q130 253 100 265 Z M950 160 Q970 148 1000 155 L1000 220 Q970 228 950 220 Z M300 250 Q340 235 380 245 Q420 255 460 245 Q500 233 540 243 Q580 253 620 243 Q660 232 700 242 Q740 252 780 242 Q820 232 860 242 L860 310 Q820 322 780 312 Q740 302 700 312 Q660 322 620 312 Q580 302 540 312 Q500 322 460 312 Q420 302 380 312 Q340 322 300 312 Z M880 242 Q910 232 940 240 Q970 248 1000 238 L1000 305 Q970 315 940 307 Q910 299 880 307 Z M150 310 Q180 298 210 306 Q240 314 270 305 L270 372 Q240 382 210 374 Q180 366 150 375 Z M400 360 Q440 348 480 356 Q520 364 560 354 Q600 342 640 352 Q680 362 720 352 Q760 342 800 352 L800 420 Q760 432 720 422 Q680 412 640 422 Q600 432 560 422 Q520 412 480 422 Q440 432 400 422 Z M820 352 Q850 342 880 350 Q910 358 940 348 Q970 338 1000 348 L1000 415 Q970 425 940 417 Q910 409 880 417 Q850 425 820 415 Z M200 420 Q230 408 260 418 Q290 428 320 418 L320 485 Q290 495 260 487 Q230 479 200 488 Z M500 450 Q540 438 580 448 Q620 458 660 448 Q700 438 740 448 L740 515 Q700 525 660 515 Q620 505 580 515 Q540 525 500 515 Z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================================
+       CONTAINER
+    ============================================================ */
+    .overseas__container {
+      position: relative;
+      z-index: 1;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ============================================================
+       SECTION HEADER
+    ============================================================ */
+    .overseas__header {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+
+    .overseas__eyebrow {
+      display: block;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+      letter-spacing: 0.01em;
+    }
+
+    .overseas__eyebrow .hl { color: #f68c1f; }
+
+    .overseas__title {
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 800;
+      color: #1d1d1d;
+      line-height: 1.2;
+    }
+
+    /* ============================================================
+       SLIDER WRAPPER — clips the track
+    ============================================================ */
+    .slider-outer {
+      position: relative;
+    }
+
+    .slider-viewport {
+      overflow: hidden;
+      /* extra horizontal padding so edge cards show peek-through effect */
+      margin: 0 -8px;
+      padding: 8px 0 12px; /* top/bottom breathing room for card shadows */
+    }
+
+    /* ============================================================
+       SLIDER TRACK — holds ALL cards in a single flex row
+    ============================================================ */
+    .slider-track {
+      display: flex;
+      gap: 20px;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+      padding: 0 8px;
+    }
+
+    /* ============================================================
+       COUNTRY CARD
+       From screenshot:
+         - White background, very subtle border
+         - City photo top (full width, 210px tall, object-fit cover)
+         - White content area below: bold country name + flag + description
+         - Cards: 4 visible simultaneously
+    ============================================================ */
+    .country-card {
+      /* flex-basis calculated by JS based on viewport, but start at 4-up */
+      flex: 0 0 calc(25% - 15px);
+      min-width: 0;
+      background: #fff;
+      border: 1px solid #ebebeb;
+      border-radius: 3px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.22s ease, transform 0.22s ease;
+      cursor: default;
+    }
+
+    .country-card:hover {
+      box-shadow: 0 8px 28px rgba(0,0,0,0.11);
+      transform: translateY(-5px);
+    }
+
+    /* City photo */
+    .country-card__img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* Content area below the photo */
+    .country-card__body {
+      padding: 20px 20px 24px;
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Flag + country name row */
+    .country-card__name-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* Flag emoji rendered large */
+    .country-card__flag {
+      font-size: 26px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    /* Country name */
+    .country-card__name {
+      font-family: 'Nunito', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #1d1d1d;
+      line-height: 1.3;
+    }
+
+    /* Short description */
+    .country-card__desc {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      color: #999;
+      line-height: 1.70;
+      max-width: 240px;
+    }
+
+    /* ============================================================
+       SLIDER ARROWS (prev / next)
+    ============================================================ */
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      background: #fff;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      color: #555;
+      font-size: 16px;
+    }
+
+    .slider-arrow:hover {
+      background: #f68c1f;
+      border-color: #f68c1f;
+      color: #fff;
+    }
+
+    .slider-arrow:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .slider-arrow--prev { left: -22px; }
+    .slider-arrow--next { right: -22px; }
+
+    /* Arrow SVG icons (no FA dependency) */
+    .arrow-icon {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    /* ============================================================
+       DOT INDICATORS
+    ============================================================ */
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 32px;
+    }
+
+    .slider-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ccc;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s, width 0.2s;
+      padding: 0;
+    }
+
+    .slider-dot.active {
+      background: #f68c1f;
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    /* Tablet: 2 cards visible */
+    @media (max-width: 900px) {
+      .country-card { flex: 0 0 calc(50% - 10px); }
+      .slider-arrow--prev { left: 0; }
+      .slider-arrow--next { right: 0; }
+    }
+
+    /* Mobile: 1 card visible */
+    @media (max-width: 540px) {
+      .country-card { flex: 0 0 calc(100% - 0px); }
+      .slider-arrow--prev { left: 0; }
+      .slider-arrow--next { right: 0; }
+      .overseas { padding: 48px 0 56px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     WE SERVE OVERSEAS SECTION
+============================================================ -->
+<section class="overseas" id="overseas">
+  <div class="overseas__container">
+
+    <!-- Header -->
+    <header class="overseas__header">
+      <span class="overseas__eyebrow">We Serve <span class="hl">Overseas</span></span>
+      <h2 class="overseas__title">We Are Service Worldwide</h2>
+    </header>
+
+    <!-- Slider -->
+    <div class="slider-outer" id="sliderOuter">
+
+      <!-- Prev arrow -->
+      <button class="slider-arrow slider-arrow--prev" id="prevBtn" aria-label="Previous slide">
+        <svg class="arrow-icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+
+      <!-- Viewport clips the track -->
+      <div class="slider-viewport">
+        <div class="slider-track" id="sliderTrack">
+
+          <!-- ── United States ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=600&q=80"
+              alt="New York City skyline" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="US flag">🇺🇸</span>
+                <h3 class="country-card__name">United States</h3>
+              </div>
+              <p class="country-card__desc">A millions of decision about who has a right to settle.</p>
+            </div>
+          </div>
+
+          <!-- ── Canada ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1518638150340-f706e86654de?w=600&q=80"
+              alt="Toronto CN Tower skyline" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="Canada flag">🇨🇦</span>
+                <h3 class="country-card__name">Canada</h3>
+              </div>
+              <p class="country-card__desc">We will help in every step of the application process.</p>
+            </div>
+          </div>
+
+          <!-- ── Australia ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=600&q=80"
+              alt="Sydney aerial cityscape" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="Australia flag">🇦🇺</span>
+                <h3 class="country-card__name">Australia</h3>
+              </div>
+              <p class="country-card__desc">Our head quarters is in Canberra, help throughout process.</p>
+            </div>
+          </div>
+
+          <!-- ── United Kingdom ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&q=80"
+              alt="London skyline" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="UK flag">🇬🇧</span>
+                <h3 class="country-card__name">United Kingdom</h3>
+              </div>
+              <p class="country-card__desc">Connecting top talent with leading UK employers across sectors.</p>
+            </div>
+          </div>
+
+          <!-- ── Germany ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=600&q=80"
+              alt="Frankfurt city skyline" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="Germany flag">🇩🇪</span>
+                <h3 class="country-card__name">Germany</h3>
+              </div>
+              <p class="country-card__desc">Supporting skilled professionals relocate and thrive in Germany.</p>
+            </div>
+          </div>
+
+          <!-- ── Singapore ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600&q=80"
+              alt="Singapore Marina Bay skyline" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="Singapore flag">🇸🇬</span>
+                <h3 class="country-card__name">Singapore</h3>
+              </div>
+              <p class="country-card__desc">Asia's financial hub — we place top candidates in Singapore firms.</p>
+            </div>
+          </div>
+
+          <!-- ── UAE ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80"
+              alt="Dubai skyline at dusk" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="UAE flag">🇦🇪</span>
+                <h3 class="country-card__name">UAE</h3>
+              </div>
+              <p class="country-card__desc">Guiding professionals through the UAE work visa and placement process.</p>
+            </div>
+          </div>
+
+          <!-- ── New Zealand ── -->
+          <div class="country-card">
+            <img class="country-card__img"
+              src="https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=600&q=80"
+              alt="Auckland city harbour" loading="lazy" />
+            <div class="country-card__body">
+              <div class="country-card__name-row">
+                <span class="country-card__flag" role="img" aria-label="New Zealand flag">🇳🇿</span>
+                <h3 class="country-card__name">New Zealand</h3>
+              </div>
+              <p class="country-card__desc">Supporting immigration and skilled work placements across New Zealand.</p>
+            </div>
+          </div>
+
+        </div>
+        <!-- /slider-track -->
+      </div>
+      <!-- /slider-viewport -->
+
+      <!-- Next arrow -->
+      <button class="slider-arrow slider-arrow--next" id="nextBtn" aria-label="Next slide">
+        <svg class="arrow-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+    </div>
+    <!-- /slider-outer -->
+
+    <!-- Dot indicators -->
+    <div class="slider-dots" id="sliderDots" aria-label="Slider navigation"></div>
+
+  </div>
+  <!-- /container -->
+</section>
+
+
+<!-- ============================================================
+     SLIDER JAVASCRIPT
+     Features:
+       • Responsive: 4 cards (≥900px) · 2 cards (≥540px) · 1 card (<540px)
+       • Auto-play every 4 seconds (pauses on hover)
+       • Prev / Next buttons with disabled state at boundaries
+       • Dot indicators sync with current slide
+       • Touch / mouse drag support
+       • Keyboard arrow-key support
+============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Elements ── */
+  var track     = document.getElementById('sliderTrack');
+  var prevBtn   = document.getElementById('prevBtn');
+  var nextBtn   = document.getElementById('nextBtn');
+  var dotsWrap  = document.getElementById('sliderDots');
+  var section   = document.getElementById('overseas');
+
+  var cards     = Array.from(track.querySelectorAll('.country-card'));
+  var total     = cards.length;
+
+  /* ── State ── */
+  var current   = 0;        // index of leftmost visible card
+  var perView   = 4;        // cards shown at once
+  var cardW     = 0;        // card width + gap in px
+  var gap       = 20;       // must match CSS gap
+  var dots      = [];
+  var autoTimer = null;
+  var isDragging= false;
+  var dragStartX= 0;
+  var dragDelta = 0;
+
+  /* ── Responsive: how many cards to show ── */
+  function getPerView() {
+    var w = window.innerWidth;
+    if (w <= 540)  return 1;
+    if (w <= 900)  return 2;
+    return 4;
+  }
+
+  /* ── Calculate card width from actual DOM ── */
+  function calcCardW() {
+    perView = getPerView();
+    /* set flex-basis via JS so it's always accurate */
+    var vpW = track.parentElement.clientWidth - 16; /* minus padding */
+    var totalGap = gap * (perView - 1);
+    cardW = (vpW - totalGap) / perView;
+    cards.forEach(function (c) {
+      c.style.flex = '0 0 ' + cardW + 'px';
+      c.style.width = cardW + 'px';
+    });
+  }
+
+  /* ── Max slide index ── */
+  function maxIndex() {
+    return Math.max(0, total - perView);
+  }
+
+  /* ── Move track to current index ── */
+  function moveTo(idx, animate) {
+    idx = Math.max(0, Math.min(idx, maxIndex()));
+    current = idx;
+    var offset = current * (cardW + gap);
+    if (animate === false) {
+      track.style.transition = 'none';
+    } else {
+      track.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)';
+    }
+    track.style.transform = 'translateX(-' + offset + 'px)';
+    updateUI();
+  }
+
+  /* ── Sync arrows + dots ── */
+  function updateUI() {
+    prevBtn.disabled = (current === 0);
+    nextBtn.disabled = (current >= maxIndex());
+    dots.forEach(function (d, i) {
+      d.classList.toggle('active', i === current);
+      d.setAttribute('aria-current', i === current ? 'true' : 'false');
+    });
+  }
+
+  /* ── Build dots ── */
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    dots = [];
+    var count = maxIndex() + 1;
+    for (var i = 0; i < count; i++) {
+      (function (idx) {
+        var d = document.createElement('button');
+        d.className = 'slider-dot';
+        d.setAttribute('aria-label', 'Go to slide ' + (idx + 1));
+        d.addEventListener('click', function () { moveTo(idx); resetAuto(); });
+        dotsWrap.appendChild(d);
+        dots.push(d);
+      })(i);
+    }
+  }
+
+  /* ── Auto-play ── */
+  function startAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function () {
+      var next = (current >= maxIndex()) ? 0 : current + 1;
+      moveTo(next);
+    }, 4000);
+  }
+
+  function resetAuto() { startAuto(); }
+
+  /* ── Init / resize ── */
+  function init() {
+    calcCardW();
+    buildDots();
+    moveTo(current, false);
+    startAuto();
+  }
+
+  window.addEventListener('resize', function () {
+    var oldPer = perView;
+    calcCardW();
+    if (perView !== oldPer) {
+      buildDots();
+      current = Math.min(current, maxIndex());
+    }
+    moveTo(current, false);
+  });
+
+  /* ── Button listeners ── */
+  prevBtn.addEventListener('click', function () {
+    moveTo(current - 1);
+    resetAuto();
+  });
+
+  nextBtn.addEventListener('click', function () {
+    moveTo(current + 1);
+    resetAuto();
+  });
+
+  /* ── Keyboard support ── */
+  section.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft')  { moveTo(current - 1); resetAuto(); }
+    if (e.key === 'ArrowRight') { moveTo(current + 1); resetAuto(); }
+  });
+
+  /* ── Pause auto on hover ── */
+  section.addEventListener('mouseenter', function () { clearInterval(autoTimer); });
+  section.addEventListener('mouseleave', function () { startAuto(); });
+
+  /* ── Touch / Mouse drag ── */
+  function onDragStart(x) {
+    isDragging = true;
+    dragStartX = x;
+    dragDelta  = 0;
+    track.style.transition = 'none';
+  }
+
+  function onDragMove(x) {
+    if (!isDragging) return;
+    dragDelta = x - dragStartX;
+    var base  = current * (cardW + gap);
+    track.style.transform = 'translateX(-' + (base - dragDelta) + 'px)';
+  }
+
+  function onDragEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    var threshold = cardW * 0.25;
+    if (dragDelta < -threshold)      moveTo(current + 1);
+    else if (dragDelta > threshold)  moveTo(current - 1);
+    else                             moveTo(current);   /* snap back */
+    resetAuto();
+  }
+
+  /* Touch events */
+  track.addEventListener('touchstart',  function (e) { onDragStart(e.touches[0].clientX); }, { passive: true });
+  track.addEventListener('touchmove',   function (e) { onDragMove(e.touches[0].clientX); },  { passive: true });
+  track.addEventListener('touchend',    onDragEnd);
+
+  /* Mouse drag */
+  track.addEventListener('mousedown',  function (e) { onDragStart(e.clientX); e.preventDefault(); });
+  window.addEventListener('mousemove', function (e) { onDragMove(e.clientX); });
+  window.addEventListener('mouseup',   onDragEnd);
+
+  /* Prevent drag from firing click on cards */
+  track.addEventListener('click', function (e) {
+    if (Math.abs(dragDelta) > 8) e.preventDefault();
+  });
+
+  /* ── Run ── */
+  init();
+
+})();
+</script>
+
+</body>
+</html>

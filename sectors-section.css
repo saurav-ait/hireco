@@ -1,0 +1,166 @@
+/* ==========================================================================
+   Sectors With the Highest Demand for Foreign Workers — Serbia
+   ========================================================================== */
+
+:root {
+  --color-bg:        #f6f6f7;
+  --color-surface:   #ffffff;
+  --color-border:    #ececec;
+  --color-heading:   #17181a;
+  --color-body:      #6b7178;
+  --color-accent:    #f5811f;
+  --color-accent-soft: #fdece0;
+
+  --font-display: 'Poppins', 'Segoe UI', sans-serif;
+  --font-body:    'Inter', 'Segoe UI', sans-serif;
+
+  --radius-card: 10px;
+  --shadow-card: 0 1px 2px rgba(23, 24, 26, 0.04);
+}
+
+.sectors {
+  background: var(--color-bg);
+  padding: 88px 24px;
+  font-family: var(--font-body);
+}
+
+.sectors__container {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ---- Header ---- */
+
+.sectors__header {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 56px;
+}
+
+.sectors__eyebrow {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-heading);
+  margin: 0 0 10px;
+}
+
+.sectors__eyebrow span {
+  color: var(--color-accent);
+}
+
+.sectors__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 1.2;
+  color: var(--color-heading);
+  margin: 0 0 16px;
+}
+
+.sectors__intro {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-body);
+  margin: 0;
+}
+
+/* ---- Grid ---- */
+
+.sectors__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+/* ---- Card ---- */
+
+.sector-card {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 28px 24px 26px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.sector-card:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.sector-card__rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.sector-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.35;
+  color: var(--color-heading);
+  margin: 0 0 16px;
+}
+
+.sector-card__divider {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--color-border);
+  margin-bottom: 16px;
+}
+
+.sector-card__desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-body);
+  margin: 0;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 1100px) {
+  .sectors__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .sectors {
+    padding: 64px 20px;
+  }
+
+  .sectors__title {
+    font-size: 30px;
+  }
+
+  .sectors__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .sector-card {
+    padding: 22px 18px 20px;
+  }
+}
+
+@media (max-width: 460px) {
+  .sectors__grid {
+    grid-template-columns: 1fr;
+  }
+}
